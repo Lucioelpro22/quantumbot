@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "spec_id": "SPEC-HARNESS-M0-FORMALIZATION-001",
+  "title": "M0 formalization without rewriting historical evidence",
+  "status": "APPROVED",
+  "owner": "Human reviewer; independent auditor required",
+  "created_at": "2026-10-01T10:28:13Z",
+  "approved_at": "2026-10-01T10:42:14Z",
+  "approved_by": "User-approved in chat",
+  "closed_at": null,
+  "gate_id": null,
+  "objective": "Prepare an externally approved engineering-only M0 acceptance and versioned evidence workflow while preserving the certified research baseline.",
+  "rationale": "Independent review found technically passing scoped controls, a required-receipt status defect, unmeasured historical holdout bars/bytes, and no formal M0 registration. This draft does not close those governance gaps by declaration.",
+  "scope_in": [
+    "Require exact VERIFIED status for every required receipt before gate hashing; missing or ambiguous receipts block.",
+    "Adopt the safe successor entry point explicitly for new M0 evidence; assess the accessible historical surface.",
+    "Propose a separate versioned M0 engineering registry and a verifier bound to it, without mutating historical registries.",
+    "Preserve and evaluate all 14 inherited immutable invariants without weakening them.",
+    "Define a reviewed basis and scope for holdout read measurements; unknown historical reads remain UNKNOWN and block unsupported zero-read claims.",
+    "Prepare independent receipts and a formal M0 gate only after explicit approval and implementation of this draft."
+  ],
+  "scope_out": [
+    "LIVE authorization, order placement, DEMO runner changes, strategy research, HYP-21, M1 progression.",
+    "Reading, hashing, or unlocking real FINAL_HOLDOUT or credentials.",
+    "Retrospectively inventing zero counters or changing historical receipt statuses.",
+    "Rewriting the original V2 design, research baseline, canonical registries, frozen candidates, or historical gates.",
+    "Treating a FASE 6.11 gate or a metadata-only PASS as an M0 approval."
+  ],
+  "files_allowed_to_read": [
+    "quantumbot_harness/PROJECT_STATE.json",
+    "quantumbot_harness/policies/HARNESS_POLICY.md",
+    "quantumbot_harness/policies/V2_INVARIANTS.json",
+    "quantumbot_harness/specs/SPEC-HARNESS-V2-ENGINEERING-001.json",
+    "quantumbot_harness/schemas/",
+    "quantumbot_harness/docs/",
+    "quantumbot_harness/core/",
+    "quantumbot_harness/tests/",
+    "tests/test_harness_m0_safety_cli.py",
+    "tests/test_current_harness_reconciliation.py",
+    "scripts/run_harness_v2_safe.py",
+    "scripts/run_harness_v2_m0.py",
+    "harness.py"
+  ],
+  "files_allowed_to_modify": [
+    "quantumbot_harness/specs/SPEC-HARNESS-M0-FORMALIZATION-001.json",
+    "quantumbot_harness/milestones/M0/",
+    "quantumbot_harness/docs/M0_FORMALIZATION_PLAN.md",
+    "quantumbot_harness/core/m0_gate_verifier.py",
+    "tests/test_m0_formal_gate.py"
+  ],
+  "files_forbidden": [
+    ".env",
+    "database/quantumbot.db",
+    "FINAL_HOLDOUT contents",
+    "data/raw/bybit/",
+    "harness.py",
+    "main.py",
+    "runner.py",
+    "config/settings.yaml",
+    "quantumbot_harness/PROJECT_STATE.json",
+    "quantumbot_harness/tasks/TASK_LEDGER.json",
+    "quantumbot_harness/receipts/index.json",
+    "quantumbot_harness/candidates/",
+    "quantumbot_harness/gates/",
+    "quantumbot_harness/specs/SPEC-HARNESS-V2-ENGINEERING-001.json",
+    "Existing historical reports and evidence snapshots"
+  ],
+  "data_allowed": ["Governance metadata, permitted source code, exclusively synthetic fixtures"],
+  "data_forbidden": ["Real FINAL_HOLDOUT, credentials, trading database contents"],
+  "acceptance_criteria": [
+    {"criterion_id": "AC-1", "description": "Human approval of this exact draft scope is recorded before any formal M0 registry/verifier implementation; the existing V2 design is not silently rewritten.", "verification_method": "Independent review of the approved specification and versioned approval receipt.", "receipt_required": "RECEIPT-M0-AUTHORIZATION-001"},
+    {"criterion_id": "AC-2", "description": "All required receipts are uniquely indexed, exactly VERIFIED, SHA-256 bound, and evaluated using the checked metadata snapshot; missing, duplicate, or any other status blocks.", "verification_method": "Run adversarial receipt-status tests and positive controls on the current pinned successor sources.", "receipt_required": "RECEIPT-M0-CONTROLS-001"},
+    {"criterion_id": "AC-3", "description": "All 14 inherited immutable invariants are preserved and individually supported by evidence of the claimed scope; UNKNOWN or PARTIAL is not accepted as PASS.", "verification_method": "Independent invariant-by-invariant assessment, including read measurements and explicit residual-surface disposition.", "receipt_required": "RECEIPT-M0-INVARIANTS-001"},
+    {"criterion_id": "AC-4", "description": "Historical files and records remain unchanged; the proposed M0 registry and verifier are separately versioned and cannot authorize research, LIVE, or M1.", "verification_method": "Compare approved historical baseline hashes and test isolated registry/verifier binding.", "receipt_required": "RECEIPT-M0-PRESERVATION-001"},
+    {"criterion_id": "AC-5", "description": "An auditor distinct from the implementer verifies the current evidence and a deterministic M0 gate satisfies every required receipt, criterion, and test without unresolved blockers.", "verification_method": "Independent gate reconstruction and recorded external disposition; do not reuse FASE 6.11 as an M0 gate.", "receipt_required": "RECEIPT-M0-INDEPENDENT-AUDIT-001"}
+  ],
+  "required_receipts": [
+    "RECEIPT-M0-AUTHORIZATION-001",
+    "RECEIPT-M0-CONTROLS-001",
+    "RECEIPT-M0-INVARIANTS-001",
+    "RECEIPT-M0-PRESERVATION-001",
+    "RECEIPT-M0-INDEPENDENT-AUDIT-001"
+  ],
+  "rollback_plan": "If approved implementation fails, retain evidence of the failed revision and keep M0 BLOCKED. Do not delete historical snapshots, mutate sealed records, or weaken controls to obtain PASS.",
+  "risks": [
+    {"risk": "Historical bars/bytes read measurements cannot be reconstructed from current metadata alone.", "severity": "HIGH", "mitigation": "Do not backfill zeros. Define prospective measurements and require reviewed evidence for any historical claim; retain BLOCKED if the immutable criterion cannot be supported."},
+    {"risk": "Direct historical calls remain accessible outside the successor CLI.", "severity": "HIGH", "mitigation": "External reviewer must approve an explicit usage and residual-risk disposition without claiming a global sandbox or implicitly implementing M2."},
+    {"risk": "A separate M0 registry could become an unverified parallel certification authority.", "severity": "HIGH", "mitigation": "Approve and independently test the deterministic verifier and registry binding before registering any PASS gate."}
+  ],
+  "dependencies": ["SPEC-HARNESS-V2-ENGINEERING-001", "GEN-6.11-PASSIVE-EXECUTION-001"],
+  "notes": "Prepared at the user's request on 2026-10-01. DRAFT only: no task, receipt, registry, verifier, or M0 gate is created or approved by this preparation. M1 requires separate explicit authorization after a valid M0 closure. Existing historical receipts are useful audit evidence and must be retained."
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "name": "V2_INVARIANTS",
+  "description": "Formally encodes the immutable invariants that all Harness V2 milestones inherit.",
+  "invariants": {
+    "FINAL_HOLDOUT": "LOCKED / UNTOUCHED",
+    "holdout_access_count": 0,
+    "holdout_bars_read": 0,
+    "holdout_bytes_read": 0,
+    "ALLOW_LIVE_TRADING": false,
+    "LIVE": "BLOCKED",
+    "HYP-21": "STRICTLY_PROHIBITED",
+    "RESEARCH": "STOP_PERMANENT_DEVELOPMENT",
+    "historical_receipts": "immutable",
+    "frozen_candidates": "immutable",
+    "historical_gates": "immutable",
+    "deterministic_certification_authority": "preserved",
+    "no_self_certification": true,
+    "no_implicit_PAPER_to_LIVE": true
+  }
+}

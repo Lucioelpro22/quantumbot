@@ -1,0 +1,3866 @@
+{
+  "schema_version": "1.0.0",
+  "ledger_id": "TASK-LEDGER-QUANTUMBOT-V1",
+  "project": "quantumbot_pro",
+  "allowed_statuses": [
+    "OPEN",
+    "IN_PROGRESS",
+    "BLOCKED",
+    "VERIFYING",
+    "CLOSED",
+    "REJECTED"
+  ],
+  "tasks": [
+    {
+      "task_id": "H1-TASK-001",
+      "spec_id": "SPEC-H1-HARNESS-BOOTSTRAP",
+      "title": "Create QuantumBot Harness v1 directory structure and contracts",
+      "status": "CLOSED",
+      "created_at": "2026-09-15T20:27:00+00:00",
+      "started_at": "2026-09-15T20:27:00+00:00",
+      "closed_at": "2026-09-15T20:30:00+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/PROJECT_STATE.json",
+        "quantumbot_harness/state/current_phase.json",
+        "quantumbot_harness/specs/SPEC_TEMPLATE.md",
+        "quantumbot_harness/tasks/TASK_LEDGER.json",
+        "quantumbot_harness/receipts/index.json",
+        "quantumbot_harness/gates/GATE_TEMPLATE.json",
+        "quantumbot_harness/policies/HARNESS_POLICY.md",
+        "quantumbot_harness/schemas/spec.schema.json",
+        "quantumbot_harness/schemas/task.schema.json",
+        "quantumbot_harness/schemas/receipt.schema.json",
+        "quantumbot_harness/schemas/gate.schema.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "risk/kill_switch.py",
+        "core/entry_policy.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/FASE63_HYPOTHESIS_REGISTRY.json",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "reports/FASE63A_METRICS_ACCOUNTING_CLOSURE.md"
+      ],
+      "required_tests": [
+        "JSON syntax validation of all new files",
+        "JSON schema validation of new files against their schemas",
+        "SHA-256 manifest of all created files",
+        "Protected file hash verification (pre vs post)"
+      ],
+      "required_receipts": [
+        "RECEIPT-H1-BOOTSTRAP-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H1-BOOTSTRAP-001"
+      ],
+      "gate_id": "GATE-H1-BOOTSTRAP-001",
+      "notes": "H1 Bootstrap task — no trading engine changes, no FINAL_HOLDOUT access"
+    },
+    {
+      "task_id": "H2-TASK-001",
+      "spec_id": "SPEC-H2-VERIFIER-CLI-001",
+      "title": "Schema validation engine in harness.py",
+      "status": "CLOSED",
+      "created_at": "2026-09-15T21:55:00Z",
+      "started_at": "2026-09-15T21:55:00Z",
+      "closed_at": "2026-09-15T22:15:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        ".env",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "risk/kill_switch.py",
+        "core/entry_policy.py",
+        "config/settings.yaml",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "Draft 2020-12 schema validation on all harness JSON files"
+      ],
+      "required_receipts": [
+        "RECEIPT-H2-SPEC-VALIDATION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H2-SPEC-VALIDATION-001",
+        "RECEIPT-H2-SCHEMA-VALIDATION-001"
+      ],
+      "gate_id": "GATE-H2-VERIFIER-CLI-001",
+      "notes": "Implements Draft202012 schema validator for spec, task, receipt, and gate"
+    },
+    {
+      "task_id": "H2-TASK-002",
+      "spec_id": "SPEC-H2-VERIFIER-CLI-001",
+      "title": "Receipt SHA-256 verifier with EVIDENCE_DRIFT detection",
+      "status": "CLOSED",
+      "created_at": "2026-09-15T21:55:00Z",
+      "started_at": "2026-09-15T21:55:00Z",
+      "closed_at": "2026-09-15T22:15:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        ".env",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "risk/kill_switch.py",
+        "core/entry_policy.py",
+        "config/settings.yaml",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "Verify receipts against source files, detect mismatches as EVIDENCE_DRIFT"
+      ],
+      "required_receipts": [
+        "RECEIPT-H2-CLI-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H2-CLI-TESTS-001"
+      ],
+      "gate_id": "GATE-H2-VERIFIER-CLI-001",
+      "notes": "Validates receipt source files and reports VERIFIED, MISMATCH, MISSING, or BLOCKED"
+    },
+    {
+      "task_id": "H2-TASK-003",
+      "spec_id": "SPEC-H2-VERIFIER-CLI-001",
+      "title": "Relational cross-reference verifier",
+      "status": "CLOSED",
+      "created_at": "2026-09-15T21:55:00Z",
+      "started_at": "2026-09-15T21:55:00Z",
+      "closed_at": "2026-09-15T22:15:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        ".env",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "risk/kill_switch.py",
+        "core/entry_policy.py",
+        "config/settings.yaml",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "Check relational links between PROJECT_STATE, tasks, receipts, and gates"
+      ],
+      "required_receipts": [
+        "RECEIPT-H2-CLI-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H2-CROSSREF-VALIDATION-001"
+      ],
+      "gate_id": "GATE-H2-VERIFIER-CLI-001",
+      "notes": "Detects orphan tasks, missing receipts, and dangling gate references"
+    },
+    {
+      "task_id": "H2-TASK-004",
+      "spec_id": "SPEC-H2-VERIFIER-CLI-001",
+      "title": "Read-only CLI commands implementation",
+      "status": "CLOSED",
+      "created_at": "2026-09-15T21:55:00Z",
+      "started_at": "2026-09-15T21:55:00Z",
+      "closed_at": "2026-09-15T22:15:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        ".env",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "risk/kill_switch.py",
+        "core/entry_policy.py",
+        "config/settings.yaml",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "Test state, validate, verify, task list, and gate commands"
+      ],
+      "required_receipts": [
+        "RECEIPT-H2-CLI-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H2-CLI-TESTS-001"
+      ],
+      "gate_id": "GATE-H2-VERIFIER-CLI-001",
+      "notes": "Implements fail-closed, read-only CLI with standard exit codes"
+    },
+    {
+      "task_id": "H2-TASK-005",
+      "spec_id": "SPEC-H2-VERIFIER-CLI-001",
+      "title": "Deterministic candidate fingerprint engine with security guards",
+      "status": "CLOSED",
+      "created_at": "2026-09-15T21:55:00Z",
+      "started_at": "2026-09-15T21:55:00Z",
+      "closed_at": "2026-09-15T22:15:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        ".env",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "risk/kill_switch.py",
+        "core/entry_policy.py",
+        "config/settings.yaml",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "Deterministic multi-run test and protected path rejection test"
+      ],
+      "required_receipts": [
+        "RECEIPT-H2-FINGERPRINT-DETERMINISM-001",
+        "RECEIPT-H2-SECURITY-ENFORCEMENT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H2-FINGERPRINT-DETERMINISM-001",
+        "RECEIPT-H2-SECURITY-ENFORCEMENT-001"
+      ],
+      "gate_id": "GATE-H2-VERIFIER-CLI-001",
+      "notes": "Produces canonical SHA-256 fingerprint from sorted relative paths, hashes, and sizes"
+    },
+    {
+      "task_id": "H2-TASK-006",
+      "spec_id": "SPEC-H2-VERIFIER-CLI-001",
+      "title": "H2 verification closure and gate evaluation",
+      "status": "CLOSED",
+      "created_at": "2026-09-15T21:55:00Z",
+      "started_at": "2026-09-15T21:55:00Z",
+      "closed_at": "2026-09-15T22:15:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/tasks/TASK_LEDGER.json",
+        "quantumbot_harness/receipts/index.json",
+        "quantumbot_harness/gates/GATE-H2-VERIFIER-CLI-001.json",
+        "quantumbot_harness/PROJECT_STATE.json",
+        "quantumbot_harness/H2_FILE_MANIFEST.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        ".env",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "risk/kill_switch.py",
+        "core/entry_policy.py",
+        "config/settings.yaml",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "15 unit tests in tests/test_harness_cli.py",
+        "Protected asset baseline verification"
+      ],
+      "required_receipts": [
+        "RECEIPT-H2-PROTECTED-ASSETS-001",
+        "RECEIPT-H2-MANIFEST-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H2-PROTECTED-ASSETS-001",
+        "RECEIPT-H2-MANIFEST-001"
+      ],
+      "gate_id": "GATE-H2-VERIFIER-CLI-001",
+      "notes": "Final task closing H2 with full cryptographic evidence"
+    },
+    {
+      "task_id": "H3-TASK-001",
+      "spec_id": "SPEC-H3-FROZEN-CANDIDATE-001",
+      "title": "Frozen candidate contract and schema definition",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T02:45:00Z",
+      "started_at": "2026-09-16T02:45:00Z",
+      "closed_at": "2026-09-16T09:45:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/schemas/candidate.schema.json",
+        "quantumbot_harness/candidates/"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H3-01-CANDIDATE-SCHEMA-PASS",
+        "TEST-H3-02-CANDIDATE-SCHEMA-FAIL"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-SCHEMA-VALIDATION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-SPEC-VALIDATION-001",
+        "RECEIPT-H3-SCHEMA-VALIDATION-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-001",
+      "blocked_reason": null,
+      "notes": "Defines candidate.schema.json with Draft 2020-12 compliance."
+    },
+    {
+      "task_id": "H3-TASK-002",
+      "spec_id": "SPEC-H3-FROZEN-CANDIDATE-001",
+      "title": "Candidate snapshot freeze command and deterministic fingerprinting",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T02:45:00Z",
+      "started_at": "2026-09-16T02:45:00Z",
+      "closed_at": "2026-09-16T09:45:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H3-03-FREEZE-COMMAND",
+        "TEST-H3-04-FINGERPRINT-DETERMINISTIC",
+        "TEST-H3-05-IMMUTABLE-OVERWRITE-BLOCKED",
+        "TEST-H3-06-PROTECTED-PATH-BLOCKED"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-CANDIDATE-FREEZE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-CANDIDATE-FREEZE-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-001",
+      "blocked_reason": null,
+      "notes": "Implements 'freeze' command in harness.py without timestamps or machine metadata in fingerprint."
+    },
+    {
+      "task_id": "H3-TASK-003",
+      "spec_id": "SPEC-H3-FROZEN-CANDIDATE-001",
+      "title": "Execution receipt engine, schema, and controlled run command with allowlist",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T02:45:00Z",
+      "started_at": "2026-09-16T02:45:00Z",
+      "closed_at": "2026-09-16T09:45:00Z",
+      "files_expected_to_change": [
+        "harness.py",
+        "quantumbot_harness/schemas/execution.schema.json",
+        "quantumbot_harness/executions/"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H3-07-RUN-COMMAND-PASS",
+        "TEST-H3-08-RUN-COMMAND-FAIL",
+        "TEST-H3-09-UNAPPROVED-COMMAND-BLOCKED",
+        "TEST-H3-10-EXECUTION-RECEIPT-BOUND"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-EXECUTION-RUN-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-EXECUTION-RUN-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-001",
+      "blocked_reason": null,
+      "notes": "Implements 'run' command with strict test allowlist and cryptographic execution receipt generation."
+    },
+    {
+      "task_id": "H3-TASK-004",
+      "spec_id": "SPEC-H3-FROZEN-CANDIDATE-001",
+      "title": "Independent verification implementation and candidate verify command",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T02:45:00Z",
+      "started_at": "2026-09-16T02:45:00Z",
+      "closed_at": "2026-09-16T09:45:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H3-11-CANDIDATE-VERIFY-PASS",
+        "TEST-H3-12-VERIFY-ALL-INDEPENDENT"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-CANDIDATE-VERIFY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-CANDIDATE-VERIFY-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-001",
+      "blocked_reason": null,
+      "notes": "Implements 'candidate verify' and 'verify-all' independent verification commands."
+    },
+    {
+      "task_id": "H3-TASK-005",
+      "spec_id": "SPEC-H3-FROZEN-CANDIDATE-001",
+      "title": "Stale candidate / drift detection and baseline generation binding",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T02:45:00Z",
+      "started_at": "2026-09-16T02:45:00Z",
+      "closed_at": "2026-09-16T09:45:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H3-13-MUTATED-CANDIDATE-STALE",
+        "TEST-H3-14-DELETED-FILE-STALE",
+        "TEST-H3-15-EXECUTION-INVALIDATED-ON-MUTATION",
+        "TEST-H3-16-DRIFT-CLASSIFICATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-BASELINE-BINDING-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-BASELINE-BINDING-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-001",
+      "blocked_reason": null,
+      "notes": "Detects CHANGED, MISSING, UNEXPECTED files and enforces GEN-6.5a-STRATIFIED-AUDIT binding."
+    },
+    {
+      "task_id": "H3-TASK-006",
+      "spec_id": "SPEC-H3-FROZEN-CANDIDATE-001",
+      "title": "H3 adversarial test suite implementation",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T02:45:00Z",
+      "started_at": "2026-09-16T02:45:00Z",
+      "closed_at": "2026-09-16T09:45:00Z",
+      "files_expected_to_change": [
+        "tests/test_harness_frozen_candidate.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H3-ADVERSARIAL-ALL-24"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-ADVERSARIAL-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-ADVERSARIAL-TESTS-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-001",
+      "blocked_reason": null,
+      "notes": "Implements 24 adversarial tests in tests/test_harness_frozen_candidate.py."
+    },
+    {
+      "task_id": "H3-TASK-007",
+      "spec_id": "SPEC-H3-FROZEN-CANDIDATE-001",
+      "title": "H3 candidate freezing, test execution, gate evaluation, and closure",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T02:45:00Z",
+      "started_at": "2026-09-16T02:45:00Z",
+      "closed_at": "2026-09-16T09:45:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-H3-HARNESS-001.json",
+        "quantumbot_harness/gates/GATE-H3-FROZEN-CANDIDATE-001.json",
+        "quantumbot_harness/PROJECT_STATE.json",
+        "quantumbot_harness/receipts/index.json",
+        "quantumbot_harness/H3_FILE_MANIFEST.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H3-FINAL-VALIDATION",
+        "TEST-H3-FINAL-GATE"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-MANIFEST-001",
+        "RECEIPT-H3-PROTECTED-ASSETS-001",
+        "RECEIPT-H3-CROSSREF-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-PROTECTED-ASSETS-001",
+        "RECEIPT-H3-CROSSREF-001",
+        "RECEIPT-H3-MANIFEST-002",
+        "RECEIPT-RECONCILIATION-H3.1-FASE66-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-002",
+      "blocked_reason": null,
+      "notes": "Final freezing of CANDIDATE-H3-HARNESS-001 and closure of H3 gate."
+    },
+    {
+      "task_id": "H3-2-TASK-001",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Instantiate SPEC-H3-2 and Task Ledger for Atomic Certification",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:35:00Z",
+      "started_at": "2026-09-16T12:35:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/specs/SPEC-H3-2-ATOMIC-CERTIFICATION-001.json",
+        "quantumbot_harness/tasks/TASK_LEDGER.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-01-SPEC-VALIDATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-2-SPEC-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-2-SPEC-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Instantiates formal spec and ledger entries for H3.2."
+    },
+    {
+      "task_id": "H3-2-TASK-002",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Forensic audit and append-only verification of FASE 6.7 artifacts",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:36:00Z",
+      "started_at": "2026-09-16T12:36:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/receipts/RECONCILIATION-H3.2-FASE67-001.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-02-RECONCILIATION-PASS"
+      ],
+      "required_receipts": [
+        "RECEIPT-RECONCILIATION-H3.2-FASE67-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-RECONCILIATION-H3.2-FASE67-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Verified append-only on docs/ENGINEERING_HARNESS.md and reports/MULTIPLE_TESTING_LEDGER_V2.json."
+    },
+    {
+      "task_id": "H3-2-TASK-003",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Generate versioned POST-FASE67 receipts and reconciliation record",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:37:00Z",
+      "started_at": "2026-09-16T12:37:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/receipts/index.json",
+        "quantumbot_harness/PROJECT_STATE.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-03-RECEIPTS-VALIDATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE67",
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE67"
+      ],
+      "receipt_ids": [
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE67",
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE67"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Versioned receipts registered and PROJECT_STATE advanced to GEN-6.7-BTC-ECON-001."
+    },
+    {
+      "task_id": "H3-2-TASK-004",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Implement cooperative certification lock and CLI commands",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:38:00Z",
+      "started_at": "2026-09-16T12:38:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/state/CERTIFICATION_LOCK.json",
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-04-LOCK-COMMANDS"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-2-LOCK-ENGINE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-2-LOCK-ENGINE-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Adds lock acquire, status, and release subcommands to harness CLI."
+    },
+    {
+      "task_id": "H3-2-TASK-005",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Implement atomic certify command in harness CLI",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:39:00Z",
+      "started_at": "2026-09-16T12:39:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-05-ATOMIC-CERTIFY"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-2-ATOMIC-CERTIFY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-2-ATOMIC-CERTIFY-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Orchestrates fail-closed atomic certification window."
+    },
+    {
+      "task_id": "H3-2-TASK-006",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Implement 12 adversarial lock tests in test_harness_lock.py",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:40:00Z",
+      "started_at": "2026-09-16T12:40:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "tests/test_harness_lock.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-06-LOCK-TESTS-12"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-2-LOCK-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-2-LOCK-TESTS-001"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "12 unit tests verifying lock acquisition, rejection, release, expiry, and drift abort."
+    },
+    {
+      "task_id": "H3-2-TASK-007",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Freeze Candidate CANDIDATE-H3-HARNESS-003 bound to GEN-6.7-BTC-ECON-001",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:41:00Z",
+      "started_at": "2026-09-16T12:41:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-H3-HARNESS-003.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-07-CANDIDATE-VERIFY"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-2-CANDIDATE-003"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-2-CANDIDATE-003"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Snapshot frozen and bound to GEN-6.7-BTC-ECON-001."
+    },
+    {
+      "task_id": "H3-2-TASK-008",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Execute test suite under active lock to produce EXEC-CANDIDATE-H3-HARNESS-003-001",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:42:00Z",
+      "started_at": "2026-09-16T12:42:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/executions/EXEC-CANDIDATE-H3-HARNESS-003-001.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-08-RUN-EXECUTION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-2-EXECUTION-003"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-2-EXECUTION-003"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Allowlisted run produces execution receipt."
+    },
+    {
+      "task_id": "H3-2-TASK-009",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Verify GATE-H3-FROZEN-CANDIDATE-003 via verify-all and release lock",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:43:00Z",
+      "started_at": "2026-09-16T12:43:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/gates/GATE-H3-FROZEN-CANDIDATE-003.json",
+        "quantumbot_harness/H3_FILE_MANIFEST_003.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-09-VERIFY-ALL"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-2-MANIFEST-003"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-2-MANIFEST-003"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Verify-all succeeds and lock is released."
+    },
+    {
+      "task_id": "H3-2-TASK-010",
+      "spec_id": "SPEC-H3-2-ATOMIC-CERTIFICATION-001",
+      "title": "Compile H3.2 reconciliation and atomic certification report",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:44:00Z",
+      "started_at": "2026-09-16T12:44:00Z",
+      "closed_at": "2026-09-16T12:44:00Z",
+      "files_expected_to_change": [],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H32-10-REPORT-VALIDATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H3-2-MANIFEST-003"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H3-2-MANIFEST-003"
+      ],
+      "gate_id": "GATE-H3-FROZEN-CANDIDATE-003",
+      "blocked_reason": null,
+      "notes": "Generates complete 22-section institutional report."
+    },
+    {
+      "task_id": "H4-TASK-001",
+      "spec_id": "SPEC-H4-BOT-STATUS-001",
+      "title": "Read-only source discovery and safe source allowlist mapping",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:40:00Z",
+      "started_at": "2026-09-16T12:40:00Z",
+      "closed_at": "2026-09-16T12:41:00Z",
+      "files_expected_to_change": [],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-01-SOURCE-DISCOVERY"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-EXPLORE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-EXPLORE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verified that all diagnostic information is available in safe, non-secret sources."
+    },
+    {
+      "task_id": "H4-TASK-002",
+      "spec_id": "SPEC-H4-BOT-STATUS-001",
+      "title": "bot-status output contract specification and deterministic formatting",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:41:00Z",
+      "started_at": "2026-09-16T12:41:00Z",
+      "closed_at": "2026-09-16T12:42:00Z",
+      "files_expected_to_change": [],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-02-CONTRACT-SPEC"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-CONTRACT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-CONTRACT-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Defined exact 11-field output contract with deterministic status separation."
+    },
+    {
+      "task_id": "H4-TASK-003",
+      "spec_id": "SPEC-H4-BOT-STATUS-001",
+      "title": "Implementation of bot-status command and fail-closed safety rule in harness.py",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:42:00Z",
+      "started_at": "2026-09-16T12:42:00Z",
+      "closed_at": "2026-09-16T14:00:00Z",
+      "files_expected_to_change": [
+        "harness.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-03-IMPLEMENTATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-IMPL-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-IMPL-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Implements cmd_bot_status with live drift check and safety rule."
+    },
+    {
+      "task_id": "H4-TASK-004",
+      "spec_id": "SPEC-H4-BOT-STATUS-001",
+      "title": "Security and adversarial test suite implementation in tests/test_harness_bot_status.py",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:43:00Z",
+      "started_at": "2026-09-16T12:43:00Z",
+      "closed_at": "2026-09-16T14:05:00Z",
+      "files_expected_to_change": [
+        "tests/test_harness_bot_status.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-04-ADVERSARIAL-SUITE"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-TESTS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Implements 18 test cases covering safety conditions, forbidden paths, and mutations."
+    },
+    {
+      "task_id": "H4-TASK-005",
+      "spec_id": "SPEC-H4-BOT-STATUS-001",
+      "title": "Freeze candidate CANDIDATE-H4-HARNESS-001 and generate execution receipt",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:44:00Z",
+      "started_at": "2026-09-16T12:44:00Z",
+      "closed_at": "2026-09-16T14:41:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-H4-HARNESS-001.json",
+        "quantumbot_harness/executions/EXEC-CANDIDATE-H4-HARNESS-001-001.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-05-RUN-EXECUTION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-CANDIDATE-001",
+        "RECEIPT-H4-EXECUTION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-CANDIDATE-001",
+        "RECEIPT-H4-EXECUTION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Executes 54 tests (24 H3 + 12 Lock + 18 H4) producing execution receipt."
+    },
+    {
+      "task_id": "H4-TASK-006",
+      "spec_id": "SPEC-H4-BOT-STATUS-001",
+      "title": "Independent proof reconstruction and atomic certification verification",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:45:00Z",
+      "started_at": "2026-09-16T12:45:00Z",
+      "closed_at": "2026-09-16T14:42:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/gates/GATE-H4-BOT-STATUS-001.json",
+        "quantumbot_harness/H4_FILE_MANIFEST_001.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-06-VERIFY-ALL"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-MANIFEST-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-MANIFEST-001"
+      ],
+      "gate_id": "GATE-H4-BOT-STATUS-001",
+      "blocked_reason": null,
+      "notes": "Executes verify-all independently verifying all gate requirements."
+    },
+    {
+      "task_id": "H4-TASK-007",
+      "spec_id": "SPEC-H4-BOT-STATUS-001",
+      "title": "Compile H4 First Real Task Validation Report and institutional closure",
+      "status": "CLOSED",
+      "created_at": "2026-09-16T12:46:00Z",
+      "started_at": "2026-09-16T12:46:00Z",
+      "closed_at": "2026-09-16T14:45:00Z",
+      "files_expected_to_change": [],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-07-REPORT-VALIDATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-MANIFEST-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-MANIFEST-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Generates 21-section institutional report with separated verdicts."
+    },
+    {
+      "task_id": "H4-1-TASK-001",
+      "spec_id": "SPEC-H4-1-STATUS-CONSISTENCY-001",
+      "title": "Read-only forensic investigation and root-cause classification of 6.3a vs GEN-6.7",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T00:00:00Z",
+      "started_at": "2026-09-17T00:00:00Z",
+      "closed_at": "2026-09-17T00:05:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/docs/H4_1_FORENSIC_CLASSIFICATION.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-1-01-FORENSICS"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-1-FORENSICS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-1-FORENSICS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Forensically identified 6.3a as stale H1 bootstrap state and established source hierarchy."
+    },
+    {
+      "task_id": "H4-1-TASK-002",
+      "spec_id": "SPEC-H4-1-STATUS-CONSISTENCY-001",
+      "title": "Formulate SPEC-H4-1-STATUS-CONSISTENCY-001 and machine-readable Semantic Contract",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T00:00:00Z",
+      "started_at": "2026-09-17T00:00:00Z",
+      "closed_at": "2026-09-17T00:05:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/specs/SPEC-H4-1-STATUS-CONSISTENCY-001.json",
+        "quantumbot_harness/docs/H4_1_SEMANTIC_CONTRACT.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-1-02-CONTRACT"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-1-SPEC-001",
+        "RECEIPT-H4-1-CONTRACT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-1-SPEC-001",
+        "RECEIPT-H4-1-CONTRACT-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Formulated approved specification and formal semantic contract separating governance and research."
+    },
+    {
+      "task_id": "H4-1-TASK-003",
+      "spec_id": "SPEC-H4-1-STATUS-CONSISTENCY-001",
+      "title": "Implementation of authoritative source resolver and updated bot-status in harness.py",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T00:05:00Z",
+      "started_at": "2026-09-17T00:05:00Z",
+      "closed_at": "2026-09-17T01:05:00Z",
+      "files_expected_to_change": [
+        "harness.py",
+        "quantumbot_harness/PROJECT_STATE.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-1-03-IMPL"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-1-IMPL-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-1-IMPL-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Implements resolve_research_state with cross-checks and fail-closed UNKNOWN handling."
+    },
+    {
+      "task_id": "H4-1-TASK-004",
+      "spec_id": "SPEC-H4-1-STATUS-CONSISTENCY-001",
+      "title": "Implementation of 15 mandatory H4.1 adversarial tests in tests/test_harness_bot_status.py",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T00:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T01:15:00Z",
+      "files_expected_to_change": [
+        "tests/test_harness_bot_status.py"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-1-04-TESTS"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-1-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-1-TESTS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Adds 15 test cases covering canonical resolution, conflict detection, fail-closed unknown states."
+    },
+    {
+      "task_id": "H4-1-TASK-005",
+      "spec_id": "SPEC-H4-1-STATUS-CONSISTENCY-001",
+      "title": "Freeze candidate CANDIDATE-H4-1-HARNESS-001 and generate execution receipt",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T00:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T01:31:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-H4-1-HARNESS-001.json",
+        "quantumbot_harness/executions/EXEC-CANDIDATE-H4-1-HARNESS-001-001.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-1-05-EXECUTION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-1-CANDIDATE-001",
+        "RECEIPT-H4-1-EXECUTION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-1-CANDIDATE-001",
+        "RECEIPT-H4-1-EXECUTION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Executes complete regression suite (69 tests) generating execution receipt."
+    },
+    {
+      "task_id": "H4-1-TASK-006",
+      "spec_id": "SPEC-H4-1-STATUS-CONSISTENCY-001",
+      "title": "Gate evaluation, manifest generation, and atomic certification verification",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T00:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T01:37:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/gates/GATE-H4-1-STATUS-CONSISTENCY-001.json",
+        "quantumbot_harness/H4_1_FILE_MANIFEST_001.json"
+      ],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-1-06-VERIFY-ALL"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-1-MANIFEST-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-1-MANIFEST-001"
+      ],
+      "gate_id": "GATE-H4-1-STATUS-CONSISTENCY-001",
+      "blocked_reason": null,
+      "notes": "Executes certify and verify-all on GATE-H4-1-STATUS-CONSISTENCY-001."
+    },
+    {
+      "task_id": "H4-1-TASK-007",
+      "spec_id": "SPEC-H4-1-STATUS-CONSISTENCY-001",
+      "title": "Compile H4.1 Institutional Report, feature-freeze assessment, and H5 readiness gate",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T00:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T01:45:00Z",
+      "files_expected_to_change": [],
+      "files_forbidden": [
+        "main.py",
+        "runner.py",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        ".env",
+        "data/raw/bybit/",
+        "research/crypto_quant/holdout_vault.py",
+        "machine_learning/purged_cv.py",
+        "reports/FASE*",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "required_tests": [
+        "TEST-H4-1-07-REPORT"
+      ],
+      "required_receipts": [
+        "RECEIPT-H4-1-MANIFEST-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H4-1-REPORT-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Compiles 23-section institutional report assessing feature freeze and H5 readiness."
+    },
+    {
+      "task_id": "H5-TASK-001",
+      "spec_id": "SPEC-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "title": "Pre-flight dataset verification and holdout vault firewall enforcement",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T10:05:00Z",
+      "started_at": "2026-09-17T10:05:00Z",
+      "closed_at": "2026-09-17T13:49:24.134965+00:00",
+      "files_expected_to_change": [],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "main.py",
+        "runner.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json"
+      ],
+      "required_tests": [
+        "TEST-H5-01-DATASET-FIREWALL"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-DATASET-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-DATASET-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies DEVELOPMENT dataset (47,376 bars) and enforces holdout vault locked (0 access, 0 bars read)."
+    },
+    {
+      "task_id": "H5-TASK-002",
+      "spec_id": "SPEC-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "title": "Conceptual mechanism screening, distinctness audit, and Gate 0 (EFR >= 3.0)",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T10:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T13:49:24.158641+00:00",
+      "files_expected_to_change": [
+        "reports/H5_DISCOVERY_LEDGER.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "main.py",
+        "runner.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json"
+      ],
+      "required_tests": [
+        "TEST-H5-02-DISCOVERY-SCREENING"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-DISCOVERY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-DISCOVERY-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Screens exactly 10 conceptual candidates in reports/H5_DISCOVERY_LEDGER.json with terminal classifications."
+    },
+    {
+      "task_id": "H5-TASK-003",
+      "spec_id": "SPEC-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "title": "Evaluate mechanism scorecards across 6 dimensions (admission threshold >= 85/100)",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T10:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T13:49:24.178547+00:00",
+      "files_expected_to_change": [
+        "reports/H5_MECHANISM_SCORECARD.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "main.py",
+        "runner.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json"
+      ],
+      "required_tests": [
+        "TEST-H5-03-SCORECARD-EVAL"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-SCORECARD-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-SCORECARD-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Evaluates Gate 0 survivors against 6 dimensions, admitting up to 3 candidates with score >= 85."
+    },
+    {
+      "task_id": "H5-TASK-004",
+      "spec_id": "SPEC-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "title": "Cryptographically seal immutable preregistration for admitted hypotheses",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T10:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T13:49:24.202201+00:00",
+      "files_expected_to_change": [
+        "reports/H5_PREREGISTRATION.json",
+        "reports/H5_HYPOTHESIS_REGISTRY.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "main.py",
+        "runner.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json"
+      ],
+      "required_tests": [
+        "TEST-H5-04-PREREGISTRATION-SEAL"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-PREREG-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-PREREG-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Freezes parameters, signals, thresholds, and null specs with SHA-256 fingerprint before backtest."
+    },
+    {
+      "task_id": "H5-TASK-005",
+      "spec_id": "SPEC-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "title": "Execute development backtest, build event universes, and simulate realistic transaction costs",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T10:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T13:49:26.414498+00:00",
+      "files_expected_to_change": [
+        "reports/H5_EVENT_UNIVERSE.json",
+        "reports/H5_COST_ANALYSIS.json",
+        "reports/H5_EXPERIMENT_RESULTS.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "main.py",
+        "runner.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json"
+      ],
+      "required_tests": [
+        "TEST-H5-05-DEVELOPMENT-BACKTEST"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-BACKTEST-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-BACKTEST-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Computes eligible events, selected trades, gross returns, BASE (16.0 bps) and STRESSED (22.0 bps) net expectancy."
+    },
+    {
+      "task_id": "H5-TASK-006",
+      "spec_id": "SPEC-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "title": "Run statistical null battery, block bootstrap, CPCV, and extreme trade robustness audits",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T10:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T13:49:31.031828+00:00",
+      "files_expected_to_change": [
+        "reports/H5_MATCHED_NULL_RESULTS.json",
+        "reports/H5_BLOCK_BOOTSTRAP.json",
+        "reports/H5_CPCV_RESULTS.json",
+        "reports/H5_ROBUSTNESS_REPORT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "main.py",
+        "runner.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json"
+      ],
+      "required_tests": [
+        "TEST-H5-06-STATISTICAL-BATTERY"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-QUANT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-QUANT-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Executes matched random control (B=5,000), block bootstrap (B=2,000, 95% CI), CPCV 5-fold, and top-1% removal."
+    },
+    {
+      "task_id": "H5-TASK-007",
+      "spec_id": "SPEC-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "title": "Update multiple-testing accounting (lifetime 14 -> 17) and close research generation",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T10:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T13:49:31.071342+00:00",
+      "files_expected_to_change": [
+        "reports/H5_MULTIPLE_TESTING_AUDIT.json",
+        "reports/H5_MULTIPLE_TESTING_LEDGER.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "main.py",
+        "runner.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json"
+      ],
+      "required_tests": [
+        "TEST-H5-07-MULTIPLE-TESTING-AUDIT"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-LEDGER-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-LEDGER-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Updates lifetime hypotheses count to 17, calculates DSR and PSR, and preserves baseline integrity."
+    },
+    {
+      "task_id": "H5-TASK-008",
+      "spec_id": "SPEC-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "title": "Freeze research candidate, generate execution receipt, certify gate, and compile report",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T10:05:00Z",
+      "started_at": null,
+      "closed_at": "2026-09-17T14:12:13.348729+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-H5-EDGE-DISCOVERY-001.json",
+        "quantumbot_harness/executions/EXEC-CANDIDATE-H5-EDGE-DISCOVERY-001-001.json",
+        "quantumbot_harness/gates/GATE-H5-GOVERNED-EDGE-DISCOVERY-001.json",
+        "quantumbot_harness/H5_FILE_MANIFEST_001.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "database/db_manager.py",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**",
+        "core/entry_policy.py",
+        "risk/kill_switch.py",
+        "main.py",
+        "runner.py",
+        "config/settings.yaml",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json"
+      ],
+      "required_tests": [
+        "TEST-H5-08-GATE-CERTIFICATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-CANDIDATE-001",
+        "RECEIPT-H5-EXECUTION-001",
+        "RECEIPT-H5-MANIFEST-001",
+        "RECEIPT-H5-REPORT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-CANDIDATE-001",
+        "RECEIPT-H5-EXECUTION-001",
+        "RECEIPT-H5-MANIFEST-001"
+      ],
+      "gate_id": "GATE-H5-GOVERNED-EDGE-DISCOVERY-001",
+      "blocked_reason": null,
+      "notes": "Freezes CANDIDATE-H5-EDGE-DISCOVERY-001, runs test suite via harness, certifies GATE-H5-GOVERNED-EDGE-DISCOVERY-001, and compiles 41-section institutional report."
+    },
+    {
+      "task_id": "H5-1-TASK-001",
+      "spec_id": "SPEC-H5-1-FASE68-RECONCILIATION-001",
+      "title": "Forensic reconstruction and inventory of FASE 6.8 artifacts",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T12:00:00Z",
+      "started_at": "2026-09-17T12:00:00Z",
+      "closed_at": "2026-09-17T12:35:00Z",
+      "files_expected_to_change": [
+        "reports/H5_1_FASE68_FORENSIC_INVENTORY.json",
+        "quantumbot_harness/receipts/index.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-H5-1-INVENTORY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-1-INVENTORY-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Forensic inventory completed with 49 artifacts and fingerprint cbcecd2004ce9e08337d620a75b71a0d480fcff13a771328979fa256b30327cf."
+    },
+    {
+      "task_id": "H5-1-TASK-002",
+      "spec_id": "SPEC-H5-1-FASE68-RECONCILIATION-001",
+      "title": "Formal specification for H5.1 controlled reconciliation",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T12:00:00Z",
+      "started_at": "2026-09-17T12:00:00Z",
+      "closed_at": "2026-09-17T12:35:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/specs/SPEC-H5-1-FASE68-RECONCILIATION-001.json",
+        "quantumbot_harness/receipts/index.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-H5-1-SPEC-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-1-SPEC-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "SPEC approved authorizing FASE 6.8 baseline reconciliation."
+    },
+    {
+      "task_id": "H5-1-TASK-003",
+      "spec_id": "SPEC-H5-1-FASE68-RECONCILIATION-001",
+      "title": "Canonical baseline generation proof and resolution",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T12:05:00Z",
+      "started_at": "2026-09-17T12:05:00Z",
+      "closed_at": "2026-09-17T12:35:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/receipts/RECONCILIATION-H5.1-FASE68-001.json",
+        "quantumbot_harness/receipts/index.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-RECONCILIATION-H5.1-FASE68-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-RECONCILIATION-H5.1-FASE68-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Proposed identifier GEN-6.8-BTC-ECON-001 rejected; GEN-6.8-MICROSTRUCTURE-DATA-001 established."
+    },
+    {
+      "task_id": "H5-1-TASK-004",
+      "spec_id": "SPEC-H5-1-FASE68-RECONCILIATION-001",
+      "title": "Engineering docs append-only integration and POST-FASE68 receipts",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T12:10:00Z",
+      "started_at": "2026-09-17T12:10:00Z",
+      "closed_at": "2026-09-17T12:35:00Z",
+      "files_expected_to_change": [
+        "docs/ENGINEERING_HARNESS.md",
+        "quantumbot_harness/receipts/index.json",
+        "quantumbot_harness/PROJECT_STATE.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE68",
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE68"
+      ],
+      "receipt_ids": [
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE68",
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE68"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "POST-FASE68 baseline receipts bound to GEN-6.8-MICROSTRUCTURE-DATA-001 registered without mutating historical receipts."
+    },
+    {
+      "task_id": "H5-1-TASK-005",
+      "spec_id": "SPEC-H5-1-FASE68-RECONCILIATION-001",
+      "title": "Regression testing suite implementation covering 18 mandatory items",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T12:15:00Z",
+      "started_at": "2026-09-17T12:15:00Z",
+      "closed_at": "2026-09-17T12:35:00Z",
+      "files_expected_to_change": [
+        "tests/test_h5_1_fase68_reconciliation.py",
+        "quantumbot_harness/receipts/index.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-H5-1-01-REGRESSION-SUITE"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-1-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-1-TESTS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Test suite implemented with 18 comprehensive tests."
+    },
+    {
+      "task_id": "H5-1-TASK-006",
+      "spec_id": "SPEC-H5-1-FASE68-RECONCILIATION-001",
+      "title": "Freeze candidate CANDIDATE-H5-1-FASE68-RECONCILIATION-001",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T12:20:00Z",
+      "started_at": "2026-09-17T12:20:00Z",
+      "closed_at": "2026-09-17T12:35:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-H5-1-FASE68-RECONCILIATION-001.json",
+        "quantumbot_harness/receipts/index.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-H5-1-CANDIDATE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-1-CANDIDATE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Candidate frozen and bound to baseline GEN-6.8-MICROSTRUCTURE-DATA-001."
+    },
+    {
+      "task_id": "H5-1-TASK-007",
+      "spec_id": "SPEC-H5-1-FASE68-RECONCILIATION-001",
+      "title": "Harness execution run under active certification window",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T12:25:00Z",
+      "started_at": "2026-09-17T12:25:00Z",
+      "closed_at": "2026-09-17T12:35:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/executions/EXEC-CANDIDATE-H5-1-FASE68-RECONCILIATION-001-001.json",
+        "quantumbot_harness/receipts/index.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-H5-1-01-REGRESSION-SUITE"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-1-EXECUTION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-1-EXECUTION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Execution receipt generated with 18/18 tests passing, exit code 0."
+    },
+    {
+      "task_id": "H5-1-TASK-008",
+      "spec_id": "SPEC-H5-1-FASE68-RECONCILIATION-001",
+      "title": "Gate evaluation, atomic certification, file manifest, and 36-section report",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T12:30:00Z",
+      "started_at": "2026-09-17T12:30:00Z",
+      "closed_at": "2026-09-17T12:35:00Z",
+      "files_expected_to_change": [
+        "quantumbot_harness/gates/GATE-H5-1-FASE68-RECONCILIATION-001.json",
+        "quantumbot_harness/H5_1_FILE_MANIFEST_001.json",
+        "reports/H5_1_FASE68_RECONCILIATION_REPORT.md",
+        "reports/H5_1_FASE68_RECONCILIATION_REPORT.txt",
+        "quantumbot_harness/receipts/index.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "database/quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-H5-1-02-GATE-CERTIFICATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-H5-1-MANIFEST-001",
+        "RECEIPT-H5-1-REPORT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-H5-1-MANIFEST-001",
+        "RECEIPT-H5-1-REPORT-001"
+      ],
+      "gate_id": "GATE-H5-1-FASE68-RECONCILIATION-001",
+      "blocked_reason": null,
+      "notes": "Gate certified and verified with exit code 0; 36-section institutional report generated."
+    },
+    {
+      "task_id": "FASE69-TASK-001",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Gate 0 Pre-State Audit and Baseline Verification (GEN-6.8-MICROSTRUCTURE-DATA-001)",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T19:45:00Z",
+      "closed_at": "2026-09-17T23:42:53.537700+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69_PRESTATE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69-PRESTATE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-PRESTATE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies entry baseline, holdout locked (0/0), live blocked, lifetime hypotheses=17."
+    },
+    {
+      "task_id": "FASE69-TASK-002",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Microstructure Data Inventory and Source Provenance Classification",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:11.670696+00:00",
+      "closed_at": "2026-09-17T23:42:55.052693+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69_MICROSTRUCTURE_DATA_INVENTORY.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69-INVENTORY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-INVENTORY-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Exhaustive inventory of real datasets on disk with SHA-256 and provenance hierarchy."
+    },
+    {
+      "task_id": "FASE69-TASK-003",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Temporal Integrity, PIT Availability and Look-Ahead Leakage Audits",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:13.140047+00:00",
+      "closed_at": "2026-09-17T23:42:55.995544+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69_TEMPORAL_INTEGRITY_AUDIT.json",
+        "reports/FASE69_LEAKAGE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69-TEMPORAL-001",
+        "RECEIPT-FASE69-LEAKAGE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-LEAKAGE-001",
+        "RECEIPT-FASE69-TEMPORAL-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Enforces monotonic timestamps, RECEIVE_TIME_NOT_OBSERVED, BAR_CLOSE_CAUSAL_AVAILABILITY, and 0 leakage violations."
+    },
+    {
+      "task_id": "FASE69-TASK-004",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Missingness, Duplicates, Value Sanity and Cross-Dataset Alignment Audits",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:14.097035+00:00",
+      "closed_at": "2026-09-17T23:42:56.767787+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69_ALIGNMENT_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69-ALIGNMENT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-ALIGNMENT-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Audits missingness, duplicate handling, domain sanity, and causal merge_asof alignment."
+    },
+    {
+      "task_id": "FASE69-TASK-005",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Contemporaneous Distributional and Information Distinctness Analysis",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:14.909272+00:00",
+      "closed_at": "2026-09-17T23:42:57.509290+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69_DISTINCTNESS_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69-DISTINCTNESS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-DISTINCTNESS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Non-predictive statistical distinctness and OHLCV redundancy analysis (0 future returns)."
+    },
+    {
+      "task_id": "FASE69-TASK-006",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Causal Availability Matrix and Preregistered Data Quality Scorecard",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:15.769421+00:00",
+      "closed_at": "2026-09-17T23:42:57.570226+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69_CAUSAL_AVAILABILITY_MATRIX.json",
+        "reports/FASE69_READINESS_SCORECARD.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69-SCORECARD-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-SCORECARD-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Evaluates 8-dimension preregistered scorecard and assigns source-specific and overall readiness."
+    },
+    {
+      "task_id": "FASE69-TASK-007",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Researchable Mechanism-Family Mapping and Lineage Risk Analysis",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:15.913022+00:00",
+      "closed_at": "2026-09-17T23:42:57.630717+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69_HYPOTHESIS_LINEAGE_RISK.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69-LINEAGE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-LINEAGE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Maps capability domains and lineage risks vs historical hypotheses without creating new HYP IDs."
+    },
+    {
+      "task_id": "FASE69-TASK-008",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Dedicated Test Suite Implementation and Global Regression Execution",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:16.018778+00:00",
+      "closed_at": "2026-09-17T23:43:06.979040+00:00",
+      "files_expected_to_change": [
+        "tests/test_fase69_microstructure_validation.py",
+        "reports/FASE69_TEST_REPORT.md"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69-DEDICATED-SUITE"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69-TESTS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-TESTS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "24+ dedicated tests covering Section 36 requirements, plus full FASE 6 and global regressions."
+    },
+    {
+      "task_id": "FASE69-TASK-009",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Candidate Freezing, Execution Receipt, Gate Certification & Atomic Locking",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:25.571223+00:00",
+      "closed_at": "2026-09-17T23:43:07.145430+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-FASE69-MICROSTRUCTURE-VALIDATION-001.json",
+        "quantumbot_harness/executions/EXEC-CANDIDATE-FASE69-MICROSTRUCTURE-VALIDATION-001-001.json",
+        "quantumbot_harness/gates/GATE-FASE69-MICROSTRUCTURE-VALIDATION-001.json",
+        "quantumbot_harness/PROJECT_STATE.json",
+        "quantumbot_harness/receipts/index.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69-GATE-CERTIFICATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69-CANDIDATE-001",
+        "RECEIPT-FASE69-EXECUTION-001",
+        "RECEIPT-FASE69-GATE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-CANDIDATE-001",
+        "RECEIPT-FASE69-EXECUTION-001",
+        "RECEIPT-FASE69-GATE-001"
+      ],
+      "gate_id": "GATE-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "blocked_reason": null,
+      "notes": "Atomic certification under cooperative lock, updating baseline to GEN-6.9-MICROSTRUCTURE-VALIDATION-001."
+    },
+    {
+      "task_id": "FASE69-TASK-010",
+      "spec_id": "SPEC-FASE69-MICROSTRUCTURE-VALIDATION-001",
+      "title": "Comprehensive Institutional Report and Walkthrough Compilation",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T19:45:00Z",
+      "started_at": "2026-09-17T23:39:25.960992+00:00",
+      "closed_at": "2026-09-17T23:43:07.240613+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69_MICROSTRUCTURE_VALIDATION_REPORT.md",
+        "docs/ENGINEERING_HARNESS.md",
+        "walkthrough.md"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69-REPORT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69-REPORT-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "35-section institutional validation report and walkthrough update."
+    },
+    {
+      "task_id": "FASE69A-TASK-001",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Gate 0 Pre-State Audit & Baseline Verification (GEN-6.9-MICROSTRUCTURE-VALIDATION-001)",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:31.782071+00:00",
+      "closed_at": "2026-09-18T00:07:31.818945+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_PRESTATE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-PRESTATE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-PRESTATE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies entry baseline GEN-6.9-MICROSTRUCTURE-VALIDATION-001, holdout locked (0/0), live blocked, lifetime hypotheses=17."
+    },
+    {
+      "task_id": "FASE69A-TASK-002",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Comprehensive Historical Hypothesis Lineage Mapping (17 Hypotheses)",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:31.840498+00:00",
+      "closed_at": "2026-09-18T00:07:31.907717+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_HISTORICAL_HYPOTHESIS_LINEAGE.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-LINEAGE-MAP-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-LINEAGE-MAP-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Maps economic mechanism, observables, directional assumptions, and OI/basis/funding relationships for all 17 historical hypotheses."
+    },
+    {
+      "task_id": "FASE69A-TASK-003",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Information Independence Protocol and 5-Dimension Gate Definition",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:31.925029+00:00",
+      "closed_at": "2026-09-18T00:07:31.974230+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_INFORMATION_INDEPENDENCE_PROTOCOL.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-INDEPENDENCE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-INDEPENDENCE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Formalizes the 5-dimension independence gate and terminal classifications under the axiom LOW LINEAR CORRELATION != INFORMATIONAL INDEPENDENCE."
+    },
+    {
+      "task_id": "FASE69A-TASK-004",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Novelty Gate and Pre-Performance Classification Protocol",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:31.992660+00:00",
+      "closed_at": "2026-09-18T00:07:32.045460+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_NOVELTY_GATE.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-NOVELTY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-NOVELTY-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Defines pre-performance novelty criteria rejecting retunes of prior hypotheses, proxy replacements, and duplicates."
+    },
+    {
+      "task_id": "FASE69A-TASK-005",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Mechanism Family Architecture and Aggressor-Flow Freeze",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:32.064614+00:00",
+      "closed_at": "2026-09-18T00:07:32.115389+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_HYPOTHESIS_LINEAGE_RISK.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-FAMILIES-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-FAMILIES-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Designs FAM-OI-EXPANSION, FAM-BASIS-DISLOCATION, FAM-FUNDING-CARRY, and confirms FAM-AGGRESSOR-FLOW freeze."
+    },
+    {
+      "task_id": "FASE69A-TASK-006",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Future Research Budget and Pre-Performance Scorecard Specification",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:32.134175+00:00",
+      "closed_at": "2026-09-18T00:07:32.220721+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_FUTURE_RESEARCH_BUDGET.json",
+        "reports/FASE69A_SCORECARD_SPEC.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-BUDGET-001",
+        "RECEIPT-FASE69A-SCORECARD-SPEC-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-SCORECARD-SPEC-001",
+        "RECEIPT-FASE69A-BUDGET-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Freezes budget (max 9 concepts, max 3 formal hypotheses, 0 grid search, 0 rescues) and preregistered 8-factor scorecard."
+    },
+    {
+      "task_id": "FASE69A-TASK-007",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Statistical Protocols, Matched Null Controls and Outlier Robustness Design",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:32.237357+00:00",
+      "closed_at": "2026-09-18T00:07:32.287953+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_STATISTICAL_PROTOCOL.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-STAT-PROTOCOL-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-STAT-PROTOCOL-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Specifies B>=5000 matched null, B>=2000 block bootstrap, formal probability semantics, CPCV, and outlier dependence reporting."
+    },
+    {
+      "task_id": "FASE69A-TASK-008",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Economic Friction Models, Break-Even Reporting and Sample Sufficiency Specification",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:32.307538+00:00",
+      "closed_at": "2026-09-18T00:07:32.356421+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_ECONOMIC_GATE_SPEC.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-ECON-SPEC-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-ECON-SPEC-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Freezes Optimistic/Base/Stressed friction, Net PF > 1.10 gate, and sample sufficiency minimums."
+    },
+    {
+      "task_id": "FASE69A-TASK-009",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Harness and Research Status Semantics Conceptual Audit",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:32.376645+00:00",
+      "closed_at": "2026-09-18T00:07:32.423971+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69A_STATUS_SEMANTICS_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [],
+      "required_receipts": [
+        "RECEIPT-FASE69A-STATUS-SEMANTICS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-STATUS-SEMANTICS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Audits definitions and relationship between harness baseline generation, research phase, research generation, and validation status."
+    },
+    {
+      "task_id": "FASE69A-TASK-010",
+      "spec_id": "SPEC-FASE69A-MICROSTRUCTURE-RESEARCH-DESIGN-001",
+      "title": "Candidate Freezing, Dedicated Test Suite Execution, Gate Certification & Documentation",
+      "status": "CLOSED",
+      "created_at": "2026-09-17T23:59:42.124958+00:00",
+      "started_at": "2026-09-18T00:07:32.442782+00:00",
+      "closed_at": "2026-09-18T00:07:37.400306+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-FASE69A-MICROSTRUCTURE-DESIGN-001.json",
+        "quantumbot_harness/executions/EXEC-CANDIDATE-FASE69A-MICROSTRUCTURE-DESIGN-001-001.json",
+        "quantumbot_harness/gates/GATE-FASE69A-MICROSTRUCTURE-DESIGN-001.json",
+        "reports/FASE69A_RESEARCH_DESIGN_REPORT.md",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69A-DEDICATED-SUITE"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69A-CANDIDATE-001",
+        "RECEIPT-FASE69A-EXECUTION-001",
+        "RECEIPT-FASE69A-GATE-001",
+        "RECEIPT-FASE69A-REPORT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69A-REPORT-001",
+        "RECEIPT-FASE69A-EXECUTION-001",
+        "RECEIPT-FASE69A-CANDIDATE-001",
+        "RECEIPT-FASE69A-GATE-001"
+      ],
+      "gate_id": "GATE-FASE69A-MICROSTRUCTURE-DESIGN-001",
+      "blocked_reason": null,
+      "notes": "Executes 26+ dedicated tests, freezes candidate, certifies gate, and appends Section 31 to docs/ENGINEERING_HARNESS.md."
+    },
+    {
+      "task_id": "FASE69B-TASK-001",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Entry Baseline Reconstruction and Zero Drift Forensic Audit",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:48.479158+00:00",
+      "closed_at": "2026-09-18T02:21:48.518847+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_ENTRY_BASELINE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-ENTRY-BASELINE"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-ENTRY-BASELINE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-ENTRY-BASELINE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies GEN-6.9a-MICROSTRUCTURE-DESIGN-001 entry state, verified candidate, and certified gate."
+    },
+    {
+      "task_id": "FASE69B-TASK-002",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Novelty Taxonomy Reconciliation and Microstructure Primacy Rule Enforcement",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:48.545089+00:00",
+      "closed_at": "2026-09-18T02:21:48.598488+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_NOVELTY_TAXONOMY_RECONCILIATION.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-NOVELTY-RECONCILIATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-NOVELTY-RECONCILIATION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-NOVELTY-RECONCILIATION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Reconciles 6 canonical novelty classes and 3 extensions, enforcing Microstructure Primacy Rule."
+    },
+    {
+      "task_id": "FASE69B-TASK-003",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Final Holdout Hash Provenance Forensic Audit (Zero Content Reads)",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:48.625199+00:00",
+      "closed_at": "2026-09-18T02:21:48.684828+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_HOLDOUT_HASH_PROVENANCE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-HOLDOUT-PROVENANCE"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-HOLDOUT-PROVENANCE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-HOLDOUT-PROVENANCE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Proves holdout hash provenance as PREVIOUSLY_REGISTERED_METADATA with 0 raw bytes read."
+    },
+    {
+      "task_id": "FASE69B-TASK-004",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Complete Changeset Reconciliation Across FASE 6.9 and 6.9a",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:48.711573+00:00",
+      "closed_at": "2026-09-18T02:21:48.777722+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_CHANGESET_RECONCILIATION.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-CHANGESET-RECONCILIATION"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-CHANGESET-RECONCILIATION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-CHANGESET-RECONCILIATION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Audits all files touched in 6.9/6.9a, confirming legitimacy and zero drift."
+    },
+    {
+      "task_id": "FASE69B-TASK-005",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Test Mutation Forensics and Security Integrity Verification",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:48.808186+00:00",
+      "closed_at": "2026-09-18T02:21:48.862096+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_TEST_MUTATION_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-TEST-MUTATIONS"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-TEST-MUTATIONS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-TEST-MUTATIONS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies test modifications were legitimate spec alignment with 0 weakened security constraints."
+    },
+    {
+      "task_id": "FASE69B-TASK-006",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Schema Mutation Forensics (100% Unmutated Draft 2020-12 Verification)",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:48.888056+00:00",
+      "closed_at": "2026-09-18T02:21:48.939611+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_SCHEMA_MUTATION_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-SCHEMA-MUTATIONS"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-SCHEMA-MUTATIONS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-SCHEMA-MUTATIONS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies Draft 2020-12 schemas in quantumbot_harness/schemas remained 100% unmutated."
+    },
+    {
+      "task_id": "FASE69B-TASK-007",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Historical Immutability, Multi-Testing Ledger and Append-Only Harness Prefix Verification",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:48.963654+00:00",
+      "closed_at": "2026-09-18T02:21:49.018268+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_HISTORICAL_IMMUTABILITY_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-HISTORICAL-IMMUTABILITY"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-HISTORICAL-IMMUTABILITY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-HISTORICAL-IMMUTABILITY-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies lifetime hypotheses = 17, multiple testing ledger intact, and living documentation prefix preserved."
+    },
+    {
+      "task_id": "FASE69B-TASK-008",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Receipt Chain Audit and Continuity Verification",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:49.040840+00:00",
+      "closed_at": "2026-09-18T02:21:49.105815+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_RECEIPT_CHAIN_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-RECEIPT-CHAIN"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-RECEIPT-CHAIN-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-RECEIPT-CHAIN-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies cryptographic chain of receipts from H1-BOOTSTRAP to POST-FASE69A with 0 broken links."
+    },
+    {
+      "task_id": "FASE69B-TASK-009",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Status Semantics Preflight and Dynamic Discovery Verification",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:49.132682+00:00",
+      "closed_at": "2026-09-18T02:21:49.190566+00:00",
+      "files_expected_to_change": [
+        "reports/FASE69B_STATUS_PREFLIGHT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-STATUS-SEMANTICS"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-STATUS-PREFLIGHT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-STATUS-PREFLIGHT-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies harness.py bot-status fields, semantics separation, and evidence drift cleanliness."
+    },
+    {
+      "task_id": "FASE69B-TASK-010",
+      "spec_id": "SPEC-FASE69B-FINAL-PREFLIGHT-001",
+      "title": "Candidate Freezing, Dedicated Test Suite Execution, Gate Certification & Documentation",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T02:21:48.452176+00:00",
+      "started_at": "2026-09-18T02:21:49.211630+00:00",
+      "closed_at": "2026-09-18T02:21:53.995406+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-FASE69B-FINAL-PREFLIGHT-001.json",
+        "quantumbot_harness/executions/EXEC-CANDIDATE-FASE69B-FINAL-PREFLIGHT-001-001.json",
+        "quantumbot_harness/gates/GATE-FASE69B-FINAL-PREFLIGHT-001.json",
+        "reports/FASE69B_FINAL_PREFLIGHT_REPORT.md",
+        "docs/ENGINEERING_HARNESS.md"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "TEST-FASE69B-DEDICATED-SUITE"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE69B-CANDIDATE-001",
+        "RECEIPT-FASE69B-EXECUTION-001",
+        "RECEIPT-FASE69B-GATE-001",
+        "RECEIPT-FASE69B-REPORT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE69B-CANDIDATE-001",
+        "RECEIPT-FASE69B-EXECUTION-001",
+        "RECEIPT-FASE69B-REPORT-001",
+        "RECEIPT-FASE69B-GATE-001"
+      ],
+      "gate_id": "GATE-FASE69B-FINAL-PREFLIGHT-001",
+      "blocked_reason": null,
+      "notes": "Executes 29 dedicated tests, freezes candidate, certifies gate, and appends Section 32 to docs/ENGINEERING_HARNESS.md."
+    },
+    {
+      "task_id": "FASE610-TASK-001",
+      "spec_id": "SPEC-FASE610-MICROSTRUCTURE-EDGE-DISCOVERY-001",
+      "title": "Pre-State Audit & Baseline Verification",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:16:44.555828+00:00",
+      "started_at": "2026-09-18T11:16:44.610046+00:00",
+      "closed_at": "2026-09-18T11:16:44.665999+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610_PRESTATE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_01_prestate_baseline",
+        "test_02_holdout_untouched",
+        "test_03_live_trading_blocked"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610-PRESTATE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610-PRESTATE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies GEN-6.9b entry baseline, holdout 0 access, and LIVE blocked."
+    },
+    {
+      "task_id": "FASE610-TASK-002",
+      "spec_id": "SPEC-FASE610-MICROSTRUCTURE-EDGE-DISCOVERY-001",
+      "title": "Conceptual Candidate Screening & Independence Audit",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:16:44.555828+00:00",
+      "started_at": "2026-09-18T11:16:45.758116+00:00",
+      "closed_at": "2026-09-18T11:16:45.849785+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610_DISCOVERY_LEDGER.json",
+        "reports/FASE610_NOVELTY_AUDIT.json",
+        "reports/FASE610_INDEPENDENCE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_04_candidate_budget_max_9",
+        "test_05_formal_hypotheses_budget_max_3",
+        "test_06_admission_hurdle_scorecard"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610-DISCOVERY-LEDGER-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610-DISCOVERY-LEDGER-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Screens at most 9 concepts pre-performance; admits at most 3 formal hypotheses."
+    },
+    {
+      "task_id": "FASE610-TASK-003",
+      "spec_id": "SPEC-FASE610-MICROSTRUCTURE-EDGE-DISCOVERY-001",
+      "title": "Formal Hypotheses Registration & Non-Overlapping Event Universe Construction",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:16:44.555828+00:00",
+      "started_at": "2026-09-18T11:16:45.877096+00:00",
+      "closed_at": "2026-09-18T11:17:15.951351+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610_FORMAL_HYPOTHESIS_REGISTRY.json",
+        "reports/FASE610_EVENT_UNIVERSE_AUDIT.json",
+        "reports/preregistrations/HYP-BTC-018_PREREGISTRATION.json",
+        "reports/preregistrations/HYP-BTC-019_PREREGISTRATION.json",
+        "reports/preregistrations/HYP-BTC-020_PREREGISTRATION.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_16_formal_preregistration_frozen",
+        "test_19_event_universe_frozen",
+        "test_20_overlap_policy_deterministic"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610-PREREGISTRATION-001",
+        "RECEIPT-FASE610-EVENT-UNIVERSE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610-EVENT-UNIVERSE-001",
+        "RECEIPT-FASE610-PREREGISTRATION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Freezes formal hypotheses preregistrations and non-overlapping event universes."
+    },
+    {
+      "task_id": "FASE610-TASK-004",
+      "spec_id": "SPEC-FASE610-MICROSTRUCTURE-EDGE-DISCOVERY-001",
+      "title": "Three-Tier Cost Modeling & Break-Even Friction Analysis",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:16:44.555828+00:00",
+      "started_at": "2026-09-18T11:17:22.177883+00:00",
+      "closed_at": "2026-09-18T11:17:22.229685+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610_COST_MODEL.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_26_base_friction_16bps",
+        "test_27_break_even_friction_computed"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610-COST-MODEL-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610-COST-MODEL-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Evaluates OPTIMISTIC (10 bps), BASE (16 bps), and STRESSED (22.5 bps) frictions."
+    },
+    {
+      "task_id": "FASE610-TASK-005",
+      "spec_id": "SPEC-FASE610-MICROSTRUCTURE-EDGE-DISCOVERY-001",
+      "title": "Statistical Battery (Matched-Null, Bootstrap, 5-Fold CPCV)",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:16:44.555828+00:00",
+      "started_at": "2026-09-18T11:17:22.257923+00:00",
+      "closed_at": "2026-09-18T11:17:22.312261+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610_MATCHED_NULL_REPORT.json",
+        "reports/FASE610_BOOTSTRAP_REPORT.json",
+        "reports/FASE610_CPCV_REPORT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_28_matched_null_b_5000",
+        "test_29_bootstrap_b_2000",
+        "test_30_cpcv_5_folds"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610-STATISTICAL-BATTERY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610-STATISTICAL-BATTERY-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Executes 5,000 matched-null draws, 2,000 bootstrap draws, and 5-fold purged cross-validation."
+    },
+    {
+      "task_id": "FASE610-TASK-006",
+      "spec_id": "SPEC-FASE610-MICROSTRUCTURE-EDGE-DISCOVERY-001",
+      "title": "Extreme-Trade Dependence & Outlier Sensitivity Audit",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:16:44.555828+00:00",
+      "started_at": "2026-09-18T11:17:22.340162+00:00",
+      "closed_at": "2026-09-18T11:17:22.408094+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610_EXTREME_TRADE_DEPENDENCE.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_34_outlier_dependence_gate",
+        "test_35_sensitivity_cannot_rescue"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610-EXTREME-TRADE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610-EXTREME-TRADE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Evaluates net expectancy without top 1, top 3, and top 1% trades."
+    },
+    {
+      "task_id": "FASE610-TASK-007",
+      "spec_id": "SPEC-FASE610-MICROSTRUCTURE-EDGE-DISCOVERY-001",
+      "title": "Multiple-Testing Ledger Logical Update & Terminal Classifications",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:16:44.555828+00:00",
+      "started_at": "2026-09-18T11:17:22.430772+00:00",
+      "closed_at": "2026-09-18T11:17:22.549230+00:00",
+      "files_expected_to_change": [
+        "reports/MULTIPLE_TESTING_LEDGER_V2.json",
+        "reports/FASE610_MULTIPLE_TESTING_REPORT.json",
+        "reports/FASE610_TERMINAL_CLASSIFICATIONS.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_31_deflated_sharpe_ratio",
+        "test_32_multiple_testing_counter_incremented",
+        "test_33_historical_hypotheses_immutable"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610-MULTIPLE-TESTING-001",
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE610"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610-MULTIPLE-TESTING-001",
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE610"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Safely updates multiple-testing ledger (17 -> 20) with bit-for-bit historical immutability."
+    },
+    {
+      "task_id": "FASE610-TASK-008",
+      "spec_id": "SPEC-FASE610-MICROSTRUCTURE-EDGE-DISCOVERY-001",
+      "title": "Candidate Freezing, Dedicated Test Suite, Gate Certification & Documentation",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:16:44.555828+00:00",
+      "started_at": "2026-09-18T11:17:22.578867+00:00",
+      "closed_at": "2026-09-18T11:18:00.779558+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-FASE610-MICROSTRUCTURE-EDGE-001.json",
+        "quantumbot_harness/executions/EXEC-CANDIDATE-FASE610-MICROSTRUCTURE-EDGE-001-001.json",
+        "quantumbot_harness/gates/GATE-FASE610-MICROSTRUCTURE-EDGE-001.json",
+        "quantumbot_harness/PROJECT_STATE.json",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/FASE610_MICROSTRUCTURE_EDGE_REPORT.md"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_01_prestate_baseline",
+        "test_40_terminal_classification_exactly_one",
+        "test_42_evidence_drift_fail_closed"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610-CANDIDATE-001",
+        "RECEIPT-FASE610-EXECUTION-001",
+        "RECEIPT-FASE610-GATE-001",
+        "RECEIPT-FASE610-REPORT-001",
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE610"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610-GATE-001",
+        "RECEIPT-FASE610-EXECUTION-001",
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE610",
+        "RECEIPT-FASE610-REPORT-001",
+        "RECEIPT-FASE610-CANDIDATE-001"
+      ],
+      "gate_id": "GATE-FASE610-MICROSTRUCTURE-EDGE-001",
+      "blocked_reason": null,
+      "notes": "Executes 42 unit tests, freezes candidate, certifies gate, and appends Section 33 to harness docs."
+    },
+    {
+      "task_id": "FASE610A-TASK-001",
+      "spec_id": "SPEC-FASE610A-POST-CERT-INTEGRITY-001",
+      "title": "Pre-State Audit & Baseline Verification",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:39:59.940983+00:00",
+      "started_at": "2026-09-18T11:39:59.940983+00:00",
+      "closed_at": "2026-09-18T11:44:27.493157+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610A_PRESTATE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_01_entry_baseline_gen610",
+        "test_02_holdout_untouched",
+        "test_03_live_trading_blocked"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610A-PRESTATE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610A-PRESTATE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies GEN-6.10 entry baseline, holdout 0 access, and live trading blocked."
+    },
+    {
+      "task_id": "FASE610A-TASK-002",
+      "spec_id": "SPEC-FASE610A-POST-CERT-INTEGRITY-001",
+      "title": "Forensic Audit of Post-Certification Artifact Operations",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:39:59.940983+00:00",
+      "started_at": "2026-09-18T11:40:00.000000+00:00",
+      "closed_at": "2026-09-18T11:44:28.030350+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610A_REFREEZE_CLASSIFICATION.json",
+        "reports/FASE610A_EXECUTION_REHASH_AUDIT.json",
+        "reports/FASE610A_GATE_MUTATION_AUDIT.json",
+        "reports/FASE610A_RECEIPTS_AUDIT.json",
+        "reports/FASE610A_POST_HOC_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_06_refreeze_classification_controlled_recertification",
+        "test_10_execution_rehash_classification_reconstructed_metadata",
+        "test_13_gate_mutation_classification_schema_compatibility",
+        "test_16_receipts_index_classification_schema_enum"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610A-REFREEZE-001",
+        "RECEIPT-FASE610A-EXEC-REHASH-001",
+        "RECEIPT-FASE610A-GATE-MUTATION-001",
+        "RECEIPT-FASE610A-RECEIPTS-AUDIT-001",
+        "RECEIPT-FASE610A-POST-HOC-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610A-RECEIPTS-AUDIT-001",
+        "RECEIPT-FASE610A-GATE-MUTATION-001",
+        "RECEIPT-FASE610A-EXEC-REHASH-001",
+        "RECEIPT-FASE610A-REFREEZE-001",
+        "RECEIPT-FASE610A-POST-HOC-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Forensic audit classifying refreeze, rehash, gate mutations, and receipts."
+    },
+    {
+      "task_id": "FASE610A-TASK-003",
+      "spec_id": "SPEC-FASE610A-POST-CERT-INTEGRITY-001",
+      "title": "Contemporaneous Chronology & Mutual Consistency Matrix",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:39:59.940983+00:00",
+      "started_at": "2026-09-18T11:40:01.000000+00:00",
+      "closed_at": "2026-09-18T11:44:28.240980+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610A_CHRONOLOGY_RECONSTRUCTION.json",
+        "reports/FASE610A_CONSISTENCY_MATRIX.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_20_chronology_steps_reconstructed",
+        "test_21_chronology_separates_git_from_execution",
+        "test_22_candidate_execution_gate_consistency_matrix"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610A-CHRONOLOGY-001",
+        "RECEIPT-FASE610A-CONSISTENCY-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610A-CHRONOLOGY-001",
+        "RECEIPT-FASE610A-CONSISTENCY-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Reconstructs chronology and verifies mutual consistency matrix."
+    },
+    {
+      "task_id": "FASE610A-TASK-004",
+      "spec_id": "SPEC-FASE610A-POST-CERT-INTEGRITY-001",
+      "title": "HYP-019 Economic Realities & Research Stop Policy Formulation",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:39:59.940983+00:00",
+      "started_at": "2026-09-18T11:40:02.000000+00:00",
+      "closed_at": "2026-09-18T11:44:28.548034+00:00",
+      "files_expected_to_change": [
+        "reports/FASE610A_HYP019_FRICTION_AUDIT.json",
+        "reports/FASE610A_HYPOTHESIS_STOP_AUDIT.json",
+        "reports/FASE610A_RESEARCH_STOP_POLICY.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_24_lifetime_hypotheses_frozen_at_20",
+        "test_25_hyp_21_creation_blocked",
+        "test_27_hyp019_gross_positive_net_negative",
+        "test_29_hyp019_strategy_rescue_prohibited",
+        "test_30_research_stop_policy_governed_paths"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610A-HYP019-001",
+        "RECEIPT-FASE610A-HYP-STOP-001",
+        "RECEIPT-FASE610A-STOP-POLICY-001",
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE610A"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610A-STOP-POLICY-001",
+        "RECEIPT-FASE610A-HYP019-001",
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE610A",
+        "RECEIPT-FASE610A-HYP-STOP-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Formulates institutional Research Stop Policy and freezes lifetime hypotheses at 20."
+    },
+    {
+      "task_id": "FASE610A-TASK-005",
+      "spec_id": "SPEC-FASE610A-POST-CERT-INTEGRITY-001",
+      "title": "Dedicated Adversarial Unit Test Suite Execution (32 tests)",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:39:59.940983+00:00",
+      "started_at": "2026-09-18T11:40:03.000000+00:00",
+      "closed_at": "2026-09-18T11:44:35.943166+00:00",
+      "files_expected_to_change": [
+        "tests/test_fase610a_post_cert_integrity.py"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "tests/test_fase610a_post_cert_integrity.py"
+      ],
+      "required_receipts": [],
+      "receipt_ids": [],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Executes 32 dedicated adversarial forensic tests."
+    },
+    {
+      "task_id": "FASE610A-TASK-006",
+      "spec_id": "SPEC-FASE610A-POST-CERT-INTEGRITY-001",
+      "title": "Candidate Freezing (CANDIDATE-FASE610A)",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:39:59.940983+00:00",
+      "started_at": "2026-09-18T11:40:05.000000+00:00",
+      "closed_at": "2026-09-18T11:44:36.157793+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-FASE610A-POST-CERT-INTEGRITY-001.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_31_spec_fase610a_schema_valid",
+        "test_32_distinct_fase610a_artifacts_isolated"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610A-CANDIDATE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610A-CANDIDATE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Freezes deterministic candidate snapshot."
+    },
+    {
+      "task_id": "FASE610A-TASK-007",
+      "spec_id": "SPEC-FASE610A-POST-CERT-INTEGRITY-001",
+      "title": "Execution Receipt Recording (EXEC-CANDIDATE-FASE610A)",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:39:59.940983+00:00",
+      "started_at": "2026-09-18T11:40:06.000000+00:00",
+      "closed_at": "2026-09-18T11:44:36.422976+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/executions/EXEC-CANDIDATE-FASE610A-POST-CERT-INTEGRITY-001-001.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_11_execution_receipt_fingerprint_formula"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610A-EXECUTION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE610A-EXECUTION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Cryptographically binds test execution to candidate snapshot."
+    },
+    {
+      "task_id": "FASE610A-TASK-008",
+      "spec_id": "SPEC-FASE610A-POST-CERT-INTEGRITY-001",
+      "title": "Gate Certification & Institutional Research Stop Closure",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T11:39:59.940983+00:00",
+      "started_at": "2026-09-18T11:40:07.000000+00:00",
+      "closed_at": "2026-09-18T11:44:36.838084+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/gates/GATE-FASE610A-POST-CERT-INTEGRITY-001.json",
+        "docs/ENGINEERING_HARNESS.md",
+        "reports/FASE610A_POST_CERT_INTEGRITY_REPORT.md",
+        "quantumbot_harness/PROJECT_STATE.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_14_gate_criteria_not_weakened",
+        "test_15_gate_schema_compliance"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE610A-GATE-001",
+        "RECEIPT-FASE610A-REPORT-001",
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE610A"
+      ],
+      "receipt_ids": [
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE610A",
+        "RECEIPT-FASE610A-GATE-001",
+        "RECEIPT-FASE610A-REPORT-001"
+      ],
+      "gate_id": "GATE-FASE610A-POST-CERT-INTEGRITY-001",
+      "blocked_reason": null,
+      "notes": "Certifies gate, documents Section 34, transitions baseline to GEN-6.10a."
+    },
+    {
+      "task_id": "FASE611-TASK-001",
+      "spec_id": "SPEC-FASE611-PASSIVE-EXECUTION-001",
+      "title": "Pre-State Verification & Boundary Locks",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T12:00:00Z",
+      "started_at": "2026-09-18T12:13:52.698049+00:00",
+      "closed_at": "2026-09-18T16:37:38.315470+00:00",
+      "files_expected_to_change": [
+        "reports/FASE611_PRESTATE_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_01_entry_baseline_gen610a",
+        "test_02_holdout_vault_locked",
+        "test_03_live_trading_blocked",
+        "test_04_lifetime_hypotheses_frozen_at_20"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE611-PRESTATE-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE611-PRESTATE-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Verifies GEN-6.10a entry baseline, holdout locked (0 accesses), live blocked, lifetime hypotheses frozen at 20."
+    },
+    {
+      "task_id": "FASE611-TASK-002",
+      "spec_id": "SPEC-FASE611-PASSIVE-EXECUTION-001",
+      "title": "Multi-Tier Fee Schedule & Analytical Breakeven Modeling",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T12:00:00Z",
+      "started_at": "2026-09-18T12:13:52.772977+00:00",
+      "closed_at": "2026-09-18T16:37:38.384854+00:00",
+      "files_expected_to_change": [
+        "reports/FASE611_FEE_TIER_SENSITIVITY.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_05_fee_schedule_tiers_monotonicity",
+        "test_06_fee_breakeven_tier_analytical"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE611-FEE-TIERS-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE611-FEE-TIERS-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Models VIP0 through MM_PRO fee tiers and solves for minimum fee tier needed for < 2.45 bps friction."
+    },
+    {
+      "task_id": "FASE611-TASK-003",
+      "spec_id": "SPEC-FASE611-PASSIVE-EXECUTION-001",
+      "title": "Passive Queue Penetration & Fill Dynamics",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T12:00:00Z",
+      "started_at": "2026-09-18T12:13:52.863920+00:00",
+      "closed_at": "2026-09-18T16:37:53.700770+00:00",
+      "files_expected_to_change": [
+        "reports/FASE611_QUEUE_FILL_MODEL.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_07_historical_trades_consumed",
+        "test_08_penetration_models_order",
+        "test_09_cash_zero_return_firewall"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE611-QUEUE-FILL-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE611-QUEUE-FILL-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Evaluates P0 (touch), P1 (conservative 0.15 ATR), and P2 (deep 0.30 ATR) fills with CASH 0.0 bps firewall."
+    },
+    {
+      "task_id": "FASE611-TASK-004",
+      "spec_id": "SPEC-FASE611-PASSIVE-EXECUTION-001",
+      "title": "Adverse Selection & Post-Fill Markout Audit",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T12:00:00Z",
+      "started_at": "2026-09-18T12:14:12.370992+00:00",
+      "closed_at": "2026-09-18T16:37:53.774345+00:00",
+      "files_expected_to_change": [
+        "reports/FASE611_ADVERSE_SELECTION_AUDIT.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_10_post_fill_markout_horizons",
+        "test_11_selection_bias_filled_vs_missed"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE611-ADVERSE-SELECTION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE611-ADVERSE-SELECTION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Quantifies toxic flow markout across h in {1, 2, 4, 8, 16} bars and compares filled vs missed trade expectancy."
+    },
+    {
+      "task_id": "FASE611-TASK-005",
+      "spec_id": "SPEC-FASE611-PASSIVE-EXECUTION-001",
+      "title": "Exit Duality & Blended Friction Modeling",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T12:00:00Z",
+      "started_at": "2026-09-18T12:14:12.467008+00:00",
+      "closed_at": "2026-09-18T16:37:53.897795+00:00",
+      "files_expected_to_change": [
+        "reports/FASE611_BLENDED_FRICTION_MATRIX.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_12_policy_mm_simulation",
+        "test_13_policy_mt_emergency_taker",
+        "test_14_blended_friction_matrix_complete"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE611-BLENDED-FRICTION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE611-BLENDED-FRICTION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Simulates Policy M-M (passive limit exit) and Policy M-T (emergency market taker exit) across fee tiers."
+    },
+    {
+      "task_id": "FASE611-TASK-006",
+      "spec_id": "SPEC-FASE611-PASSIVE-EXECUTION-001",
+      "title": "Institutional Viability Classification & Formal Report",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T12:00:00Z",
+      "started_at": "2026-09-18T12:14:12.630080+00:00",
+      "closed_at": "2026-09-18T16:37:54.015369+00:00",
+      "files_expected_to_change": [
+        "reports/FASE611_PASSIVE_EXECUTION_VERDICT.json",
+        "reports/FASE611_PASSIVE_EXECUTION_REPORT.md"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_15_institutional_verdict_validity",
+        "test_16_report_generated"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE611-VERDICT-001",
+        "RECEIPT-FASE611-REPORT-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE611-REPORT-001",
+        "RECEIPT-FASE611-VERDICT-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Classifies institutional viability (PASSIVE_EXECUTION_FEASIBLE or PASSIVE_EXECUTION_UNVIABLE) and publishes report."
+    },
+    {
+      "task_id": "FASE611-TASK-007",
+      "spec_id": "SPEC-FASE611-PASSIVE-EXECUTION-001",
+      "title": "Candidate Snapshot & Adversarial Test Execution",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T12:00:00Z",
+      "started_at": "2026-09-18T12:14:12.764565+00:00",
+      "closed_at": "2026-09-18T16:38:42.745762+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/candidates/CANDIDATE-FASE611-PASSIVE-EXECUTION-001.json",
+        "quantumbot_harness/executions/EXEC-CANDIDATE-FASE611-PASSIVE-EXECUTION-001-001.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_17_candidate_fingerprint_verified",
+        "test_18_execution_receipt_passes"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE611-CANDIDATE-001",
+        "RECEIPT-FASE611-EXECUTION-001"
+      ],
+      "receipt_ids": [
+        "RECEIPT-FASE611-CANDIDATE-001",
+        "RECEIPT-FASE611-EXECUTION-001"
+      ],
+      "gate_id": null,
+      "blocked_reason": null,
+      "notes": "Snapshots candidate code and executes adversarial test suite capturing stdout/stderr hashes."
+    },
+    {
+      "task_id": "FASE611-TASK-008",
+      "spec_id": "SPEC-FASE611-PASSIVE-EXECUTION-001",
+      "title": "Gate Certification & Engineering Harness Closure",
+      "status": "CLOSED",
+      "created_at": "2026-09-18T12:00:00Z",
+      "started_at": "2026-09-18T12:15:13.813761+00:00",
+      "closed_at": "2026-09-18T16:38:42.877174+00:00",
+      "files_expected_to_change": [
+        "quantumbot_harness/gates/GATE-FASE611-PASSIVE-EXECUTION-001.json",
+        "docs/ENGINEERING_HARNESS.md",
+        "quantumbot_harness/PROJECT_STATE.json"
+      ],
+      "files_forbidden": [
+        ".env",
+        "quantumbot.db",
+        "FINAL_HOLDOUT",
+        "FINAL_HOLDOUT/**"
+      ],
+      "required_tests": [
+        "test_19_gate_certified_pass",
+        "test_20_harness_docs_section_35"
+      ],
+      "required_receipts": [
+        "RECEIPT-FASE611-GATE-001",
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE611"
+      ],
+      "receipt_ids": [
+        "RECEIPT-CANON-ENGINEERING-HARNESS-POST-FASE611",
+        "RECEIPT-CANON-MULTIPLE-TESTING-LEDGER-V2-POST-FASE611",
+        "RECEIPT-FASE611-GATE-001"
+      ],
+      "gate_id": "GATE-FASE611-PASSIVE-EXECUTION-001",
+      "blocked_reason": null,
+      "notes": "Certifies gate, documents Section 35 in engineering harness, transitions baseline to GEN-6.11."
+    }
+  ],
+  "updated_at": "2026-09-18T12:00:00Z",
+  "total_tasks": 108,
+  "closed_tasks": 108,
+  "in_progress_tasks": 0,
+  "blocked_tasks": 0,
+  "last_updated": "2026-09-18T16:38:42.877174+00:00"
+}

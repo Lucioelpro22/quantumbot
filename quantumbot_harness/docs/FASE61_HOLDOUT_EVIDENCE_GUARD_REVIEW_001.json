@@ -1,0 +1,292 @@
+{
+  "review_id": "FASE61-HOLDOUT-EVIDENCE-GUARD-REVIEW-001",
+  "created_at": "2026-10-01T17:49:29Z",
+  "spec_id": "SPEC-FASE61-HOLDOUT-EVIDENCE-GUARD-001",
+  "technical_status": "SCOPED_PASS",
+  "scope": "Current successor evidence rejection and metadata-only incident guard; no global sandbox, dataset validation or phase certification.",
+  "certification_effect": "NONE",
+  "canonical_registration": false,
+  "implementation_sources": [
+    {
+      "path": "quantumbot_harness/core/holdout_evidence.py",
+      "sha256": "01392854de173b8f8743da58363882a669b4dfca0a3aa57427ae2f53008f7e74"
+    },
+    {
+      "path": "quantumbot_harness/core/m0_invariants.py",
+      "sha256": "8e8e5d5d8dfbea0c058442ee4e3023222292e85b9a9593be76c2581e4e75515a"
+    },
+    {
+      "path": "quantumbot_harness/core/safety_cli.py",
+      "sha256": "4c2eaadee8d80df0a23d0b813c9766bc3bc9ef542b092a5ec8a0fe2d2ce7624c"
+    },
+    {
+      "path": "quantumbot_harness/core/m0_gate_verifier.py",
+      "sha256": "dc45de7d5533704ed0717996b014e9c53658e2b66a85cdcbcc904d73890c5a5f"
+    },
+    {
+      "path": "tests/test_holdout_evidence_guard.py",
+      "sha256": "f2a6b8f4c49f6d28c6ade97cd99e26be61e008e4959594e3fc77c5c4276801b1"
+    },
+    {
+      "path": "tests/test_lineage.json",
+      "sha256": "bcaed6a4b4968218aea222c3903f5278957ac530123c231f9e5556bdd477be97"
+    },
+    {
+      "path": "quantumbot_harness/specs/SPEC-FASE61-HOLDOUT-EVIDENCE-GUARD-001.json",
+      "sha256": "3c6e980dc9984d55d14dd31a14f0af31a5575a57ab14f3d8f67c1f063f068686"
+    },
+    {
+      "path": "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_SNAPSHOT_001.json",
+      "sha256": "60d6958ce601411b3d8c947470e6f8e0ab0baf1c8e3d475fdec893d75e61d498"
+    },
+    {
+      "path": "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_001.md",
+      "sha256": "f72cd371d555e2425485574a1eae4eeca59da79486f9a675e4b75f390b3a055e"
+    }
+  ],
+  "preserved_sources_before_and_after": [
+    {
+      "path": "harness.py",
+      "sha256": "b6eefcba50ed0bc520c25dc048a1f1ffd5358dc975d82e64af65036a3ed7bd27",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "quantumbot_harness/PROJECT_STATE.json",
+      "sha256": "f130140c6163b597fc08252e624e1d8d639c0fdf829bec463b2fb7e375fb54a6",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "quantumbot_harness/receipts/index.json",
+      "sha256": "033dd8a5d6a3de80b38f4447495647ac9b96807333a8e0436aa8bd43d11635e0",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "quantumbot_harness/tasks/TASK_LEDGER.json",
+      "sha256": "31d98dff47232dc59a1a38a51c626bceff320cc06fa80d3663fca912e8164dd9",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "quantumbot_harness/milestones/M0/REGISTRY.json",
+      "sha256": "b96bd3bea14952adf6ae98d6e53520e1b5e9654c95087dd71441907a6c9d13d8",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "quantumbot_harness/policies/V2_INVARIANTS.json",
+      "sha256": "dd0eaf76e557ce4d28b53f6622afb63eca04cba627f13ff64755ec6bfed395cf",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "quantumbot_harness/policies/HARNESS_POLICY.md",
+      "sha256": "c36b37da25b2a5e618e11335aadb3df60bdbbacde389084beb592bece01e0bc8",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "quantumbot_harness/docs/FASE61_HOLDOUT_EXPOSURE_INCIDENT_001.json",
+      "sha256": "0a418335eb15e95d780887adfbea32539bcb87c48a0e7c0ec25020ca2f5c58d4",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "tests/test_harness_m0_safety_cli.py",
+      "sha256": "73d04f1d0d4982621d74be55c14e05f79c6ee58a084aa22e0336d73380640fae",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "tests/test_m0_registry_verifier.py",
+      "sha256": "6631ac8a69d155dba1d57c45dfd49e3d483e4f4e93050566214f4db85cc45d78",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "quantumbot_harness/tests/test_v2_invariants.py",
+      "sha256": "7dd6e2603063943f98f37834eb9341b2af0abd5a2a48add67f715251a8f93fd2",
+      "comparison": "MATCH"
+    },
+    {
+      "path": "tests/test_current_harness_reconciliation.py",
+      "sha256": "53a385dbafce66af337b21f7c4beb2ad76aaefc3a844d794b21b08a0e8f42ff7",
+      "comparison": "MATCH"
+    }
+  ],
+  "preservation_validation": {
+    "method": "Programmatic SHA256 comparison against pre-change snapshot; archived test sources and historical harness unchanged.",
+    "preserved_bindings": 12,
+    "recoverable_pre_change_contents": 4,
+    "exit_code": 0,
+    "no_market_payload_hashes": true
+  },
+  "verification": {
+    "schema": {
+      "status": "PASS",
+      "validator": "Draft202012Validator with FormatChecker",
+      "exit_code": 0
+    },
+    "affected_targeted_suite": {
+      "command": "python -B -m pytest -q -p no:cacheprovider tests/test_holdout_evidence_guard.py tests/test_harness_m0_safety_cli.py tests/test_m0_registry_verifier.py tests/test_current_harness_reconciliation.py tests/test_m0_formalization_draft.py quantumbot_harness/tests/test_v2_invariants.py tests/test_fase61_development_boundary.py tests/test_prospective_metrics.py",
+      "exit_code": 0,
+      "passed": 239,
+      "historical_skipped": 10,
+      "output": "......................................................s................. [ 28%]\r\n.................s..........................................sssss.s..... [ 57%]\r\n.......................................ss............................... [ 86%]\r\n.................................                                        [100%]\r\n239 passed, 10 skipped in 22.47s\r\n"
+    },
+    "specific_current_guard_suite": {
+      "command": "python -B -m pytest -q -p no:cacheprovider tests/test_holdout_evidence_guard.py",
+      "passed": 43,
+      "exit_code": 0,
+      "output": "43 passed in 2.13s"
+    },
+    "actual_metadata_only_smokes": [
+      {
+        "label": "validate",
+        "command": "python -B scripts/run_harness_v2_safe.py validate",
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "result": "EXPECTED_BLOCKED",
+        "stdout": "BLOCKED_HOLDOUT_EVIDENCE: HOLDOUT_EXPOSURE_CONFIRMED\r\n"
+      },
+      {
+        "label": "verify-all",
+        "command": "python -B scripts/run_harness_v2_safe.py verify-all GATE-FASE611-PASSIVE-EXECUTION-001",
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "result": "EXPECTED_BLOCKED",
+        "stdout": "BLOCKED_HOLDOUT_EVIDENCE: HOLDOUT_EXPOSURE_CONFIRMED\r\n"
+      },
+      {
+        "label": "fingerprint",
+        "command": "python -B scripts/run_harness_v2_safe.py fingerprint quantumbot_harness/core/m0_invariants.py",
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "result": "EXPECTED_BLOCKED",
+        "stdout": "BLOCKED_HOLDOUT_EVIDENCE: HOLDOUT_EXPOSURE_CONFIRMED\r\n"
+      },
+      {
+        "label": "registry",
+        "command": "python -B scripts/run_m0_registry_verifier.py",
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "result": "EXPECTED_BLOCKED",
+        "stdout": "{\r\n  \"certification_effect\": \"NONE\",\r\n  \"errors\": [\r\n    \"HOLDOUT_EXPOSURE_CONFIRMED\"\r\n  ],\r\n  \"formal_gate_status\": \"BLOCKED\",\r\n  \"holdout_evidence\": {\r\n    \"canonical_zero_counters_are_current_proof\": false,\r\n    \"certification_effect\": \"NONE\",\r\n    \"errors\": [\r\n      \"HOLDOUT_EXPOSURE_CONFIRMED\"\r\n    ],\r\n    \"exact_historical_holdout_bytes_read\": \"UNKNOWN\",\r\n    \"exact_historical_read_operations\": \"UNKNOWN\",\r\n    \"expected_incident_sha256\": \"0a418335eb15e95d780887adfbea32539bcb87c48a0e7c0ec25020ca2f5c58d4\",\r\n    \"historical_exposure\": \"CONFIRMED_BY_PINNED_INCIDENT_RECORD\",\r\n    \"incident_evidence_status\": \"VERIFIED_PRESERVED_SNAPSHOT\",\r\n    \"incident_path\": \"quantumbot_harness/docs/FASE61_HOLDOUT_EXPOSURE_INCIDENT_001.json\",\r\n    \"independent_validation_eligibility\": \"INELIGIBLE_FOR_THIS_WORKFLOW\",\r\n    \"observed_incident_sha256\": \"0a418335eb15e95d780887adfbea32539bcb87c48a0e7c0ec25020ca2f5c58d4\",\r\n    \"status\": \"BLOCKED\"\r\n  },\r\n  \"known_blockers\": [\r\n    \"Historical holdout bar/byte reads are not measured in PROJECT_STATE; UNKNOWN is not treated as zero.\",\r\n    \"The canonical task/receipt/gate ledgers cannot be mutated by this registry; M0 receipts are not yet independently registered.\",\r\n    \"Direct historical harness entry points remain accessible; residual risk accepted by human reviewer for this scope, with no sandbox-global claim.\",\r\n    \"Independent auditor must reconstruct a future formal M0 gate; this registry does not self-certify.\"\r\n  ],\r\n  \"limits\": [\r\n    \"This verifier checks an additive registry; it does not create or certify a gate.\",\r\n    \"Absent historical bar/byte measurements remain UNKNOWN and are not converted to zero.\",\r\n    \"It does not read real FINAL_HOLDOUT, credentials, or trading database contents.\",\r\n    \"Independent external disposition remains required before any formal M0 gate.\",\r\n    \"Historical registry bindings and zero counters cannot certify current non-exposure; successor code changes leave its snapshot unreconciled.\"\r\n  ],\r\n  \"registry_id\": \"HARNESS-M0-REGISTRY-001\",\r\n  \"source_results\": {},\r\n  \"status\": \"BLOCKED\"\r\n}\r\n"
+      },
+      {
+        "label": "m0-review",
+        "command": "python -B -c \"import json; from pathlib import Path; from quantumbot_harness.core.m0_invariants import review_m0; r=review_m0(Path.cwd()); print(json.dumps(r,indent=2)); raise SystemExit(1 if r['status']=='BLOCKED' else 0)\"",
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "result": "EXPECTED_BLOCKED",
+        "stdout": "{\r\n  \"review_id\": \"HARNESS-V2-M0-REVIEW-001\",\r\n  \"status\": \"BLOCKED\",\r\n  \"milestone_status\": \"BLOCKED\",\r\n  \"certification_effect\": \"NONE\",\r\n  \"errors\": [\r\n    \"HOLDOUT_EXPOSURE_CONFIRMED\"\r\n  ],\r\n  \"holdout_evidence\": {\r\n    \"status\": \"BLOCKED\",\r\n    \"independent_validation_eligibility\": \"INELIGIBLE_FOR_THIS_WORKFLOW\",\r\n    \"historical_exposure\": \"CONFIRMED_BY_PINNED_INCIDENT_RECORD\",\r\n    \"incident_evidence_status\": \"VERIFIED_PRESERVED_SNAPSHOT\",\r\n    \"incident_path\": \"quantumbot_harness/docs/FASE61_HOLDOUT_EXPOSURE_INCIDENT_001.json\",\r\n    \"expected_incident_sha256\": \"0a418335eb15e95d780887adfbea32539bcb87c48a0e7c0ec25020ca2f5c58d4\",\r\n    \"observed_incident_sha256\": \"0a418335eb15e95d780887adfbea32539bcb87c48a0e7c0ec25020ca2f5c58d4\",\r\n    \"exact_historical_read_operations\": \"UNKNOWN\",\r\n    \"exact_historical_holdout_bytes_read\": \"UNKNOWN\",\r\n    \"canonical_zero_counters_are_current_proof\": false,\r\n    \"certification_effect\": \"NONE\",\r\n    \"errors\": [\r\n      \"HOLDOUT_EXPOSURE_CONFIRMED\"\r\n    ]\r\n  },\r\n  \"observed_state\": {\r\n    \"baseline_generation\": \"GEN-6.11-PASSIVE-EXECUTION-001\",\r\n    \"current_certified_phase\": \"6.11\",\r\n    \"final_holdout_status\": \"LOCKED/UNTOUCHED\",\r\n    \"final_holdout_access_count\": 0,\r\n    \"live_trading_status\": \"BLOCKED\",\r\n    \"allow_live_trading\": false,\r\n    \"lifetime_formal_hypotheses\": 20,\r\n    \"validated_development_edge\": 0,\r\n    \"research_validation_status\": \"PASSIVE_EXECUTION_UNVIABLE (edge=0, camino_b_concluded)\"\r\n  },\r\n  \"unrecorded_counters\": [\r\n    \"holdout_bars_read\",\r\n    \"holdout_bytes_read\"\r\n  ],\r\n  \"limits\": [\r\n    \"Review checks metadata and contracts; it does not certify M0 or authorize M1.\",\r\n    \"Absent bar/byte counters are not evidence of measured zero reads.\",\r\n    \"Preserved UNTOUCHED/zero metadata does not override confirmed exposure.\",\r\n    \"Historical artifact immutability is checked by baseline hashes and the existing gate verifier, not by a new filesystem write interceptor.\"\r\n  ]\r\n}\r\n"
+      }
+    ],
+    "current_fault_cases": [
+      "Confirmed exposure despite historical zeros",
+      "Missing/unreadable/altered incident",
+      "Invalid JSON or shape",
+      "Oversized incident metadata",
+      "Redirected path, symlink and junction aliases",
+      "Administrative closure cannot restore independence",
+      "Successor direct method and CLI denial before legacy proof or bound-source hashing"
+    ]
+  },
+  "independent_review": {
+    "reviewer": "/root/fase61_governance_final",
+    "status": "SCOPED_PASS",
+    "unresolved_material_findings": [],
+    "final_source_hashes": [
+      {
+        "path": "quantumbot_harness/core/holdout_evidence.py",
+        "sha256": "01392854de173b8f8743da58363882a669b4dfca0a3aa57427ae2f53008f7e74"
+      },
+      {
+        "path": "quantumbot_harness/core/m0_invariants.py",
+        "sha256": "8e8e5d5d8dfbea0c058442ee4e3023222292e85b9a9593be76c2581e4e75515a"
+      },
+      {
+        "path": "quantumbot_harness/core/safety_cli.py",
+        "sha256": "4c2eaadee8d80df0a23d0b813c9766bc3bc9ef542b092a5ec8a0fe2d2ce7624c"
+      },
+      {
+        "path": "quantumbot_harness/core/m0_gate_verifier.py",
+        "sha256": "dc45de7d5533704ed0717996b014e9c53658e2b66a85cdcbcc904d73890c5a5f"
+      },
+      {
+        "path": "tests/test_holdout_evidence_guard.py",
+        "sha256": "f2a6b8f4c49f6d28c6ade97cd99e26be61e008e4959594e3fc77c5c4276801b1"
+      },
+      {
+        "path": "tests/test_lineage.json",
+        "sha256": "bcaed6a4b4968218aea222c3903f5278957ac530123c231f9e5556bdd477be97"
+      },
+      {
+        "path": "quantumbot_harness/specs/SPEC-FASE61-HOLDOUT-EVIDENCE-GUARD-001.json",
+        "sha256": "3c6e980dc9984d55d14dd31a14f0af31a5575a57ab14f3d8f67c1f063f068686"
+      },
+      {
+        "path": "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_SNAPSHOT_001.json",
+        "sha256": "60d6958ce601411b3d8c947470e6f8e0ab0baf1c8e3d475fdec893d75e61d498"
+      }
+    ],
+    "specific_suite": {
+      "passed": 43,
+      "exit_code": 0,
+      "output": "43 passed in 1.68s",
+      "hash_before_and_after": "f2a6b8f4c49f6d28c6ade97cd99e26be61e008e4959594e3fc77c5c4276801b1"
+    },
+    "actual_smokes": {
+      "validate_exit_code": 1,
+      "verify_all_exit_code": 1,
+      "reason": "HOLDOUT_EXPOSURE_CONFIRMED"
+    },
+    "snapshot_reconciliation": "Initial test hash 6a3d0d3c115542eea2e035bd84e90553ae93fa07275f6700dee1eeb0e828762c was superseded by f2a6b8f4c49f6d28c6ade97cd99e26be61e008e4959594e3fc77c5c4276801b1 after adding an embedded-content recovery assertion; reviewer independently reran the final snapshot.",
+    "initial_report": "Dictamen independiente: SCOPED_PASS de la implementación del guard. No encontré bugs materiales que permitan un falso PASS en los puntos de entrada sucesores revisados. Los 10 nodos archivados tienen reemplazos actuales identificados. Ceros históricos permanecen observaciones estructurales; no restauran independencia. Contadores exactos continúan UNKNOWN. El harness histórico conserva su semántica y no constituye autoridad actual; no se acredita sandbox global ni aislamiento frente a mutación concurrente del filesystem.",
+    "final_report": "Confirmo SCOPED_PASS sobre el snapshot final consistente. La única adición revisada comprueba SHA-256 de los cuatro contenidos embebidos del snapshot. Suite final: 43 passed in 1.68s. Hash del test, calculado antes y después de ejecutar, idéntico: f2a6b8f4c49f6d28c6ade97cd99e26be61e008e4959594e3fc77c5c4276801b1. Este hash reemplaza 6a3d en mi dictamen anterior. Los restantes hashes y conclusiones permanecen vigentes: guard técnico aprobado en alcance, FASE61/M0 BLOCKED, efecto de certificación NONE, sin sandbox global ni autorización operacional.",
+    "no_project_writes": true,
+    "no_market_payload_access": true
+  },
+  "historical_test_classification": {
+    "archived_nodeids_and_replacements": {
+      "tests/test_harness_m0_safety_cli.py::test_unprotected_read_only_fingerprint_positive_control": "test_successor_direct_commands_reject_before_proof_or_hashing",
+      "tests/test_harness_m0_safety_cli.py::test_safe_validation_positive_control": "test_successor_direct_commands_reject_before_proof_or_hashing",
+      "tests/test_harness_m0_safety_cli.py::test_verified_required_receipts_positive_control": "test_successor_direct_commands_reject_before_proof_or_hashing",
+      "tests/test_harness_m0_safety_cli.py::test_gate_uses_single_checked_receipt_snapshot": "test_successor_direct_commands_reject_before_proof_or_hashing",
+      "tests/test_harness_m0_safety_cli.py::test_historical_evidence_stays_unchanged": "test_archived_assertions_have_current_replacements_and_unchanged_sources",
+      "tests/test_m0_registry_verifier.py::test_registry_is_review_ready_but_formally_blocked": "test_current_registry_blocks_before_bound_source_hashing",
+      "tests/test_m0_registry_verifier.py::test_registry_sources_match": "test_current_registry_blocks_before_bound_source_hashing",
+      "tests/test_m0_registry_verifier.py::test_tampered_bound_source_blocks": "test_current_registry_blocks_before_bound_source_hashing",
+      "quantumbot_harness/tests/test_v2_invariants.py::test_review_reports_actual_metadata_and_unrecorded_counters": "test_current_m0_review_rejects_preserved_zero_metadata",
+      "quantumbot_harness/tests/test_v2_invariants.py::test_missing_evidence_blocks_review": "test_missing_incident_never_means_clean"
+    },
+    "archived_sources_modified": false,
+    "reason": "Prior positive PASS/READY and old source-hash snapshots superseded by confirmed-exposure overlay; exact nodes only, no modules suppressed.",
+    "unarchived_affected_assertions_executed": true
+  },
+  "acceptance_criteria": {
+    "AC-01": "Scoped technical evidence: confirmed/unknown exposure blocked; adversarial fixtures passed.",
+    "AC-02": "Scoped technical evidence: successors block direct and CLI verification before legacy proof or source hashing.",
+    "AC-03": "Scoped technical evidence: 12 preserved bindings match; 4 recoverable source snapshots; 10 exact historical nodes with current replacement coverage.",
+    "AC-04": "Independent scoped code review passed; no formal gate or receipt registration."
+  },
+  "required_canonical_receipts": {
+    "status": "NOT_ISSUED_OR_REGISTERED",
+    "reason": "This additive review is technical evidence only; no canonical index mutation, task closure or gate PASS authorized."
+  },
+  "authority": {
+    "implementation_spec_status": "APPROVED_NOT_CLOSED",
+    "original_disposition_spec_status": "DRAFT",
+    "phase_acceptance": "BLOCKED",
+    "m0_status": "BLOCKED",
+    "m1_authorized": false,
+    "live_trading_allowed": false,
+    "acquisition_authorized": false,
+    "strategy_evaluation_authorized": false,
+    "historical_incident_closed": false,
+    "research": "STOP_PERMANENT_DEVELOPMENT",
+    "hyp21": "STRICTLY_PROHIBITED",
+    "lifetime_formal_hypotheses": 20
+  },
+  "residual_limits": [
+    "Direct historical harness.py remains invocable and can still report obsolete success; it is preserved evidence, not current acceptance authority.",
+    "No global filesystem/process sandbox or resistance to hostile concurrent filesystem substitution is claimed.",
+    "Historical M0 registry source hashes remain tied to the old successor implementation; no silent rebinding or current MATCH assertion is made.",
+    "Prior receipt preflight implementation is preserved in the snapshot, not exercised as an acceptance path; no receipt combination restores independence.",
+    "Integrity comparisons apply to the 12 enumerated metadata/code/test files, not a full dataset hash or exhaustive workspace audit.",
+    "Exposure and historical preregistration failures cannot be cured by this engineering guard."
+  ],
+  "operational_result": "Current successor checks reject stale UNTOUCHED/zero claims. This correction is verified in scope; research and trading progression remain blocked."
+}

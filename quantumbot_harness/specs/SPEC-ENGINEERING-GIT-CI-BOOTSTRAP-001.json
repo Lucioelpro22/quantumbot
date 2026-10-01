@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "spec_id": "SPEC-ENGINEERING-GIT-CI-BOOTSTRAP-001",
+  "title": "Limited engineering Git baseline and fail-closed commit CI",
+  "status": "APPROVED",
+  "owner": "luciano; engineering with independent scoped review",
+  "created_at": "2026-10-01T20:27:47Z",
+  "approved_at": "2026-10-01T20:27:47Z",
+  "approved_by": "User-approved in chat: usemos github autorizo commit acotado",
+  "closed_at": null,
+  "gate_id": null,
+  "objective": "Create a minimal local engineering commit, install a local staged-snapshot check and prepare GitHub Actions without credentials, datasets, trading execution or remote mutations.",
+  "scope_in": [
+    "Explicit allowlist of audited metadata and engineering code; preserve all historical source bytes.",
+    "Trusted out-of-candidate baseline and checker; verify staged/tree paths, modes, object identities and hashes before materialization or executing tests.",
+    "Offline synthetic regressions and current confirmed-exposure BLOCKED disposition from a temporary snapshot, not unstaged workspace files.",
+    "GitHub-hosted workflow pinned checkout action, read-only permissions, trusted baseline commit variable, no auto-install or deployment.",
+    "Repository-local Git author configuration explicitly supplied by user and one limited initial commit."
+  ],
+  "scope_out": [
+    "No git add .; no market payloads, credentials, trading databases, archives, live engine or research pipelines in commit.",
+    "No remote repository creation, remote configuration, push, branch protection mutation or GitHub job dispatch.",
+    "No LIVE, research, acquisition, optimization, backtesting, orders or canonical phase/gate closure.",
+    "No reset/removal of user workspace files or rewriting historical hashes."
+  ],
+  "files_allowed_to_modify": [
+    "scripts/check_operational_commit.py",
+    "tests/test_operational_commit_check.py",
+    ".gitattributes",
+    ".gitignore",
+    ".githooks/pre-commit",
+    ".github/workflows/operational-engineering.yml",
+    "docs/GITHUB_ENGINEERING_SETUP.md",
+    "docs/OPERATIONAL_PRECOMMIT_CI_DIRECTIVE.md",
+    "OPERATIONAL_STATE.md",
+    "quantumbot_harness/specs/SPEC-ENGINEERING-GIT-CI-BOOTSTRAP-001.json",
+    "quantumbot_harness/ci/ENGINEERING_BASELINE_001.json",
+    ".git/hooks/pre-commit",
+    ".git/operational-ci/check_operational_commit.py",
+    ".git/operational-ci/ENGINEERING_BASELINE_001.json"
+  ],
+  "files_forbidden": [
+    ".env",
+    "data/**",
+    "research_data/**",
+    "FINAL_HOLDOUT/**",
+    "database/**",
+    "main.py",
+    "runner.py",
+    "strategies/**",
+    "execution/**",
+    "risk/**",
+    "Existing sealed metadata and audit sources (commit byte-identical only)"
+  ],
+  "data_allowed": [
+    "Explicitly allowlisted code and governance metadata; synthetic test fixtures."
+  ],
+  "data_forbidden": [
+    "Market dataset/holdout payloads, secret values, trading DB contents."
+  ],
+  "acceptance_criteria": [
+    {
+      "criterion_id": "AC-01",
+      "description": "Initial staged set is exact engineering allowlist, no protected payload paths; canonical bytes unchanged.",
+      "verification_method": "Pre-read path/mode/object checks, digest verification and staged-set audit.",
+      "receipt_required": "RECEIPT-GIT-CI-BOOTSTRAP-SCOPE-001"
+    },
+    {
+      "criterion_id": "AC-02",
+      "description": "Staged/tree snapshot check cannot pass using unstaged safe files; missing/changed baseline or incident fails closed.",
+      "verification_method": "Synthetic Git fixtures test changed/extra/missing/symlink/staged-vs-worktree scenarios.",
+      "receipt_required": "RECEIPT-GIT-CI-BOOTSTRAP-TESTS-001"
+    },
+    {
+      "criterion_id": "AC-03",
+      "description": "Offline snapshot guard regressions pass and M0 actual result remains BLOCKED with verified exposure.",
+      "verification_method": "43 guard tests plus strict registry result check in disposable engineering-only snapshot.",
+      "receipt_required": "RECEIPT-GIT-CI-BOOTSTRAP-BLOCK-001"
+    },
+    {
+      "criterion_id": "AC-04",
+      "description": "Independent scoped review confirms local hook and prepared workflow; no claims of active remote CI, branch protection or global sandbox.",
+      "verification_method": "Independent source review and snapshot test reproduction.",
+      "receipt_required": "RECEIPT-GIT-CI-BOOTSTRAP-REVIEW-001"
+    }
+  ],
+  "required_receipts": [
+    "RECEIPT-GIT-CI-BOOTSTRAP-SCOPE-001",
+    "RECEIPT-GIT-CI-BOOTSTRAP-TESTS-001",
+    "RECEIPT-GIT-CI-BOOTSTRAP-BLOCK-001",
+    "RECEIPT-GIT-CI-BOOTSTRAP-REVIEW-001"
+  ],
+  "rollback_plan": "Preserve user files and resulting local commit. No automatic destructive rollback or rewriting history. Hook can block rather than disable controls; remote activation remains separate.",
+  "risks": [
+    {
+      "risk": "Candidate replaces its checker/manifest to grant its own acceptance.",
+      "severity": "HIGH",
+      "mitigation": "Local trust copies outside index; GitHub trusted commit variable and trusted checker from a separate checkout. Candidate bytes never select trust."
+    },
+    {
+      "risk": "Pre-commit skipped or candidate workflow changed outside a protected branch.",
+      "severity": "HIGH",
+      "mitigation": "Local hook is bypassable. Remote rulesets/independent approval remain required and unconfigured; do not claim mandatory CI yet."
+    },
+    {
+      "risk": "Runner dependencies absent or uncontrolled environment.",
+      "severity": "HIGH",
+      "mitigation": "Check preinstalled versions; fail on absence, no downloads. No secret injection; frozen approved source only. Full network/process sandbox not claimed."
+    }
+  ],
+  "dependencies": [
+    "FASE61-HOLDOUT-EVIDENCE-GUARD-REVIEW-001"
+  ],
+  "notes": "A commit/check success is engineering only; FASE61/M0/LIVE remain BLOCKED. Initial baseline is frozen; later code admission needs a newly reviewed trusted baseline, not self-updated candidate metadata. SPEC remains APPROVED, not CLOSED."
+}

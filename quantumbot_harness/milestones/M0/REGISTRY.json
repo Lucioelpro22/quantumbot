@@ -1,0 +1,72 @@
+{
+  "registry_version": "1.0.0",
+  "registry_id": "HARNESS-M0-REGISTRY-001",
+  "spec_id": "SPEC-HARNESS-M0-FORMALIZATION-001",
+  "status": "READY_FOR_INDEPENDENT_REVIEW",
+  "formal_gate_status": "BLOCKED",
+  "certification_effect": "NONE",
+  "approved_scope": {
+    "approved_by": "User-approved in chat",
+    "approved_at": "2026-10-01T10:42:14Z",
+    "approval_note": "Approved the exact M0 formalization SPEC; approval does not certify M0, authorize M1, or authorize LIVE."
+  },
+  "baseline_generation": "GEN-6.11-PASSIVE-EXECUTION-001",
+  "inherited_invariants_source": "quantumbot_harness/policies/V2_INVARIANTS.json",
+  "required_receipts": [
+    "RECEIPT-M0-AUTHORIZATION-001",
+    "RECEIPT-M0-CONTROLS-001",
+    "RECEIPT-M0-INVARIANTS-001",
+    "RECEIPT-M0-PRESERVATION-001",
+    "RECEIPT-M0-INDEPENDENT-AUDIT-001"
+  ],
+  "required_receipts_status": "NOT_REGISTERED",
+  "known_blockers": [
+    "Historical holdout bar/byte reads are not measured in PROJECT_STATE; UNKNOWN is not treated as zero.",
+    "The canonical task/receipt/gate ledgers cannot be mutated by this registry; M0 receipts are not yet independently registered.",
+    "Direct historical harness entry points remain accessible; residual risk accepted by human reviewer for this scope, with no sandbox-global claim.",
+    "Independent auditor must reconstruct a future formal M0 gate; this registry does not self-certify."
+  ],
+  "immutable_state_expectations": {
+    "current_certified_phase": "6.11",
+    "final_holdout_status": "LOCKED/UNTOUCHED",
+    "final_holdout_access_count": 0,
+    "live_trading_status": "BLOCKED",
+    "allow_live_trading": false,
+    "lifetime_formal_hypotheses": 20,
+    "validated_development_edge": 0,
+    "research_validation_status": "PASSIVE_EXECUTION_UNVIABLE (edge=0, camino_b_concluded)"
+  },
+  "bound_sources": {
+    "quantumbot_harness/core/safety_cli.py": "cb5d2cae67bde60c83f2e6bec55ec3516aa8eb79d44020107e9e77e08ad09ef3",
+    "scripts/run_harness_v2_safe.py": "ac4007f2a423b2cae113fac6a5757baa58a07a0ba57e92a239d32c8c5f480459",
+    "tests/test_harness_m0_safety_cli.py": "73d04f1d0d4982621d74be55c14e05f79c6ee58a084aa22e0336d73380640fae",
+    "tests/test_m0_formalization_draft.py": "36aeb2ae4db62cbaa26fffb61bcd0fef8f3d464439cc31ed478d417e21b608c8",
+    "quantumbot_harness/specs/SPEC-HARNESS-M0-FORMALIZATION-001.json": "30b22eec1d9d1588194c037eade86c8d83ee0617ff0db41ffa18f6b44e7ee3f9",
+    "quantumbot_harness/docs/M0_FORMALIZATION_PLAN.md": "a949c036b66c1f06a5e5b36ea08ade9e1136c5ba4b90ea113e11ae273aa57a5a",
+    "quantumbot_harness/docs/M0_RECEIPT_STATUS_CORRECTION.md": "990bf66a5c8fb8c7abfc5eb8312afda8215ffe9b9b32a98031950e73a8789fd0",
+    "harness.py": "b6eefcba50ed0bc520c25dc048a1f1ffd5358dc975d82e64af65036a3ed7bd27"
+  },
+  "preservation_evidence": {
+    "source": "quantumbot_harness/docs/M0_RECEIPT_STATUS_CORRECTION_EVIDENCE.json",
+    "historical_files_checked": 57,
+    "prior_snapshots_checked": 61,
+    "changed_historical_paths": [],
+    "deleted_artifacts": []
+  },
+  "verification_commands": [
+    "python -B -m pytest -q -p no:cacheprovider tests/test_harness_m0_safety_cli.py quantumbot_harness/tests/test_v2_invariants.py tests/test_v2_invariants.py tests/test_harness_v2_compatibility.py tests/test_current_harness_reconciliation.py tests/test_m0_formalization_draft.py",
+    "python -B scripts/run_harness_v2_safe.py validate",
+    "python -B scripts/run_harness_v2_safe.py verify-all GATE-FASE611-PASSIVE-EXECUTION-001"
+  ],
+  "verification_observation": {
+    "tests_passed": 151,
+    "safe_validate_exit_code": 0,
+    "fase611_verify_all_exit_code": 0,
+    "current_fase611_drift": 0
+  },
+  "next_action": "EXTERNAL_REVIEW",
+  "m1_authorized": false,
+  "live_trading_allowed": false,
+  "final_holdout_accessed": false,
+  "notes": "This registry is an additive engineering artifact. It is not a canonical task receipt, formal PASS gate, certification authority, or substitute for missing measurements."
+}

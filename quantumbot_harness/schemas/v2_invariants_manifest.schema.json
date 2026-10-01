@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Harness V2 M0 invariant manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "name", "description", "invariants"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "name": {"const": "V2_INVARIANTS"},
+    "description": {"type": "string", "minLength": 1},
+    "invariants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "FINAL_HOLDOUT", "holdout_access_count", "holdout_bars_read", "holdout_bytes_read",
+        "ALLOW_LIVE_TRADING", "LIVE", "HYP-21", "RESEARCH", "historical_receipts",
+        "frozen_candidates", "historical_gates", "deterministic_certification_authority",
+        "no_self_certification", "no_implicit_PAPER_to_LIVE"
+      ],
+      "properties": {
+        "FINAL_HOLDOUT": {"const": "LOCKED / UNTOUCHED"},
+        "holdout_access_count": {"type": "integer", "const": 0},
+        "holdout_bars_read": {"type": "integer", "const": 0},
+        "holdout_bytes_read": {"type": "integer", "const": 0},
+        "ALLOW_LIVE_TRADING": {"type": "boolean", "const": false},
+        "LIVE": {"const": "BLOCKED"},
+        "HYP-21": {"const": "STRICTLY_PROHIBITED"},
+        "RESEARCH": {"const": "STOP_PERMANENT_DEVELOPMENT"},
+        "historical_receipts": {"const": "immutable"},
+        "frozen_candidates": {"const": "immutable"},
+        "historical_gates": {"const": "immutable"},
+        "deterministic_certification_authority": {"const": "preserved"},
+        "no_self_certification": {"type": "boolean", "const": true},
+        "no_implicit_PAPER_to_LIVE": {"type": "boolean", "const": true}
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+name: Operational engineering
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  engineering-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Require independently approved full baseline commit
+        env:
+          BASELINE_COMMIT: ${{ vars.OPERATIONAL_BASELINE_COMMIT }}
+        run: |
+          [[ "$BASELINE_COMMIT" =~ ^[0-9a-f]{40}$ ]] || {
+            echo 'Missing trusted baseline; integration BLOCKED'; exit 1;
+          }
+      - name: Checkout trusted baseline separately
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ vars.OPERATIONAL_BASELINE_COMMIT }}
+          path: trusted
+          persist-credentials: false
+      - name: Bind candidate metadata without fetching candidate files
+        shell: bash
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+          GH_READ_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          python -I -B - <<'PY'
+          import importlib.util, json, os, re, subprocess, urllib.request
+          from pathlib import Path
+          root = Path(os.environ['GITHUB_WORKSPACE']) / 'trusted'
+          spec = importlib.util.spec_from_file_location('trusted_check', root / 'scripts/check_operational_commit.py')
+          check = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(check)
+          sha, repo = os.environ['CANDIDATE_SHA'], os.environ['GH_REPOSITORY']
+          if not re.fullmatch(r'[0-9a-f]{40}', sha) or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repo):
+              raise SystemExit('INVALID_CANDIDATE_METADATA')
+          tree = check.git(root, 'rev-parse', 'HEAD^{tree}').decode().strip()
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *args, **kwargs):
+                  raise RuntimeError('REMOTE_METADATA_REDIRECT_DENIED')
+          request = urllib.request.Request(
+              f'https://api.github.com/repos/{repo}/git/commits/{sha}',
+              headers={'Accept': 'application/vnd.github+json',
+                       'Authorization': 'Bearer ' + os.environ['GH_READ_TOKEN'],
+                       'X-GitHub-Api-Version': '2026-03-10'},
+          )
+          opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
+          with opener.open(request, timeout=30) as response:
+              payload = response.read(1024 * 1024 + 1)
+          if len(payload) > 1024 * 1024:
+              raise SystemExit('REMOTE_COMMIT_METADATA_TOO_LARGE')
+          check.check_remote_commit_metadata(sha, tree, json.loads(payload))
+          print('CANDIDATE_COMMIT=' + sha + '; APPROVED_TREE=' + tree)
+          baseline = check.git(root, 'rev-parse', 'HEAD').decode().strip()
+          raise SystemExit(check.main([
+              '--repo', str(root), '--commit', baseline,
+              '--trusted-manifest', str(root / check.MANIFEST_PATH),
+          ]))
+          PY

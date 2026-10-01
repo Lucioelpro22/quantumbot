@@ -1,0 +1,49 @@
+{
+  "report_id": "FASE61-HOLDOUT-EXPOSURE-INCIDENT-001",
+  "issued_at": "2026-10-01T16:51:52Z",
+  "status": "OPEN_GOVERNANCE_INCIDENT",
+  "historical_holdout_exposure": "CONFIRMED",
+  "finding": "Prior FASE61 commands read and hashed complete mixed CSVs and published diagnostics spanning the reserved holdout period. This is access to holdout content regardless of whether HoldoutVault was called.",
+  "partition": {
+    "development_rows": 47376,
+    "development_end": "2026-02-06T11:45:00Z",
+    "holdout_rows": 20304,
+    "holdout_start": "2026-02-06T12:00:00Z"
+  },
+  "measurement_limits": {
+    "exposed_ohlcv_partition_rows": 20304,
+    "exact_historical_read_operations": "UNKNOWN",
+    "exact_historical_holdout_bytes_read": "UNKNOWN",
+    "exposed_partition_rows_are_not_read_operation_counters": true
+  },
+  "invalidated_claims": [
+    "Prior reports asserting holdout_accessed=false for runs reading the complete mixed RAW are incorrect.",
+    "Canonical PROJECT_STATE final_holdout_access_count=0 and LOCKED/UNTOUCHED are preserved historical metadata, not current proof of no exposure.",
+    "Truncating later diagnostics cannot restore the independence of previously exposed holdout observations."
+  ],
+  "inadmissible_for_phase_acceptance": [
+    "quantumbot_harness/docs/FASE61_PRESTATE_DATA_LINEAGE.json",
+    "quantumbot_harness/docs/FASE61_DATA_QUALITY_REPORT.json",
+    "quantumbot_harness/docs/FASE61_DESCRIPTIVE_DIAGNOSTICS.json",
+    "quantumbot_harness/docs/FASE61_DESCRIPTIVE_DIAGNOSTICS_DEV_ONLY.json"
+  ],
+  "qualified_prior_artifacts": [
+    "quantumbot_harness/docs/FASE61_SCOPE_CORRECTION.json",
+    "quantumbot_harness/docs/FASE61_DESCRIPTIVE_DIAGNOSTICS_DEV_ONLY_V2.json",
+    "quantumbot_harness/docs/FASE61_DATA_QUALITY_DEV_ONLY.json",
+    "quantumbot_harness/docs/FASE61_DEV_ONLY_SOURCE_BOUND_RECEIPT.json"
+  ],
+  "disposition": {
+    "preserve_all_prior_artifacts": true,
+    "historical_holdout_independence": "COMPROMISED_FOR_THIS_WORKFLOW",
+    "future_holdout_acceptance": "REQUIRES_SEPARATE_REVIEWED_DISPOSITION",
+    "no_automatic_holdout_replacement_or_burn": true,
+    "current_technical_review_allowed": "Only bounded DEVELOPMENT reader and descriptive diagnostics",
+    "formal_phase_status": "BLOCKED",
+    "ac04_full_history": "FAIL",
+    "m0_status": "BLOCKED",
+    "live_trading_authorized": false,
+    "canonical_metadata_mutated": false
+  },
+  "notes": "This report supersedes prior blanket assurances that holdout was untouched. It records an engineering/governance incident; it does not authorize changing historical counters or certify any research edge."
+}

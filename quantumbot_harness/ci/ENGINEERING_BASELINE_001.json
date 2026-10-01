@@ -1,0 +1,229 @@
+{
+  "baseline_id": "ENGINEERING-BASELINE-001",
+  "certification_effect": "NONE",
+  "operational_execution": "BLOCKED",
+  "admission": "FROZEN_REVIEWED_ENGINEERING_ONLY",
+  "dependencies": {
+    "pytest": "9.1.1",
+    "jsonschema": "4.26.0"
+  },
+  "guard_tests": 43,
+  "commit_check_tests": 20,
+  "files": {
+    ".gitattributes": {
+      "sha256": "9462a474dcc7adc6e6fe1e19a16c3464bb4bddf04576a6157d3d4cb67e7241f2",
+      "git_blob_sha1": "fd66f2652857fd509ffdae095e91cef03408d58f",
+      "mode": "100644"
+    },
+    ".gitignore": {
+      "sha256": "a12390ca72bb4966b122a82aeee3c0367dedb3527e1273c4dbbafee28a85de75",
+      "git_blob_sha1": "8e44418fd93047a0e20213d58356cd3965fcea3e",
+      "mode": "100644"
+    },
+    ".githooks/pre-commit": {
+      "sha256": "f2a9107ad752270f10b20abfccc1fa6263f503a5037b7c95f07f7d90e07d4033",
+      "git_blob_sha1": "076205a31dde5832a7b72d2ea9f607f0eab85aa8",
+      "mode": "100644"
+    },
+    ".github/workflows/operational-engineering.yml": {
+      "sha256": "133aed534bc4c5417c799bf268b6a0c6fd2be8723e42b5cad159c1fe4068f76e",
+      "git_blob_sha1": "504b1241e0568e2576b11694fc32302cc6520ef2",
+      "mode": "100644"
+    },
+    "OPERATIONAL_STATE.md": {
+      "sha256": "43452148abd594e7c651f4fe3840faa0ec01a60540c4e98b0df1ed649b3b3d50",
+      "git_blob_sha1": "aeb9800327cf7da5c181a687e6ebd3989584105e",
+      "mode": "100644"
+    },
+    "docs/OPERATIONAL_PRECOMMIT_CI_DIRECTIVE.md": {
+      "sha256": "5cc17d07dbbea9a70fc9f370ebdde3d6170dd0ca652a96256bce236f7d3bd323",
+      "git_blob_sha1": "facfc6bb870df70b5947e71fbcd5245d3a0a2358",
+      "mode": "100644"
+    },
+    "docs/GITHUB_ENGINEERING_SETUP.md": {
+      "sha256": "3e36882229b26378bbadf10fd6efec9b646238fc37b17b36152cb4503aacd1fc",
+      "git_blob_sha1": "3cdf0082a3904deaa702208276b04582f15804f5",
+      "mode": "100644"
+    },
+    "scripts/check_operational_commit.py": {
+      "sha256": "9a70d53ad7f5a69518a5c9959256c8644a68e798768fe249ae7072b7623e13be",
+      "git_blob_sha1": "e47f2afa4418b60165da05fcd042bc1e7dbd5576",
+      "mode": "100644"
+    },
+    "scripts/run_m0_registry_verifier.py": {
+      "sha256": "c5c4abdba348f94296b6f5338740b342f99801bffb24755a965ee32be6c587ab",
+      "git_blob_sha1": "b7f5cd937dc95170d9a341562d09187d2e159329",
+      "mode": "100644"
+    },
+    "scripts/run_harness_v2_safe.py": {
+      "sha256": "ac4007f2a423b2cae113fac6a5757baa58a07a0ba57e92a239d32c8c5f480459",
+      "git_blob_sha1": "1719f7878181c5103214f106ff3265c09b4a9fa2",
+      "mode": "100644"
+    },
+    "tests/test_operational_commit_check.py": {
+      "sha256": "f43a389c08df9ae242231de290f2520ae693d4e9792ed1e5da31996938dc511f",
+      "git_blob_sha1": "6cfe2382c79ad985aa69927730ed090abb20662d",
+      "mode": "100644"
+    },
+    "tests/test_holdout_evidence_guard.py": {
+      "sha256": "f2a6b8f4c49f6d28c6ade97cd99e26be61e008e4959594e3fc77c5c4276801b1",
+      "git_blob_sha1": "3a767c3361a3517e7e208a774130589ae0744f3d",
+      "mode": "100644"
+    },
+    "tests/test_lineage.json": {
+      "sha256": "bcaed6a4b4968218aea222c3903f5278957ac530123c231f9e5556bdd477be97",
+      "git_blob_sha1": "e2c3b03b49225e0be473d832683008acfc5574a8",
+      "mode": "100644"
+    },
+    "conftest.py": {
+      "sha256": "9d7b016e4a82ffac00189bb3236104fd856606efa05fe6956788052fc8000d96",
+      "git_blob_sha1": "b07558a7f0b04abb946f229f3e0a0da0ea7f3cfa",
+      "mode": "100644"
+    },
+    "pytest.ini": {
+      "sha256": "860bb32f8cc023f1c12929a848d59573da55ee7caff64d909e051c2f4475da12",
+      "git_blob_sha1": "c0a782d8b4c45f61366f8630a69268ee42ec52db",
+      "mode": "100644"
+    },
+    "harness.py": {
+      "sha256": "b6eefcba50ed0bc520c25dc048a1f1ffd5358dc975d82e64af65036a3ed7bd27",
+      "git_blob_sha1": "d5722d74b6c3e0be1174ebef3fb74982d93acbd0",
+      "mode": "100644"
+    },
+    "quantumbot_harness/core/holdout_evidence.py": {
+      "sha256": "01392854de173b8f8743da58363882a669b4dfca0a3aa57427ae2f53008f7e74",
+      "git_blob_sha1": "d1bd14cd2bb5e7a953bad038b3725895f3be5e14",
+      "mode": "100644"
+    },
+    "quantumbot_harness/core/m0_invariants.py": {
+      "sha256": "8e8e5d5d8dfbea0c058442ee4e3023222292e85b9a9593be76c2581e4e75515a",
+      "git_blob_sha1": "61f1f91f57627d5a9f6c145863d7c0d559c4ea4f",
+      "mode": "100644"
+    },
+    "quantumbot_harness/core/safety_cli.py": {
+      "sha256": "4c2eaadee8d80df0a23d0b813c9766bc3bc9ef542b092a5ec8a0fe2d2ce7624c",
+      "git_blob_sha1": "6ec4227e0c20ac2d6f923588a3ae5487941f2038",
+      "mode": "100644"
+    },
+    "quantumbot_harness/core/m0_gate_verifier.py": {
+      "sha256": "dc45de7d5533704ed0717996b014e9c53658e2b66a85cdcbcc904d73890c5a5f",
+      "git_blob_sha1": "03de1461ef233039dabcb7d8eaec4c04b3f9b563",
+      "mode": "100644"
+    },
+    "quantumbot_harness/policies/V2_INVARIANTS.json": {
+      "sha256": "dd0eaf76e557ce4d28b53f6622afb63eca04cba627f13ff64755ec6bfed395cf",
+      "git_blob_sha1": "43a2a0cb65a5ce0d3fed04e086f11a5bf83b54db",
+      "mode": "100644"
+    },
+    "quantumbot_harness/policies/HARNESS_POLICY.md": {
+      "sha256": "c36b37da25b2a5e618e11335aadb3df60bdbbacde389084beb592bece01e0bc8",
+      "git_blob_sha1": "9c561738a20e8d076b2d1987b96c0917d7379c0b",
+      "mode": "100644"
+    },
+    "quantumbot_harness/schemas/v2_invariants_manifest.schema.json": {
+      "sha256": "aafccf422d98f8dd152e3815c787f7d21a1471c92598508d4b82283f3c8e0db6",
+      "git_blob_sha1": "20ece931652dfbad24c0258f946c524784d366cb",
+      "mode": "100644"
+    },
+    "quantumbot_harness/schemas/spec.schema.json": {
+      "sha256": "9c86baa4ee6710fa7ddc17230f44970328a5fb5490c8f2b251df450ea5f3e52c",
+      "git_blob_sha1": "5a814f1e448940d2c332c87b68467d04584e23b1",
+      "mode": "100644"
+    },
+    "quantumbot_harness/specs/SPEC-HARNESS-V2-ENGINEERING-001.json": {
+      "sha256": "13770aca83e5e6e6e05064b722a9ffb46745ec815b80bd8fe0470b559aede820",
+      "git_blob_sha1": "f8bce34b8d5cf0acca8e8c0b956fd862ab259052",
+      "mode": "100644"
+    },
+    "quantumbot_harness/specs/SPEC-HARNESS-M0-FORMALIZATION-001.json": {
+      "sha256": "30b22eec1d9d1588194c037eade86c8d83ee0617ff0db41ffa18f6b44e7ee3f9",
+      "git_blob_sha1": "5031f63c80841f5555674f430f3ea5b8eeb06c93",
+      "mode": "100644"
+    },
+    "quantumbot_harness/specs/SPEC-FASE61-HOLDOUT-EVIDENCE-GUARD-001.json": {
+      "sha256": "3c6e980dc9984d55d14dd31a14f0af31a5575a57ab14f3d8f67c1f063f068686",
+      "git_blob_sha1": "b8e86a2b6000a5669657d8ca12b55d4caa747ea4",
+      "mode": "100644"
+    },
+    "quantumbot_harness/specs/SPEC-ENGINEERING-GIT-CI-BOOTSTRAP-001.json": {
+      "sha256": "f3fef7b23b3c6ecd3dca3205bc601be4b319874cc79965ecd4a4d3d5731e18ba",
+      "git_blob_sha1": "ccc1d9a8f3baee82182ed9f1fc9768ae8e383490",
+      "mode": "100644"
+    },
+    "quantumbot_harness/PROJECT_STATE.json": {
+      "sha256": "f130140c6163b597fc08252e624e1d8d639c0fdf829bec463b2fb7e375fb54a6",
+      "git_blob_sha1": "91dd55a19619cb3217d45127a40342ae00b0b323",
+      "mode": "100644"
+    },
+    "quantumbot_harness/receipts/index.json": {
+      "sha256": "033dd8a5d6a3de80b38f4447495647ac9b96807333a8e0436aa8bd43d11635e0",
+      "git_blob_sha1": "786e9072ef50dbb55cddba86a86c72a520bf301a",
+      "mode": "100644"
+    },
+    "quantumbot_harness/tasks/TASK_LEDGER.json": {
+      "sha256": "31d98dff47232dc59a1a38a51c626bceff320cc06fa80d3663fca912e8164dd9",
+      "git_blob_sha1": "24ea8f8c90d01935336aeaa69bb165eb66ef498f",
+      "mode": "100644"
+    },
+    "quantumbot_harness/milestones/M0/REGISTRY.json": {
+      "sha256": "b96bd3bea14952adf6ae98d6e53520e1b5e9654c95087dd71441907a6c9d13d8",
+      "git_blob_sha1": "47d919655036aea3669b1efc8c48f51bb8235e49",
+      "mode": "100644"
+    },
+    "quantumbot_harness/docs/FASE61_HOLDOUT_EXPOSURE_INCIDENT_001.json": {
+      "sha256": "0a418335eb15e95d780887adfbea32539bcb87c48a0e7c0ec25020ca2f5c58d4",
+      "git_blob_sha1": "53b74b0c37d9ab222ee748c05b4e6f72b5543080",
+      "mode": "100644"
+    },
+    "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_SNAPSHOT_001.json": {
+      "sha256": "60d6958ce601411b3d8c947470e6f8e0ab0baf1c8e3d475fdec893d75e61d498",
+      "git_blob_sha1": "40adac62c99ef371b2d5b2b6947ce83590f09170",
+      "mode": "100644"
+    },
+    "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_REVIEW_001.json": {
+      "sha256": "dc896777b9d4f7045f0f4f84561d4f1dcd5bd538dc07c66d4026fdfc0b33a11c",
+      "git_blob_sha1": "da9571d29033e072700baa5f0986ab420a41474a",
+      "mode": "100644"
+    },
+    "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_001.md": {
+      "sha256": "f72cd371d555e2425485574a1eae4eeca59da79486f9a675e4b75f390b3a055e",
+      "git_blob_sha1": "e974279c7a84ba0173604816cd58e8f9f618cedc",
+      "mode": "100644"
+    },
+    "tests/test_harness_m0_safety_cli.py": {
+      "sha256": "73d04f1d0d4982621d74be55c14e05f79c6ee58a084aa22e0336d73380640fae",
+      "git_blob_sha1": "2522b0c7e48b26c0d42c5879650c101d86859ba2",
+      "mode": "100644"
+    },
+    "tests/test_m0_registry_verifier.py": {
+      "sha256": "6631ac8a69d155dba1d57c45dfd49e3d483e4f4e93050566214f4db85cc45d78",
+      "git_blob_sha1": "0d03efb5196315a91f549589abec3734ce5c7788",
+      "mode": "100644"
+    },
+    "quantumbot_harness/tests/test_v2_invariants.py": {
+      "sha256": "7dd6e2603063943f98f37834eb9341b2af0abd5a2a48add67f715251a8f93fd2",
+      "git_blob_sha1": "b67eaec5663512d638f56ca7eb0b5b4b7cff6312",
+      "mode": "100644"
+    },
+    "tests/test_current_harness_reconciliation.py": {
+      "sha256": "53a385dbafce66af337b21f7c4beb2ad76aaefc3a844d794b21b08a0e8f42ff7",
+      "git_blob_sha1": "fe93ad337bf22ace03364298e477d2ffcd4846e1",
+      "mode": "100644"
+    },
+    "tests/test_m0_formalization_draft.py": {
+      "sha256": "36aeb2ae4db62cbaa26fffb61bcd0fef8f3d464439cc31ed478d417e21b608c8",
+      "git_blob_sha1": "e26b1c59312ce0f83d1b3160af67897262ae96c8",
+      "mode": "100644"
+    },
+    "quantumbot_harness/docs/M0_FORMALIZATION_PLAN.md": {
+      "sha256": "a949c036b66c1f06a5e5b36ea08ade9e1136c5ba4b90ea113e11ae273aa57a5a",
+      "git_blob_sha1": "6843bc4bdda2d877d69f190b883d872ae12b0b39",
+      "mode": "100644"
+    },
+    "quantumbot_harness/docs/M0_RECEIPT_STATUS_CORRECTION.md": {
+      "sha256": "990bf66a5c8fb8c7abfc5eb8312afda8215ffe9b9b32a98031950e73a8789fd0",
+      "git_blob_sha1": "e60cd9cae15057950ac5380f57a4695789eca7f1",
+      "mode": "100644"
+    }
+  }
+}

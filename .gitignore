@@ -1,0 +1,31 @@
+# QuantumBot Pro FASE 5 Ignored Files
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+env/
+.env
+*.lease
+*.lease.tmp
+
+# CRITICAL INVARIANTS - DO NOT COMMITT
+research_data/FINAL_HOLDOUT/
+FINAL_HOLDOUT/
+quantumbot_harness/state/CERTIFICATION_LOCK.json
+
+# Engineering-only baseline: never stage payloads or local secrets.
+data/
+research_data/
+database/
+logs/
+backups/
+.codex-remote-attachments/
+.coverage
+*.db
+*.sqlite3
+*.pid
+*.zip
+*.env
+.env.*
+*.pem
+*.pfx

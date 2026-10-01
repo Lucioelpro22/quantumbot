@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "spec_id": "SPEC-FASE61-HOLDOUT-EVIDENCE-GUARD-001",
+  "title": "Reject stale untouched evidence using preserved exposure incident",
+  "status": "APPROVED",
+  "owner": "User; engineering implementation with scoped independent review",
+  "created_at": "2026-10-01T17:32:29Z",
+  "approved_at": "2026-10-01T17:32:29Z",
+  "approved_by": "User-approved in chat: bueno dale hacelo y se determinante",
+  "closed_at": null,
+  "gate_id": null,
+  "objective": "Make current successor verifiers fail closed on confirmed or unverifiable holdout exposure while preserving all historical evidence and blocking LIVE.",
+  "rationale": "User explicitly authorized the narrowly proposed correction of integrity. This is separate from the design-only holdout disposition SPEC and authorizes engineering guard/test changes only.",
+  "scope_in": [
+    "Pinned immutable incident snapshot: metadata-only, bounded read, hash and shape validation, alias denial; confirmed exposure always BLOCKED even if incident administratively closed.",
+    "Integrate guard into current M0 review, registry verifier, and successor validate/gate/verify-all/fingerprint entry points before delegated verification or source hashing.",
+    "Preserve stale historical metadata as observations only, include effective disposition and UNKNOWN exact counters.",
+    "Keep historical test sources byte-identical; classify only superseded node assertions with named current replacement regressions.",
+    "Retain pre-change source snapshot, execute targeted nonmarket tests and independent code review."
+  ],
+  "scope_out": [
+    "Any trading-engine/runtime/configuration change, runner, acquisition, order or market payload read.",
+    "Changes to historical harness.py, canonical PROJECT_STATE, receipt index, task ledger, gates, M0 registry, invariant policies, existing incident or prior sealed reports.",
+    "New hypotheses, reopening HYP019, resetting lifetime20, resuming permanent research stop, dataset replacement, incident closure, or phase/M0 certification."
+  ],
+  "files_allowed_to_modify": [
+    "quantumbot_harness/core/holdout_evidence.py",
+    "quantumbot_harness/core/m0_invariants.py",
+    "quantumbot_harness/core/safety_cli.py",
+    "quantumbot_harness/core/m0_gate_verifier.py",
+    "tests/test_holdout_evidence_guard.py",
+    "tests/test_lineage.json",
+    "quantumbot_harness/specs/SPEC-FASE61-HOLDOUT-EVIDENCE-GUARD-001.json",
+    "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_SNAPSHOT_001.json",
+    "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_REVIEW_001.json",
+    "quantumbot_harness/docs/FASE61_HOLDOUT_EVIDENCE_GUARD_001.md"
+  ],
+  "files_forbidden": [
+    "harness.py",
+    "quantumbot_harness/PROJECT_STATE.json",
+    "quantumbot_harness/receipts/index.json",
+    "quantumbot_harness/tasks/TASK_LEDGER.json",
+    "quantumbot_harness/milestones/M0/REGISTRY.json",
+    "quantumbot_harness/policies/V2_INVARIANTS.json",
+    "quantumbot_harness/policies/HARNESS_POLICY.md",
+    "quantumbot_harness/docs/FASE61_HOLDOUT_EXPOSURE_INCIDENT_001.json",
+    "quantumbot_harness/gates/**",
+    "Existing tests except tests/test_lineage.json",
+    "data/raw/bybit/**",
+    "FINAL_HOLDOUT/**",
+    ".env",
+    "database/quantumbot.db",
+    "main.py",
+    "runner.py",
+    "config/settings.yaml"
+  ],
+  "data_allowed": [
+    "Governance and code/test metadata; synthetic fixtures only."
+  ],
+  "data_forbidden": [
+    "Real market payloads, credentials, trading databases, full mixed RAW and FINAL_HOLDOUT."
+  ],
+  "acceptance_criteria": [
+    {
+      "criterion_id": "AC-01",
+      "description": "Confirmed exposure or missing/altered/malformed/redirected incident blocks current evidence; historical zeros never establish independence.",
+      "verification_method": "Synthetic adversarial tests and actual metadata-only BLOCKED smoke.",
+      "receipt_required": "RECEIPT-FASE61-HOLDOUT-GUARD-TESTS-001"
+    },
+    {
+      "criterion_id": "AC-02",
+      "description": "Successor verifiers reject before legacy validation or source hashing, including direct gate calls.",
+      "verification_method": "Sentinel spies prove forbidden delegates are never called.",
+      "receipt_required": "RECEIPT-FASE61-HOLDOUT-GUARD-INTEGRATION-001"
+    },
+    {
+      "criterion_id": "AC-03",
+      "description": "Historical sources are unchanged and superseded assertions are explicitly classified with replacement coverage.",
+      "verification_method": "Programmatic source hashes and test lineage checks.",
+      "receipt_required": "RECEIPT-FASE61-HOLDOUT-GUARD-PRESERVATION-001"
+    },
+    {
+      "criterion_id": "AC-04",
+      "description": "Independent review confirms scoped engineering behavior; phase/M0 remain BLOCKED, LIVE false and no canonical gate issued.",
+      "verification_method": "Independent reviewer synthetic suite/code review plus final bound report.",
+      "receipt_required": "RECEIPT-FASE61-HOLDOUT-GUARD-REVIEW-001"
+    }
+  ],
+  "required_receipts": [
+    "RECEIPT-FASE61-HOLDOUT-GUARD-TESTS-001",
+    "RECEIPT-FASE61-HOLDOUT-GUARD-INTEGRATION-001",
+    "RECEIPT-FASE61-HOLDOUT-GUARD-PRESERVATION-001",
+    "RECEIPT-FASE61-HOLDOUT-GUARD-REVIEW-001"
+  ],
+  "rollback_plan": "Preserve pre-change snapshot. Do not automatically remove fail-closed checks or restore obsolete PASS assertions; any rollback requires explicit authority and keeps incident/execution blocked.",
+  "risks": [
+    {
+      "risk": "Legacy direct harness invocation bypasses successor guard.",
+      "severity": "HIGH",
+      "mitigation": "Historical harness remains immutable; document it as historical only, never current certification authority. Guard every supported successor entry point; no sandbox-wide guarantee."
+    },
+    {
+      "risk": "Changing verifier sources invalidates historical registry bindings.",
+      "severity": "HIGH",
+      "mitigation": "Preserve registry/receipts; report snapshot staleness explicitly without rebinding or inferring PASS."
+    },
+    {
+      "risk": "Archiving old assertions hides actual regressions.",
+      "severity": "HIGH",
+      "mitigation": "Archive exact nodes only, preserve files, name replacement tests and execute all unarchived affected tests."
+    }
+  ],
+  "dependencies": [
+    "FASE61-HOLDOUT-EXPOSURE-INCIDENT-001",
+    "FASE61-HOLDOUT-DISPOSITION-DESIGN-REVIEW-001"
+  ],
+  "notes": "Approval inferred only for the exact engineering correction requested directly by the user; no approval of future collection/evaluation. SPEC remains APPROVED rather than CLOSED until formal gate requirements are met; evidence report is noncanonical."
+}

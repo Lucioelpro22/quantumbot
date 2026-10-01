@@ -1,0 +1,8 @@
+#!/bin/sh
+# Trusted local copies are installed separately after review, never auto-updated.
+set -eu
+repo=$(git rev-parse --show-toplevel)
+trust=$(git rev-parse --absolute-git-dir)/operational-ci
+test -f "$trust/check_operational_commit.py"
+test -f "$trust/ENGINEERING_BASELINE_001.json"
+exec python -I -B "$trust/check_operational_commit.py" --repo "$repo" --trusted-manifest "$trust/ENGINEERING_BASELINE_001.json"
