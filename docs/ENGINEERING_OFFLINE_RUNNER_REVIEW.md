@@ -23,7 +23,10 @@ checkout action. Dependencies must be visible under `python -I`; user-site or
 Python and distribution versions before acquiring repository code. The original
 checker independently checks exact dependencies again. Candidate tree equality,
 trusted checkout SHA, token permissions and expected confirmed-exposure failure
-semantics remain intact.
+semantics remain intact. The stable `engineering-only` aggregate always runs and
+fails if either environment admission or offline checks failed, were cancelled or
+were skipped; a skipped dependency cannot satisfy the required engineering check.
+Container run steps explicitly use Bash for the existing Bash baseline checks.
 
 ## Review and activation procedure
 

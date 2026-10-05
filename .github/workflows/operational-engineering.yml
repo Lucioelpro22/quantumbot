@@ -26,9 +26,12 @@ jobs:
             echo 'Missing approved engineering image digest; integration BLOCKED'; exit 1;
           }
           printf 'image=%s\n' "$ENGINEERING_IMAGE" >> "$GITHUB_OUTPUT"
-  engineering-only:
+  offline-engineering:
     needs: approved-environment
     runs-on: ubuntu-24.04
+    defaults:
+      run:
+        shell: bash
     container:
       image: ${{ needs.approved-environment.outputs.image }}
       options: --cap-drop=ALL --security-opt=no-new-privileges
@@ -102,3 +105,19 @@ jobs:
               '--trusted-manifest', str(root / check.MANIFEST_PATH),
           ]))
           PY
+  engineering-only:
+    if: ${{ always() }}
+    needs: [approved-environment, offline-engineering]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require successful environment and complete offline admission
+        shell: bash
+        env:
+          ENVIRONMENT_RESULT: ${{ needs.approved-environment.result }}
+          ADMISSION_RESULT: ${{ needs.offline-engineering.result }}
+        run: |
+          [[ "$ENVIRONMENT_RESULT" == success && "$ADMISSION_RESULT" == success ]] || {
+            echo 'Engineering integration BLOCKED; required admission did not succeed'; exit 1;
+          }
+          echo 'ENGINEERING_CHECK_OK; OPERATIONAL_EXECUTION_BLOCKED'
