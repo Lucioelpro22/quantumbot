@@ -14,7 +14,10 @@ from administrative variable `OPERATIONAL_ENGINEERING_IMAGE`. There is no defaul
 mutable-tag fallback, package installation, image build, publication or persistent
 runner in the admission job. Docker capabilities are dropped and gaining new
 privileges is denied. This does not claim a global network/process sandbox: the
-trusted checkout and bounded GitHub metadata request still need network access.
+runner pulls the exact approved image, and the trusted checkout and bounded
+GitHub metadata request still need network access. Offline means no package
+installation or download during admission, rather than no network anywhere in
+workflow startup.
 
 The image must contain Python 3.14, pytest **9.1.1**, jsonschema **4.26.0**, Git,
 and the compatible runtime/system libraries needed by the existing pinned
@@ -40,7 +43,9 @@ Container run steps explicitly use Bash for the existing Bash baseline checks.
    build. Do not publish or configure an unreviewed image to unblock CI.
 3. In that disposable image run the 20 synthetic Git admission tests, the 43
    allowlisted guard tests, and the unchanged checker/diagnostic on reviewed
-   engineering bytes. Require no skips; verify the diagnostic still reports
+   engineering bytes. Validate checkout/temporary file access, mounted workspace
+   permissions and the chosen UID with dropped capabilities and no new privileges.
+   Require no skips; verify the diagnostic still reports
    `BLOCKED`, `HOLDOUT_EXPOSURE_CONFIRMED`, preserved incident evidence and exact
    historical counters `UNKNOWN`. Preserve logs, source hashes and image digest.
    Do not run historical suites, research, market acquisition or trading.
@@ -69,7 +74,10 @@ FASE61, deployment or LIVE, and never repairs holdout independence.
 - Original 20 standard-library synthetic Git admission tests: PASS.
 - All original manifest bindings except the proposed workflow remain byte-identical;
   original checker, manifest, incident, snapshot and review evidence are unchanged.
-- Image allowlist checked against valid digest and adversarial invalid inputs.
+- Image allowlist checked against valid digest and 8 adversarial configuration
+  fixtures. The always-run aggregate passed 8 failure/cancellation/skip fixtures.
+- Independent agent reproduced all 20 synthetic Git admission tests and identified
+  the container shell issue, corrected by explicit Bash defaults.
 - Full isolated guard execution is pending the separately approved image. This
   workspace does not have the exact isolated pytest/jsonschema environment.
 - The manifest and administrator variables are unchanged. Rejection of this new
