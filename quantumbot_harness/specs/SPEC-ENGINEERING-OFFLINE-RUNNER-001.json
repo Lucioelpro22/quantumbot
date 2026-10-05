@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "spec_id": "SPEC-ENGINEERING-OFFLINE-RUNNER-001",
+  "title": "Digest-pinned disposable environment for offline engineering admission",
+  "status": "DRAFT",
+  "owner": "luciano; independent engineering review required",
+  "created_at": "2026-10-05T00:00:00Z",
+  "approved_at": null,
+  "approved_by": null,
+  "closed_at": null,
+  "gate_id": null,
+  "objective": "Provision the exact engineering-only dependencies before admission without installation inside the workflow or trusting candidate-selected dependencies.",
+  "rationale": "The hosted runner lacks pytest under Python isolated mode. The existing frozen checker correctly fails OFFLINE_DEPENDENCY_MISSING:pytest. Environment provisioning and new baseline admission require independent approval.",
+  "scope_in": [
+    "A separately built disposable container approved by immutable GHCR digest, containing Python 3.14, pytest 9.1.1, jsonschema 4.26.0, Git and the runtime needed by pinned checkout.",
+    "Administrative image variable and full baseline SHA selected outside candidate files; reject mutable image tags and missing variables.",
+    "Offline dependency/version preflight under python -I; original Git object, hash, scope, synthetic regression and confirmed exposure checks remain intact.",
+    "Independent review of exact image build inputs, complete transitive dependency lock/hashes, image digest and source tree; trusted manifest refresh only after that review."
+  ],
+  "scope_out": [
+    "No automatic package installation or image build/push in the admission job.",
+    "No persistent self-hosted runner or production credentials/data mounts.",
+    "No market, holdout, strategy, backtest, research, paper/demo or LIVE execution.",
+    "No baseline variable mutation, manifest self-approval, incident alteration or gate closure by this draft."
+  ],
+  "files_allowed_to_modify": [
+    ".github/workflows/operational-engineering.yml",
+    "docs/ENGINEERING_OFFLINE_RUNNER_REVIEW.md",
+    "quantumbot_harness/specs/SPEC-ENGINEERING-OFFLINE-RUNNER-001.json",
+    "quantumbot_harness/ci/ENGINEERING_BASELINE_001.json (only after independent baseline review)"
+  ],
+  "files_forbidden": [
+    ".env",
+    "data/**",
+    "FINAL_HOLDOUT/**",
+    "database/**",
+    "main.py",
+    "runner.py",
+    "strategies/**",
+    "execution/**",
+    "risk/**",
+    "All preserved incident, review, snapshot and historical evidence bytes"
+  ],
+  "data_allowed": [
+    "Engineering metadata and disposable synthetic fixtures only."
+  ],
+  "data_forbidden": [
+    "Market datasets, secret values, production databases and holdout payloads."
+  ],
+  "acceptance_criteria": [
+    {
+      "criterion_id": "AC-01",
+      "description": "Image uses independently reviewed fully pinned inputs and transitive package hashes; isolated Python sees exact required versions.",
+      "verification_method": "Independent image build provenance/SBOM review; python -I preflight inside exact image digest.",
+      "receipt_required": "RECEIPT-ENGINEERING-OFFLINE-IMAGE-001"
+    },
+    {
+      "criterion_id": "AC-02",
+      "description": "Missing image, mutable tag, other registry/repository and altered dependency versions fail closed.",
+      "verification_method": "Adversarial configuration fixtures and isolated interpreter checks without installing packages.",
+      "receipt_required": "RECEIPT-ENGINEERING-OFFLINE-CONFIG-001"
+    },
+    {
+      "criterion_id": "AC-03",
+      "description": "All 20 Git admission tests and 43 guard tests pass in the approved image; current diagnostic remains the verified exposure block.",
+      "verification_method": "Frozen checker on exact separately approved source tree; preserve test logs and source/image hashes.",
+      "receipt_required": "RECEIPT-ENGINEERING-OFFLINE-TESTS-001"
+    },
+    {
+      "criterion_id": "AC-04",
+      "description": "Independent reviewer binds refreshed manifest, exact source SHA, image digest and protected administrative variables; altered candidate trees still fail.",
+      "verification_method": "Out-of-candidate review followed by separate administrator activation; no implementing-agent self-certification.",
+      "receipt_required": "RECEIPT-ENGINEERING-OFFLINE-REVIEW-001"
+    }
+  ],
+  "required_receipts": [
+    "RECEIPT-ENGINEERING-OFFLINE-IMAGE-001",
+    "RECEIPT-ENGINEERING-OFFLINE-CONFIG-001",
+    "RECEIPT-ENGINEERING-OFFLINE-TESTS-001",
+    "RECEIPT-ENGINEERING-OFFLINE-REVIEW-001"
+  ],
+  "rollback_plan": "Keep the draft unmerged and retain existing trusted baseline/image configuration until independent review succeeds. No automatic weakening of checks, deletion or operational activation.",
+  "risks": [
+    {
+      "risk": "Candidate source grants itself trust through a replaced manifest or environment.",
+      "severity": "HIGH",
+      "mitigation": "Administrative immutable image digest and full source SHA; original metadata tree equality and trusted checker remain authoritative."
+    },
+    {
+      "risk": "Dependency installation introduces network or uncontrolled code during admission.",
+      "severity": "HIGH",
+      "mitigation": "Build and inspect image separately; admission only verifies preinstalled exact versions, no pip install."
+    }
+  ],
+  "dependencies": [
+    "SPEC-ENGINEERING-GIT-CI-BOOTSTRAP-001"
+  ],
+  "notes": "DRAFT is not APPROVED or CLOSED. The original manifest is unchanged in this proposal, so the candidate tree is intentionally inadmissible until a separately reviewed manifest and baseline are approved. No claim of full runtime network/process sandbox or restored holdout independence."
+}
