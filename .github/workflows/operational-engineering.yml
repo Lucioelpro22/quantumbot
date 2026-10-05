@@ -10,10 +10,45 @@ permissions:
   contents: read
 
 jobs:
-  engineering-only:
+  approved-environment:
     runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    outputs:
+      image: ${{ steps.policy.outputs.image }}
+    steps:
+      - name: Require independently approved immutable engineering image
+        id: policy
+        shell: bash
+        env:
+          ENGINEERING_IMAGE: ${{ vars.OPERATIONAL_ENGINEERING_IMAGE }}
+        run: |
+          [[ "$ENGINEERING_IMAGE" =~ ^ghcr\.io/lucioelpro22/quantumbot-engineering@sha256:[0-9a-f]{64}$ ]] || {
+            echo 'Missing approved engineering image digest; integration BLOCKED'; exit 1;
+          }
+          printf 'image=%s\n' "$ENGINEERING_IMAGE" >> "$GITHUB_OUTPUT"
+  engineering-only:
+    needs: approved-environment
+    runs-on: ubuntu-24.04
+    container:
+      image: ${{ needs.approved-environment.outputs.image }}
+      options: --cap-drop=ALL --security-opt=no-new-privileges
     timeout-minutes: 10
     steps:
+      - name: Verify preinstalled isolated dependencies
+        shell: bash
+        run: |
+          python -I -B - <<'PYTHON'
+          import importlib.metadata, sys
+          if sys.version_info[:2] != (3, 14):
+              raise SystemExit('OFFLINE_PYTHON_VERSION_MISMATCH')
+          for package, expected in {'pytest': '9.1.1', 'jsonschema': '4.26.0'}.items():
+              try:
+                  actual = importlib.metadata.version(package)
+              except importlib.metadata.PackageNotFoundError:
+                  raise SystemExit('OFFLINE_DEPENDENCY_MISSING:' + package)
+              if actual != expected:
+                  raise SystemExit('OFFLINE_DEPENDENCY_VERSION_MISMATCH:' + package)
+          PYTHON
       - name: Require independently approved full baseline commit
         env:
           BASELINE_COMMIT: ${{ vars.OPERATIONAL_BASELINE_COMMIT }}
