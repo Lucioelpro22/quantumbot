@@ -1,0 +1,50 @@
+# Mapeo de pares Cripto y Metadatos de BingX Futures VST
+
+symbols:
+  - yf_symbol: "BTC-USD"
+    bingx_symbol: "BTC-USDT"
+    category: "MAJOR"
+    min_qty: 0.0001
+    qty_precision: 4
+
+  - yf_symbol: "ETH-USD"
+    bingx_symbol: "ETH-USDT"
+    category: "MAJOR"
+    min_qty: 0.001
+    qty_precision: 4
+
+  - yf_symbol: "SOL-USD"
+    bingx_symbol: "SOL-USDT"
+    category: "ALT"
+    min_qty: 0.01
+    qty_precision: 2
+
+  - yf_symbol: "BNB-USD"
+    bingx_symbol: "BNB-USDT"
+    category: "MAJOR"
+    min_qty: 0.01
+    qty_precision: 2
+
+  - yf_symbol: "DOGE-USD"
+    bingx_symbol: "DOGE-USDT"
+    category: "MEME"
+    min_qty: 1.0
+    qty_precision: 1
+
+  - yf_symbol: "XRP-USD"
+    bingx_symbol: "XRP-USDT"
+    category: "ALT"
+    min_qty: 1.0
+    qty_precision: 1
+
+  - yf_symbol: "AVAX-USD"
+    bingx_symbol: "AVAX-USDT"
+    category: "ALT"
+    min_qty: 0.1
+    qty_precision: 2
+
+  - yf_symbol: "LINK-USD"
+    bingx_symbol: "LINK-USDT"
+    category: "ALT"
+    min_qty: 0.1
+    qty_precision: 2

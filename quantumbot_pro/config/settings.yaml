@@ -1,0 +1,26 @@
+app:
+  name: "QuantumBot Pro"
+  version: "3.0.0"
+  exchange: "bybit"    # Opciones: "bingx" o "bybit"
+  environment: "demo"  # "demo" para VST/Testnet, "real" para Real
+
+risk:
+  margin_per_asset: 25.0
+  trade_leverage: 3
+  max_open_positions: 2
+  max_risk_per_trade_pct: 0.0025  # 0.25% del equity
+  max_daily_loss_pct: 1.0
+  max_drawdown_pct: 8.0
+  max_correlation: 0.80
+  use_half_kelly: true
+  risk_reward_ratio: 1.5
+  breakeven_rr_ratio: 1.0    # Cierre parcial 50% y Breakeven a 1:1 R:R
+
+score:
+  min_execution_score: 80.0
+  min_ml_probability: 0.65
+
+backtesting:
+  initial_capital: 10000.0
+  taker_fee: 0.0005
+  maker_fee: 0.0002

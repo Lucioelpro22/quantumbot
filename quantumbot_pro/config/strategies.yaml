@@ -1,0 +1,14 @@
+# Pesos y Umbrales del Score Engine Cuantitativo (Total Max: 100 Puntos)
+
+weights:
+  macro_trend_4h_1h: 20       # Alineación Tendencial 4H y 1H
+  smc_orderblock: 15          # Order Blocks y Estructura (BOS/CHOCH)
+  fair_value_gap: 15          # FVG (Brecha de Valor Justo de Liquidez)
+  momentum_rsi_macd: 15       # Momentum e Impulso (RSI & MACD)
+  volume_vwap_cvd: 15         # VWAP, Aceleración de Volumen y CVD
+  orderbook_liquidity: 10     # Profundidad de Libro de Órdenes (Bids vs Asks)
+  market_regime: 10           # Régimen de Volatilidad y Salud General
+
+thresholds:
+  min_score_for_trade: 80
+  strict_chop_protection: true # Bloquear entradas si ADX < 18 o BB Width < 0.8%
