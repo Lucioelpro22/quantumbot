@@ -4,6 +4,7 @@ Monitorea continuamente los 95 niveles de entrada 'Pendiente' extraídos del PDF
 Dispara alertas instantáneas cuando el precio de mercado se aproxima (+/- 0.8%) o toca el nivel objetivo.
 Usa consulta híbrida vía BingX API + Yahoo Finance.
 """
+from operational_policy import require_operational_access
 
 import os
 import sys
@@ -11,8 +12,6 @@ import json
 import time
 import asyncio
 import datetime
-import requests
-import yfinance as yf
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
@@ -23,11 +22,11 @@ from database.db_manager import QuantDatabaseManager
 
 ALERTS_CONFIG = os.path.join(current_dir, 'config', 'price_alerts.json')
 LOG_DIR = os.path.join(current_dir, 'logs')
-os.makedirs(LOG_DIR, exist_ok=True)
 ALERT_LOG_FILE = os.path.join(LOG_DIR, 'price_alerts.log')
 
 
 def log_alert(msg: str):
+    require_operational_access('price_logging')
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     line = f"[{ts}] {msg}"
     try:
@@ -40,6 +39,7 @@ def log_alert(msg: str):
 
 class PriceAlertMonitor:
     def __init__(self, proximity_pct: float = 0.8):
+        require_operational_access('price_monitor')
         self.proximity_pct = proximity_pct  # Alerta si está dentro del 0.8%
         self.db = QuantDatabaseManager()
         self.alerts_list = self._load_alerts()
@@ -53,6 +53,9 @@ class PriceAlertMonitor:
             return json.load(f)
 
     def _fetch_bingx_prices(self) -> dict:
+        require_operational_access('market_download')
+        import requests
+        import yfinance as yf
         prices = {}
         try:
             url = "https://open-api.bingx.com/openApi/swap/v2/quote/ticker"
@@ -73,6 +76,9 @@ class PriceAlertMonitor:
 
     def fetch_live_prices(self) -> dict:
         # 1. Probar BingX Ticker API (muy rápido y cubre criptomonedas reales)
+        require_operational_access('market_download')
+        import requests
+        import yfinance as yf
         prices = self._fetch_bingx_prices()
 
         # 2. Fallback a Yahoo Finance para activos faltantes
@@ -147,6 +153,7 @@ class PriceAlertMonitor:
 
 
 async def main_loop():
+    require_operational_access('price_monitor')
     print("=" * 80)
     print("MONITOR DE ALERTAS DE PRECIO DE ENTRADA (NIVELES DEL PDF)")
     print("Monitoreando 95 niveles de entrada Pendiente en tiempo real via BingX + Yahoo Finance...")

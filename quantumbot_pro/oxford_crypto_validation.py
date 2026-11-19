@@ -1,14 +1,16 @@
 """Valida el modelo Oxford diario sobre BTC y ETH con costos explícitos."""
+from operational_policy import require_operational_access
 import json
 from dataclasses import asdict
 from pathlib import Path
 
-import yfinance as yf
 
-from strategies.oxford_daily_ma import evaluate_oxford
 
 
 def main():
+    require_operational_access('market_validation')
+    from strategies.oxford_daily_ma import evaluate_oxford
+    import yfinance as yf
     cache = Path(__file__).resolve().parent / "data" / "yfinance_cache"
     cache.mkdir(parents=True, exist_ok=True)
     yf.set_tz_cache_location(str(cache))

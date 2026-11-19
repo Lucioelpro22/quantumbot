@@ -6,7 +6,6 @@ Maneja la autenticación HMAC SHA256, ejecución de órdenes a mercado y cancela
 import asyncio
 import os
 import sys
-import requests
 from typing import Dict, Any, List
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))

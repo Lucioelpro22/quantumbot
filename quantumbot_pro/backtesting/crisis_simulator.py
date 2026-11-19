@@ -7,6 +7,7 @@ Somete la plataforma a:
 4. Flash Crash (-15% en 15 minutos)
 5. Simulación Monte Carlo Resampling con Semilla Determinística (P9)
 """
+from operational_policy import require_operational_access
 
 import numpy as np
 import pandas as pd
@@ -22,6 +23,7 @@ class SystemicCrisisSimulator:
         """
         P9 — Simulación Monte Carlo de resampleo determinístico sobre la secuencia de operaciones.
         """
+        require_operational_access('research_simulation')
         if not returns or len(returns) < 5:
             return {"risk_of_ruin_percent": 0.0, "p95_max_drawdown": 0.0, "status": "INSUFFICIENT_DATA"}
 
@@ -57,6 +59,7 @@ class SystemicCrisisSimulator:
         }
 
     def run_all_crisis_scenarios(self, df1h: pd.DataFrame, df15m: pd.DataFrame) -> Dict[str, Any]:
+        require_operational_access('backtest')
         if df15m is None or len(df15m) < 100:
             return {"status": "ERROR", "reason": "Insuficientes datos para prueba de crisis"}
 

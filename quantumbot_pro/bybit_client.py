@@ -1,84 +1,18 @@
-"""
-bybit_client.py — Cliente REST HMAC SHA256 para la API V5 de Bybit (Demo Trading & Real)
-Soporta consulta de balance UTA, posiciones activas, envío de órdenes a mercado y configuración de palanca/margen.
-Incluye reintentos automáticos con exponencial backoff ante fallas de red/conexión.
-Endpoints:
-- Demo Trading: https://api-demo.bybit.com
-- Testnet:     https://api-testnet.bybit.com
-- Mainnet Real:https://api.bybit.com
-"""
+"""Bybit protocol helpers with unconditional denial at the transport boundary.
 
-import time
-import hmac
-import hashlib
-import json
-import requests
-from urllib.parse import urlencode
-from typing import Dict, Any, Optional
+No HTTP implementation, credentials, network retries or mainnet routing remain.
+Methods are retained for offline protocol fixtures, not operational permission.
+"""
+from typing import Dict, Any
+from operational_policy import require_operational_access
 
 
 class BybitClient:
-    def __init__(self, api_key: str, secret_key: str, use_testnet: bool = True, use_demo: bool = True):
-        self.api_key = api_key
-        self.secret_key = secret_key
-        self.use_testnet = use_testnet
-        self.use_demo = use_demo
+    def __init__(self, api_key=None, secret_key=None, use_testnet=True, use_demo=True):
+        require_operational_access("bybit_client")
 
-        if use_demo:
-            self.base_url = "https://api-demo.bybit.com"
-        elif use_testnet:
-            self.base_url = "https://api-testnet.bybit.com"
-        else:
-            self.base_url = "https://api.bybit.com"
-
-        self.recv_window = "5000"
-
-    def _generate_signature(self, timestamp: str, payload: str) -> str:
-        param_str = timestamp + self.api_key + self.recv_window + payload
-        hash_obj = hmac.new(self.secret_key.encode('utf-8'), param_str.encode('utf-8'), hashlib.sha256)
-        return hash_obj.hexdigest()
-
-    def _headers(self, timestamp: str, signature: str) -> Dict[str, str]:
-        return {
-            "X-BAPI-API-KEY": self.api_key,
-            "X-BAPI-SIGN": signature,
-            "X-BAPI-TIMESTAMP": timestamp,
-            "X-BAPI-RECV-WINDOW": self.recv_window,
-            "Content-Type": "application/json"
-        }
-
-    def request(self, method: str, path: str, params: Dict[str, Any] = None, max_retries: int = 3) -> Dict[str, Any]:
-        params = params or {}
-        last_exception = None
-
-        for attempt in range(1, max_retries + 1):
-            timestamp = str(int(time.time() * 1000))
-            url = f"{self.base_url}{path}"
-            try:
-                if method == 'GET':
-                    query_str = urlencode(sorted(params.items()))
-                    signature = self._generate_signature(timestamp, query_str)
-                    full_url = f"{url}?{query_str}" if query_str else url
-                    r = requests.get(full_url, headers=self._headers(timestamp, signature), timeout=10)
-                else:
-                    payload = json.dumps(params)
-                    signature = self._generate_signature(timestamp, payload)
-                    r = requests.post(url, data=payload, headers=self._headers(timestamp, signature), timeout=10)
-
-                if r.status_code == 200:
-                    return r.json()
-                elif r.status_code in (429, 500, 502, 503, 504) and attempt < max_retries:
-                    time.sleep(0.5 * (2 ** attempt))
-                    continue
-                else:
-                    return {"retCode": r.status_code, "retMsg": r.text}
-            except Exception as e:
-                last_exception = e
-                if attempt < max_retries:
-                    time.sleep(0.5 * (2 ** attempt))
-                    continue
-
-        return {"retCode": -1, "retMsg": f"Connection Error after {max_retries} retries: {last_exception}"}
+    def request(self, method, path, params=None, max_retries=0):
+        require_operational_access("bybit_transport")
 
     def get_balance(self) -> Dict[str, Any]:
         """Consulta balance de la cuenta de Trading Unificada (UTA)"""
@@ -111,7 +45,9 @@ class BybitClient:
     def setup_symbol(self, symbol: str, is_isolated: bool = True, leverage: int = 25) -> Dict[str, Any]:
         """Configura Apalancamiento y Margen Aislado"""
         params_lev = {'category': 'linear', 'symbol': symbol, 'buyLeverage': str(leverage), 'sellLeverage': str(leverage)}
-        self.request('POST', '/v5/position/set-leverage', params_lev)
+        leverage_result = self.request('POST', '/v5/position/set-leverage', params_lev)
+        if leverage_result.get('retCode') not in (0, 110043):
+            return leverage_result
 
         trade_mode = 1 if is_isolated else 0
         params_mode = {'category': 'linear', 'symbol': symbol, 'tradeMode': trade_mode, 'buyLeverage': str(leverage), 'sellLeverage': str(leverage)}

@@ -10,6 +10,7 @@ Verifica estrictamente que cualquier modificación o nueva propuesta supere toda
 7. Robustez Out-of-Sample
 SI CUALQUIERA DE ESTOS REQUISITOS FALLA, RECHAZA EL CAMBIO AUTOMÁTICAMENTE.
 """
+from operational_policy import require_operational_access
 
 from typing import Dict, Any, Tuple
 
@@ -24,6 +25,7 @@ class StatisticalValidationGate:
         Compara los resultados del candidato contra la versión estable de producción.
         Rechaza el cambio si degrada cualquier métrica objetiva.
         """
+        require_operational_access('research_validation')
         reasons = []
 
         # 1. Sharpe Ratio (no inferior)

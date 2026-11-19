@@ -3,6 +3,7 @@ backtesting/walk_forward.py — Optimización Walk-Forward y Validación Fuera d
 Divide el período histórico en múltiples ventanas móviles In-Sample (Entrenamiento 70%)
 y Out-of-Sample (Prueba 30%) para garantizar que el bot no esté sobreajustado (overfitted).
 """
+from operational_policy import require_operational_access
 
 import numpy as np
 import pandas as pd
@@ -17,6 +18,7 @@ class WalkForwardOptimizer:
         self.engine = QuantBacktestEngine()
 
     def run_walk_forward(self, df1h: pd.DataFrame, df15m: pd.DataFrame, symbol: str = "BTC-USD") -> Dict[str, Any]:
+        require_operational_access('optimization')
         if df15m is None or len(df15m) < 400:
             return {"status": "ERROR", "reason": "Insuficientes datos para Walk-Forward (mínimo 400 velas 15m)"}
 

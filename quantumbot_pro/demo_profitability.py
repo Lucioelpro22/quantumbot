@@ -1,4 +1,5 @@
 """Recolecta PnL cerrado de Bybit Demo y evalúa criterios de promoción."""
+from operational_policy import require_operational_access
 import argparse
 import csv
 import json
@@ -7,13 +8,13 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 
-import numpy as np
 
 ROOT = Path(__file__).resolve().parent
 LEDGER = ROOT / "data" / "bybit_demo_closed_pnl.csv"
 
 
 def load_env():
+    require_operational_access('credential_load')
     path = ROOT.parent / ".env"
     if not path.exists():
         path = ROOT / ".env"
@@ -25,6 +26,7 @@ def load_env():
 
 
 def collect(client, output=LEDGER):
+    require_operational_access('demo_collection')
     output.parent.mkdir(parents=True, exist_ok=True)
     existing = {}
     if output.exists():
@@ -55,6 +57,8 @@ def collect(client, output=LEDGER):
 
 
 def evaluate(path=LEDGER):
+    require_operational_access('ledger_evaluation')
+    import numpy as np
     with path.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
     pnl = np.array([float(row["pnl_usd"]) for row in rows], dtype=float)

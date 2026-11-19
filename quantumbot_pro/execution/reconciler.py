@@ -36,34 +36,17 @@ class ExchangeStateReconciler:
         """
         print("🔄 [P0.5 Exchange Reconciliation] Sincronizando estado real con el exchange...")
 
-        positions_summary = {}
-
-        if isinstance(self.client, BybitClient):
-            res = self.client.get_positions()
-            if res.get('retCode') == 0:
-                for pos in res.get('result', {}).get('list', []):
-                    size = float(pos.get('size', 0))
-                    if size > 0:
-                        symbol = pos.get('symbol')
-                        side = pos.get('side')
-                        avg_price = float(pos.get('avgPrice', 0))
-                        sl_price = float(pos.get('stopLoss', 0) or 0)
-                        tp_price = float(pos.get('takeProfit', 0) or 0)
-                        has_protection = sl_price > 0
-
-                        positions_summary[symbol] = {
-                            "symbol": symbol,
-                            "side": side,
-                            "size": size,
-                            "avg_price": avg_price,
-                            "stop_loss": sl_price,
-                            "take_profit": tp_price,
-                            "has_protection": has_protection
-                        }
-                        if not has_protection:
-                            print(f"⚠️ [Reconciliación - ALERTA P0.4] {symbol} tiene posición abierta SIN Stop Loss en Bybit!")
-                        else:
-                            print(f"✅ [Reconciliación OK] {symbol} [{side}] Cantidad: {size} | Entry: ${avg_price:.4f} | SL: ${sl_price:.4f}")
+        from execution.bybit_executor import parse_active_positions, ExchangeStateUnknown
+        if not isinstance(self.client, BybitClient):
+            raise ExchangeStateUnknown('Unsupported reconciliation client')
+        positions_summary = parse_active_positions(self.client.get_positions())
+        for position in positions_summary.values():
+            try:
+                from execution.bybit_executor import _number
+                _number(position.get('stopLoss'), positive=True)
+                _number(position.get('takeProfit'), positive=True)
+            except ExchangeStateUnknown:
+                raise ExchangeStateUnknown('Unprotected position; reconciliation blocked')
 
         # Sincronizar estado de posiciones parcialmente cerradas en SQLite
         saved_partials = self.db_manager.get_partial_closed_positions()

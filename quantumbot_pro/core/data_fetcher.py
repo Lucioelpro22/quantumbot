@@ -2,17 +2,20 @@
 core/data_fetcher.py — Agregador Asincrónico de Datos Multi-Timeframe
 Descarga y limpia simultáneamente datos de velas en 1D, 4H, 1H, 15M, 5M, 1M.
 """
+from operational_policy import require_operational_access
+
 
 import asyncio
 import pandas as pd
 import numpy as np
-import yfinance as yf
 from pathlib import Path
 from typing import Dict, Tuple, Optional
 
 
 class MultiTimeframeFetcher:
     def __init__(self):
+        require_operational_access("market_fetcher")
+        import yfinance as yf
         self._cache: Dict[str, Dict[str, pd.DataFrame]] = {}
         cache_dir = Path(__file__).resolve().parent.parent / "data" / "yfinance_cache"
         cache_dir.mkdir(parents=True, exist_ok=True)
@@ -20,6 +23,8 @@ class MultiTimeframeFetcher:
 
     async def fetch_symbol_data(self, yf_symbol: str) -> Dict[str, pd.DataFrame]:
         """Descarga de forma asincrónica velas multi-temporalidad para un activo."""
+        require_operational_access("market_download")
+        import yfinance as yf
         loop = asyncio.get_running_loop()
 
         def _download():

@@ -6,6 +6,7 @@ Somete el bot a escenarios extremos:
 - Choque de Volatilidad (ATR% 6.0%)
 - Pico de Funding Rates (0.10% cada 8h)
 """
+from operational_policy import require_operational_access
 
 import numpy as np
 import pandas as pd
@@ -18,6 +19,7 @@ class StressTestEngine:
         self.base_engine = QuantBacktestEngine()
 
     def run_stress_test(self, df1h: pd.DataFrame, df15m: pd.DataFrame, scenario: str = "FLASH_CRASH") -> Dict[str, Any]:
+        require_operational_access('backtest')
         if df15m is None or len(df15m) < 60:
             return {"status": "ERROR", "reason": "Insuficientes datos para prueba de estrés"}
 

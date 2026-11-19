@@ -1,59 +1,51 @@
-# QuantumBot Pro
+# QuantumBot Pro — engineering hold
 
-QuantumBot Pro is an open-source research framework for systematic crypto-trading experiments, portfolio risk controls, backtesting, stress testing, explainability, and guarded exchange-demo execution.
+The current operational disposition is **BLOCKED**. LIVE, demo/paper/shadow
+execution, market acquisition, backtesting and research runs are not authorized.
+The historical holdout is **EXPOSED / CONTAMINATED** and remains locked.
+A historical `APPROVED` phase or zero-access counter is not current permission.
+See [OPERATIONAL_STATE.md](OPERATIONAL_STATE.md).
 
-This public edition is intended for **research, education, backtesting, and Bybit Demo Trading**. It contains no API credentials, private account data, databases, trade histories, or production configuration.
+This branch repairs bounded engineering failures; it does not certify a strategy,
+restore holdout independence, or establish that an external bot process is stopped.
+The published engine and exchange transports deny operational access unconditionally.
 
-## Public release safeguards
+## Offline diagnosis
 
-- The audited execution path is locked to `https://api-demo.bybit.com`.
-- Live/real promotion is not automatic and requires a separate technical review.
-- Maximum leverage in the audited demo flow is 3x.
-- Risk per entry is capped at 0.25% of equity.
-- Daily loss is capped at 1% and process-session drawdown at 8%.
-- At most two positions may be open.
-- Quantities are normalized to Bybit instrument constraints.
-- Entry orders include protective stop-loss and take-profit values.
-- REST acceptance is not treated as a confirmed fill.
-
-## Repository structure
-
-- `quantumbot_pro/` — research engine, strategies, execution, risk, analytics, backtesting, and demo validation.
-- `quantumbot_harness/` — deterministic verification harness retained from the original private repository.
-- `tests/` — safety, regression, and harness tests.
-- `docs/` — operational and verification documentation.
-
-## Setup
+No credentials, dependencies or database are needed for this command (Python 3.10+):
 
 ```bash
-python -m venv .venv
-python -m pip install -r requirements.txt
+python -B -m quantumbot_pro.cli --mode status
 ```
 
-Copy `.env.example` to `.env` and use credentials created exclusively inside Bybit Demo Trading. Never commit `.env`, reuse production credentials, or grant withdrawal permissions.
+This prints **policy metadata**, with runtime `UNKNOWN`. It does not inspect your
+computer, open `.env`, contact an exchange or read a trading ledger. Operational
+CLI modes return exit code 2 before importing the engine. Environment flags cannot
+unlock them. The legacy engine also rejects construction and cycles.
 
-## Demo execution
+## Engineering regression tests
 
 ```bash
-cd quantumbot_pro
-python cli.py --mode demo
+python -B -m unittest discover -s tests/engineering_health -v
 ```
 
-Read [`quantumbot_pro/BYBIT_DEMO_AUDIT.md`](quantumbot_pro/BYBIT_DEMO_AUDIT.md) before execution.
+This explicit standard-library suite uses synthetic responses, in-memory SQLite
+and temporary risk checkpoints. Socket resolution/connections are denied by test
+fixtures. It does not run the historical research suites or evaluate strategies.
 
-## Evidence collection
+The concrete Bybit/BingX clients have no enabled transport. Protocol tests use
+local fake objects. The database adapter only accepts the explicit `:memory:`
+path; persistent trading storage remains blocked. Risk checkpoints are a
+single-writer engineering component, not an operational account ledger.
 
-```bash
-cd quantumbot_pro
-python demo_profitability.py --collect
-```
+## Integration status
 
-The evidence gate requires at least 100 closed trades, 60 calendar days, positive net PnL, profit factor of at least 1.20, and a positive lower bootstrap bound for the mean return. Passing the gate does not prove future profitability or authorize live trading.
+The existing frozen-baseline admission workflow is preserved. A new tree is
+expected to fail `REMOTE_CANDIDATE_TREE_NOT_APPROVED` until an independent review
+approves the exact source and runner environment. Do not rebind the baseline to
+this branch simply to make CI pass. Passing synthetic tests does not authorize
+execution, formal phase promotion, or use of the contaminated holdout.
 
-## Disclaimer
+[Remediation scope, evidence and remaining work](docs/HEALTH_REMEDIATION_2026-11-18.md)
 
-This project is educational software, not financial advice. Backtests and demo results do not guarantee future performance. Trading involves substantial risk, including complete loss of capital.
-
-## License
-
-MIT
+MIT license. No validated profitability claim.

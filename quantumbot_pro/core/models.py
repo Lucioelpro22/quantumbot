@@ -60,6 +60,9 @@ class ScoreBreakdown(BaseModel):
     breakout_score: float = 0.0
     regime_score: float = 0.0
     is_approved: bool = False
+    rejection_reason: Optional[str] = None
+    contributing_modules: List[str] = Field(default_factory=list)
+    ignored_modules: List[str] = Field(default_factory=list)
 
 
 class RiskDecision(BaseModel):

@@ -1,4 +1,5 @@
 """Adaptación fiel del modelo Oxford M4U2: media móvil diaria long/cash."""
+from operational_policy import require_operational_access
 from dataclasses import dataclass
 from typing import Dict, Optional
 
@@ -43,6 +44,7 @@ def build_oxford_series(close: pd.Series, ma_days: int = 5,
 
 def evaluate_oxford(close: pd.Series, symbol: str, ma_days: int = 5,
                     round_trip_cost_bps: float = 12.0) -> OxfordBacktestResult:
+    require_operational_access('research_validation')
     frame = build_oxford_series(close, ma_days, round_trip_cost_bps)
     returns = frame["strategy_return"].dropna()
     if len(returns) < 30:

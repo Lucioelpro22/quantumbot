@@ -8,8 +8,6 @@ y soporte multi-exchange (BingX & Bybit V5 Real/Demo).
 import asyncio
 import os
 import sys
-import yaml
-import pandas as pd
 from typing import Dict, List, Any
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -17,36 +15,11 @@ parent_dir  = os.path.dirname(current_dir)
 if current_dir not in sys.path: sys.path.append(current_dir)
 if parent_dir not in sys.path: sys.path.append(parent_dir)
 
-from core.models import Direction
-from core.data_fetcher import MultiTimeframeFetcher
-from database.db_manager import QuantDatabaseManager
-from analytics.market_regime import MarketRegimeDetector
-from analytics.metrics import QuantitativeMetricsEngine
-from analytics.price_action_engine import PriceActionConfirmationEngine
-from machine_learning.ml_guard import SupervisedMLGuard
-from risk.risk_manager import QuantumRiskManager
-from risk.portfolio_manager import PortfolioManager
-from risk.auto_calibrator import StrategyAutoCalibrator
-from execution.bingx_executor import AsyncBingXExecutor
-from execution.bybit_executor import AsyncBybitExecutor
-from execution.position_manager import QuantumPositionManager
-from execution.reconciler import ExchangeStateReconciler
-from dashboard.terminal_dashboard import TerminalDashboard
-
-# Estrategias (9 Módulos)
-from strategies.oracle_fibonacci_dca_module import OracleFibonacciDCAModule
-from strategies.blackeaglescap_module import BlackEaglesCapModule
-from strategies.bot22_fvg_module import Bot22FVGModule
-from strategies.bot23_oxford_module import Bot23OxfordModule
-from strategies.smc_orderblock_module import SMCOrderBlockModule
-from strategies.vwap_volume_module import VWAPVolumeModule
-from strategies.mean_reversion_module import MeanReversionModule
-from strategies.breakout_module import BreakoutModule
-from strategies.volatility_module import VolatilityModule
-from strategies.meta_strategy import MetaStrategyEnsemble
+from operational_policy import require_operational_access
 
 
 def load_env():
+    require_operational_access("credential_load")
     candidates = [
         os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'),
         os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env'),
@@ -64,6 +37,37 @@ def load_env():
 
 class QuantumBotEngine:
     def __init__(self, config_dir: str):
+        require_operational_access("engine_initialization")
+        import yaml
+        from core.models import Direction
+        from core.data_fetcher import MultiTimeframeFetcher
+        from database.db_manager import QuantDatabaseManager
+        from analytics.market_regime import MarketRegimeDetector
+        from analytics.metrics import QuantitativeMetricsEngine
+        from analytics.price_action_engine import PriceActionConfirmationEngine
+        from machine_learning.ml_guard import SupervisedMLGuard
+        from risk.risk_manager import QuantumRiskManager
+        from risk.portfolio_manager import PortfolioManager
+        from risk.auto_calibrator import StrategyAutoCalibrator
+        from execution.bingx_executor import AsyncBingXExecutor
+        from execution.bybit_executor import AsyncBybitExecutor
+        from execution.position_manager import QuantumPositionManager
+        from execution.reconciler import ExchangeStateReconciler
+        from dashboard.terminal_dashboard import TerminalDashboard
+
+        # Estrategias (9 Módulos)
+        from strategies.oracle_fibonacci_dca_module import OracleFibonacciDCAModule
+        from strategies.blackeaglescap_module import BlackEaglesCapModule
+        from strategies.bot22_fvg_module import Bot22FVGModule
+        from strategies.bot23_oxford_module import Bot23OxfordModule
+        from strategies.smc_orderblock_module import SMCOrderBlockModule
+        from strategies.vwap_volume_module import VWAPVolumeModule
+        from strategies.mean_reversion_module import MeanReversionModule
+        from strategies.breakout_module import BreakoutModule
+        from strategies.volatility_module import VolatilityModule
+        from strategies.meta_strategy import MetaStrategyEnsemble
+        from risk.checkpoint import RiskCheckpoint
+        from pathlib import Path
         load_env()
 
         with open(os.path.join(config_dir, 'settings.yaml'), 'r') as f:
@@ -141,20 +145,23 @@ class QuantumBotEngine:
             weights=self.calibrator.weights,
             min_execution_score=self.settings['score']['min_execution_score']
         )
-        self.day_start_equity = None
-        self.peak_equity = None
+        self.risk_checkpoint = RiskCheckpoint(Path(config_dir).parent / "state" / "risk.json")
 
     async def run_cycle(self):
+        require_operational_access("engine_cycle")
+        from core.models import Direction
         # 1. Obtener balance y posiciones activas del Exchange seleccionado
         equity = await self.executor.get_account_balance()
-        active_positions = await self.executor.get_active_positions()
+        try:
+            active_positions = await self.executor.get_active_positions()
+        except Exception:
+            self.risk_checkpoint.block()
+            raise
         if equity <= 0:
             raise RuntimeError("Equity no disponible; ciclo bloqueado")
-        if self.day_start_equity is None:
-            self.day_start_equity = equity
-        self.peak_equity = max(self.peak_equity or equity, equity)
-        daily_loss_pct = max(0.0, (self.day_start_equity - equity) / self.day_start_equity * 100.0)
-        drawdown_pct = max(0.0, (self.peak_equity - equity) / self.peak_equity * 100.0)
+        daily_loss_pct, drawdown_pct = self.risk_checkpoint.observe(
+            equity, max_daily_loss_pct=self.settings['risk']['max_daily_loss_pct'],
+            max_drawdown_pct=self.settings['risk']['max_drawdown_pct'])
         slots_remaining = max(0, self.settings['risk']['max_open_positions'] - len(active_positions))
 
         # 2. Gestionar Cierres Parciales (1:1 R:R) y Breakeven si aplica
@@ -251,7 +258,16 @@ class QuantumBotEngine:
             # I. Ejecutar si fue APROBADO por todas las capas
             if risk_dec.is_allowed and trade_sym not in active_positions:
                 print(f"🚀 [ENTRADA APRECIADA QUANTUM v3.0 - PA: {pa_pattern}] Orden para {trade_sym} {score.direction.value} (Score {score.total_score:.1f} / ML Prob {ml_prob*100:.1f}%)")
-                exec_res = await self.executor.execute_trade_decision(risk_dec)
+                try:
+                    exec_res = await self.executor.execute_trade_decision(risk_dec)
+                except Exception:
+                    self.risk_checkpoint.block()
+                    raise
+                if (exec_res.get('status') != 'SUCCESS'
+                        or exec_res.get('sl_confirmed') is not True):
+                    # Unknown or partial exposure is never treated as a free slot.
+                    self.risk_checkpoint.block()
+                    raise RuntimeError('Execution requires reconciliation; further entries blocked')
                 if exec_res.get('status') == 'SUCCESS':
                     slots_remaining -= 1
                     active_positions[trade_sym] = {'symbol': trade_sym, 'size': exec_res.get('filled_qty', 0)}
@@ -274,6 +290,7 @@ class QuantumBotEngine:
         self.dashboard.print_footer()
 
     async def start(self, interval_seconds: int = 300):
+        require_operational_access("engine_start")
         print(f"Starting QuantumBot Pro v3.0 Platform Daemon (Exchange: {self.settings['app']['exchange'].upper()} | Env: {self.settings['app']['environment'].upper()})...")
         while True:
             try:
