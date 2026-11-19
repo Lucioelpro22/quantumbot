@@ -1,7 +1,8 @@
 """
 risk/risk_manager.py — Gestor Cuantitativo de Riesgo Institucional QuantumBot Pro v3.0
-Calcula el Riesgo Económico Real por Operación, tamaño óptimo de posición (Half-Kelly riguroso),
-protección de margen aislado 25x y verificación de Kill Switch / límites de pérdida (P0.3, P1.1, P1.3, P1.5-P1.7).
+Sizing conservador con costos estimados y límites de pérdida.
+La probabilidad ML no está calibrada: no se usa para aumentar el presupuesto.
+Este cálculo no habilita operaciones ni garantiza un límite ante gaps.
 """
 
 import math
@@ -10,11 +11,19 @@ from core.models import Direction, RiskDecision, ScoreBreakdown
 from risk.kill_switch import EmergencyKillSwitch
 
 
-class QuantumRiskManager:
-    def __init__(self, base_margin_usd: float = 25.0, leverage: int = 25,
-                 max_risk_per_trade_pct: float = 0.0025, use_half_kelly: bool = True,
-                 max_daily_loss_pct: float = 5.0, max_drawdown_pct: float = 10.0):
+def finite_number(value):
+    return type(value) in (int, float) and math.isfinite(value)
 
+
+class QuantumRiskManager:
+    def __init__(self, base_margin_usd: float = 25.0, leverage: int = 3,
+                 max_risk_per_trade_pct: float = 0.0025, use_half_kelly: bool = True,
+                 max_daily_loss_pct: float = 1.0, max_drawdown_pct: float = 8.0):
+
+        if type(leverage) is not int or not 1 <= leverage <= 3:
+            raise ValueError("Leverage must be between 1 and 3")
+        if not finite_number(max_risk_per_trade_pct) or not 0 < max_risk_per_trade_pct <= 0.0025:
+            raise ValueError("Risk budget must be positive and at most 0.25%")
         self.base_margin_usd = base_margin_usd
         self.leverage = leverage
         self.max_risk_per_trade_pct = max_risk_per_trade_pct
@@ -70,6 +79,26 @@ class QuantumRiskManager:
         """
         Genera la decisión cuantitativa de riesgo validando Kill Switch, Sizing y SL/TP.
         """
+        invalid_reason = None
+        if not score.is_approved or score.direction != direction:
+            invalid_reason = "Score no aprobado o dirección inconsistente"
+        inputs = (entry_price, atr_price, ml_probability, account_equity, reward_risk_ratio,
+                  current_daily_loss_pct, current_drawdown_pct)
+        if (not all(finite_number(v) for v in inputs)
+                or entry_price <= 0 or atr_price < 0 or account_equity <= 0
+                or not 0 <= ml_probability <= 1 or reward_risk_ratio <= 0
+                or current_daily_loss_pct < 0 or current_drawdown_pct < 0
+                or type(consecutive_losses) is not int or consecutive_losses < 0):
+            invalid_reason = "Datos de riesgo incompletos o inválidos"
+        if invalid_reason:
+            return RiskDecision(
+                symbol=symbol, direction=direction, is_allowed=False, quantity=0.0,
+                stop_loss_price=0.0, take_profit_price=0.0, leverage=self.leverage,
+                reason=invalid_reason, score=score.total_score,
+                ml_probability=ml_probability if finite_number(ml_probability) else 0.0,
+                suggested_margin_usd=0.0,
+            )
+
         # 1. Evaluar Kill Switch (P0.3, P1.5, P1.6, P1.7)
         kill_active, kill_reason = self.kill_switch.evaluate_kill_switch_conditions(
             current_daily_loss_pct, current_drawdown_pct, consecutive_losses
@@ -100,6 +129,16 @@ class QuantumRiskManager:
             stop_loss = entry_price + stop_dist
             take_profit = entry_price - stop_dist * reward_risk_ratio
 
+        if (not all(finite_number(v) for v in (stop_dist, stop_loss, take_profit))
+                or stop_dist <= 0 or stop_loss <= 0 or take_profit <= 0
+                or stop_loss == entry_price or take_profit == entry_price):
+            return RiskDecision(
+                symbol=symbol, direction=direction, is_allowed=False, quantity=0.0,
+                stop_loss_price=0.0, take_profit_price=0.0, leverage=self.leverage,
+                reason="Protección fuera de rango", score=score.total_score,
+                ml_probability=ml_probability, suggested_margin_usd=0.0,
+            )
+
         # 3. Tamaño por riesgo económico real y tope de exposición.
         if account_equity <= 0:
             return RiskDecision(
@@ -118,17 +157,21 @@ class QuantumRiskManager:
 
         # 4. Verificar Riesgo Económico Real
         economic_risk = self.calculate_account_economic_risk(entry_price, stop_loss, quantity)
+        sizing_valid = (all(finite_number(v) and v > 0 for v in
+                            (quantity, suggested_margin, economic_risk))
+                        and economic_risk <= risk_budget * (1 + 1e-12))
 
         return RiskDecision(
             symbol=symbol,
             direction=direction,
-            is_allowed=True,
-            quantity=quantity,
-            stop_loss_price=round(stop_loss, 4),
-            take_profit_price=round(take_profit, 4),
+            is_allowed=sizing_valid,
+            quantity=quantity if sizing_valid else 0.0,
+            stop_loss_price=stop_loss,
+            take_profit_price=take_profit,
             leverage=self.leverage,
-            reason=f"Aprobado por Riesgo (Riesgo Económico Est: ${economic_risk:.2f})",
+            reason=(f"Aprobado por Riesgo (Riesgo Económico Est: ${economic_risk:.2f})"
+                    if sizing_valid else "Cálculo de tamaño inválido o fuera del presupuesto"),
             score=score.total_score,
             ml_probability=ml_probability,
-            suggested_margin_usd=suggested_margin
+            suggested_margin_usd=suggested_margin if sizing_valid else 0.0
         )
