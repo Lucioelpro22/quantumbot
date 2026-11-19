@@ -1,4 +1,5 @@
 """Prueba de solo lectura para Bybit Demo; nunca crea, cambia ni cancela órdenes."""
+from operational_policy import require_operational_access
 import json
 import os
 import hashlib
@@ -10,6 +11,7 @@ from pathlib import Path
 
 
 def load_env():
+    require_operational_access('credential_load')
     for candidate in (Path(__file__).resolve().parent / ".env", Path(__file__).resolve().parent.parent / ".env"):
         if candidate.exists():
             for line in candidate.read_text(encoding="utf-8").splitlines():
@@ -21,6 +23,7 @@ def load_env():
 
 
 def main():
+    require_operational_access('exchange_probe')
     env_path = load_env()
     key = os.getenv("BYBIT_API_KEY", "").strip()
     secret = os.getenv("BYBIT_SECRET_KEY", "").strip()

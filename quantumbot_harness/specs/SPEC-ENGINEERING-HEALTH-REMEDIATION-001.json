@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "spec_id": "SPEC-ENGINEERING-HEALTH-REMEDIATION-001",
+  "title": "Bounded offline health remediation with operational capabilities denied",
+  "status": "APPROVED",
+  "owner": "Luciano Leal",
+  "created_at": "2026-11-18T22:08:23.677033+00:00",
+  "approved_by": "Luciano Leal \u2014 explicit instruction in current conversation",
+  "objective": "Repair audited installation and execution-state handling using synthetic fixtures; retain all research, holdout and trading prohibitions.",
+  "rationale": "User explicitly authorized remediation after the 2026-11-18 audit: Podes hacerlo hace lo que haga falta. This records implementation scope only, not independent acceptance or baseline approval.",
+  "scope_in": [
+    "Add unconditional operational denial to published entry points and exchange transports",
+    "Restore importable components without opening production databases",
+    "Fail closed on unknown positions, uncertain fills and unconfirmed protection",
+    "Persist engineering risk checkpoints with explicit initialization and fail-closed recovery",
+    "Synthetic offline regression tests and reviewable PR"
+  ],
+  "scope_out": [
+    "Trading in any environment",
+    "Market downloads, strategy evaluation, optimization and holdout access",
+    "Changing baseline manifest/checker/admin variables or branch protections",
+    "Independent certification, merging, incident closure, phase promotion"
+  ],
+  "files_allowed_to_modify": [
+    "quantumbot_pro/**",
+    "tests/engineering_health/**",
+    "docs/HEALTH_REMEDIATION_2026-11-18.md",
+    "README.md",
+    "quantumbot_harness/specs/SPEC-ENGINEERING-HEALTH-REMEDIATION-001.json",
+    ".gitignore"
+  ],
+  "files_forbidden": [
+    ".env",
+    "data/**",
+    "database/quantumbot.db",
+    "reports/FASE*",
+    "quantumbot_harness/ci/**",
+    "quantumbot_harness/PROJECT_STATE.json",
+    "quantumbot_harness/policies/**",
+    "quantumbot_harness/receipts/**",
+    "quantumbot_harness/tasks/**",
+    "quantumbot_harness/docs/**",
+    "scripts/check_operational_commit.py",
+    ".github/workflows/operational-engineering.yml"
+  ],
+  "data_allowed": [
+    "Synthetic transport responses and temporary test-only files",
+    "Source code and governance metadata"
+  ],
+  "data_forbidden": [
+    "Market data",
+    "FINAL_HOLDOUT",
+    "Credentials",
+    "Production databases"
+  ],
+  "acceptance_criteria": [
+    {
+      "criterion_id": "AC-01",
+      "description": "All operational entry modes reject before credential, market and database access",
+      "verification_method": "Adversarial offline unittest fixtures and syntax review"
+    },
+    {
+      "criterion_id": "AC-02",
+      "description": "Unknown positions, partial fills and failed protection halt further entries",
+      "verification_method": "Fake exchange response regressions"
+    },
+    {
+      "criterion_id": "AC-03",
+      "description": "Risk checkpoint survives reconstruction and rejects missing/corrupt state",
+      "verification_method": "Temporary synthetic state tests"
+    },
+    {
+      "criterion_id": "AC-04",
+      "description": "Sealed artifacts and existing CI admission remain unchanged",
+      "verification_method": "Git blob comparison to base commit"
+    },
+    {
+      "criterion_id": "AC-05",
+      "description": "Independent integration review remains pending",
+      "verification_method": "Draft PR; no gate or baseline promotion"
+    }
+  ],
+  "required_receipts": [],
+  "notes": "APPROVED refers only to user-authorized implementation. No formal gate is issued. Exact user-message timestamp unavailable; created_at is the specification creation date, not an approval timestamp."
+}

@@ -3,6 +3,7 @@ analytics/purged_cv.py — Purged Cross-Validation y Combinatorial Purged CV (CP
 Elimina la contaminación de datos (look-ahead bias y data leakage) en series temporales de trading
 mediante purgado (purging) y embargo temporal entre pliegues de entrenamiento y prueba (P6 & P7).
 """
+from operational_policy import require_operational_access
 
 import numpy as np
 import pandas as pd
@@ -49,6 +50,7 @@ class PurgedCrossValidator:
         """
         P7 — Ejecuta la validación Combinatorial Purged Cross-Validation (CPCV)
         """
+        require_operational_access('research_validation')
         splits = self.split(df15m)
         fold_sharpes = []
         fold_pfs = []

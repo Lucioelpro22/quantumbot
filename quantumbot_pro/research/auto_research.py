@@ -4,6 +4,7 @@ Realiza experimentos de optimización continuos y autónomos (búsqueda de hiper
 nuevos filtros y umbrales de score).
 NUNCA reemplaza la versión estable de producción a menos que supere el 100% de las pruebas estadísticas.
 """
+from operational_policy import require_operational_access
 
 import os
 import yaml
@@ -18,6 +19,7 @@ from backtesting.monte_carlo import MonteCarloSimulator
 
 class AutoResearchEngine:
     def __init__(self, config_path: str = None):
+        require_operational_access('research')
         self.val_gate = StatisticalValidationGate()
         self.backtester = QuantBacktestEngine()
         self.wfo = WalkForwardOptimizer()
@@ -27,6 +29,7 @@ class AutoResearchEngine:
         """
         Ejecuta un experimento de investigación autónomo probando variaciones de parámetros.
         """
+        require_operational_access('optimization')
         print("\n🔬 [AUTO RESEARCH] Iniciando experimento autónomo de investigación...")
 
         # 1. Evaluar versión Estable de Producción (Benchmark)

@@ -3,6 +3,7 @@ backtesting/monte_carlo.py — Motor de Simulación Monte Carlo (1,000+ Iteracio
 Evalúa el riesgo de ruina y los intervalos de confianza del equity curve permutando el orden de
 las operaciones y aplicando variaciones estocásticas de slippage y comisiones.
 """
+from operational_policy import require_operational_access
 
 import numpy as np
 from typing import Dict, Any, List
@@ -14,6 +15,7 @@ class MonteCarloSimulator:
         self.confidence_level = confidence_level
 
     def run_simulation(self, trade_returns: List[float], initial_capital: float = 10000.0) -> Dict[str, Any]:
+        require_operational_access('research_simulation')
         if not trade_returns or len(trade_returns) < 5:
             return {
                 "status": "INSUFFICIENT_DATA",

@@ -2,6 +2,8 @@
 quantumbot_pro/scheduler_quantumbot.py — Orquestador de Plataforma QuantumBot Pro v2.0
 Ejecuta la evaluación cuantitativa completa en tiempo real cada 5 minutos en modo continuo.
 """
+from operational_policy import require_operational_access
+
 
 import os
 import sys
@@ -16,11 +18,11 @@ if parent_dir not in sys.path: sys.path.append(parent_dir)
 from main import QuantumBotEngine
 
 LOG_DIR  = os.path.join(current_dir, 'logs')
-os.makedirs(LOG_DIR, exist_ok=True)
 LOG_FILE = os.path.join(LOG_DIR, 'quantumbot_v2_runs.log')
 
 
 def log(msg):
+    require_operational_access("scheduler_logging")
     ts   = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     line = f'[{ts}] {msg}'
     print(line)
@@ -29,6 +31,7 @@ def log(msg):
 
 
 async def main():
+    require_operational_access("scheduler")
     log('=' * 80)
     log('QUANTUMBOT PRO v2.0 — INSTITUTIONAL QUANT PLATFORM DAEMON')
     log(f'Directorio: {current_dir}')

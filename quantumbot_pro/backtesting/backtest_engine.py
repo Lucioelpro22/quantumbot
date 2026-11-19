@@ -9,6 +9,7 @@ Simula de manera realista:
 - Tamaño mínimo/máximo de orden
 Calcula el informe estadístico institucional completo.
 """
+from operational_policy import require_operational_access
 
 import numpy as np
 import pandas as pd
@@ -42,6 +43,7 @@ class QuantBacktestEngine:
         ]
 
     def run_backtest(self, df1h: pd.DataFrame, df15m: pd.DataFrame, symbol: str = "BTC-USD") -> Dict[str, Any]:
+        require_operational_access('backtest')
         capital = self.initial_capital
         equity_curve = [capital]
         returns = []

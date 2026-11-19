@@ -29,3 +29,9 @@ backups/
 .env.*
 *.pem
 *.pfx
+
+# Track only the reviewed in-memory adapter, never database payloads.
+!quantumbot_pro/database/
+quantumbot_pro/database/*
+!quantumbot_pro/database/__init__.py
+!quantumbot_pro/database/db_manager.py

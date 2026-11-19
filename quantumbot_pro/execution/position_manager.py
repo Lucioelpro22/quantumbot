@@ -3,6 +3,8 @@ execution/position_manager.py — Gestor de Posiciones Abiertas QuantumBot Pro v
 Aplica cierres parciales del 50% al alcanzar 1:1 R:R (o ROI >= 20% a 25x palanca) y ajusta SL a Breakeven.
 Soporta compatibilidad multi-exchange (BingX & Bybit) con persistencia en SQLite para recuperación de estado tras reinicio.
 """
+from operational_policy import require_operational_access
+
 
 import asyncio
 import os
@@ -24,6 +26,7 @@ class QuantumPositionManager:
         self.partial_closed = self.db_manager.get_partial_closed_positions()
 
     async def manage_open_positions(self, active_positions: Dict[str, Any]):
+        require_operational_access("partial_position_management")
         if not active_positions:
             return
 
